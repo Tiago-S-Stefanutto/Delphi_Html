@@ -55,8 +55,23 @@ begin
   try
     Qry.Connection := ConexaoDB;
 
-    ConexaoDB.StartTransaction;
     try
+      Qry.SQL.Clear;
+      Qry.SQL.Add(' SELECT COUNT(*) AS TOTAL'+
+                  ' FROM elemento'+
+                  ' WHERE grupo_id =:grupoId');
+
+      Qry.ParamByName('grupoId').AsInteger := F_grupoId;
+      Qry.Open;
+
+      if Qry.FieldByName('TOTAL').AsInteger > 0 then
+      raise Exception.Create(
+      'Não é possível excluir este grupo pois existem elementos vinculados.');
+
+      Qry.Close;
+
+      ConexaoDB.StartTransaction;
+
       Qry.SQL.Clear;
       Qry.SQL.Add('DELETE FROM grupo ' +
                   'WHERE grupoId = :grupoId');

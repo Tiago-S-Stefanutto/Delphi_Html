@@ -20,6 +20,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
     FViteProcessHandle: THandle;
@@ -118,6 +119,16 @@ begin
   end;
 end;
 
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if FViteProcessHandle <> 0 then
+    begin
+      TerminateProcess(FViteProcessHandle, 0);
+      CloseHandle(FViteProcessHandle);
+      FViteProcessHandle := 0;
+    end;
+end;
+
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 var
   oTimer: TTimer;
@@ -132,14 +143,14 @@ begin
     CloseHandle(FViteProcessHandle);
     FViteProcessHandle := 0;
   end;
-
-  sCmd := 'cmd.exe /c cd /d "' +
-          ExtractFilePath(ParamStr(0)) + 'html" && npm run dev';
+                  //c
+  sCmd := 'cmd.exe /k cd /d "' +
+          ExtractFilePath(ParamStr(0)) + 'html" && npm.cmd run dev';
 
   ZeroMemory(@oStartInfo, SizeOf(oStartInfo));
   oStartInfo.cb          := SizeOf(oStartInfo);
   oStartInfo.dwFlags     := STARTF_USESHOWWINDOW;
-  oStartInfo.wShowWindow := SW_HIDE;
+  oStartInfo.wShowWindow := SW_SHOW; //SW_HIDE
 
   if CreateProcess(nil, PChar(sCmd), nil, nil, False,
                    CREATE_NEW_CONSOLE, nil, nil,
@@ -308,6 +319,38 @@ if (FRegistrosExportar  = nil) or (FRegistrosExportar.Count = 0) then
     oSave.Free;
     oXML.Free;
   end;
+end;
+
+function ValidarCabecalho(Item: TJSONObject): Boolean;
+const
+  CAMPOS_ESPERADOS: array[0..7] of string = (
+    'numero_atomico',
+    'simbolo',
+    'nome',
+    'massa_atomica',
+    'grupo',
+    'periodo',
+    'familia',
+    'categoria_quimica'
+  );
+var
+  I: Integer;
+begin
+  Result := False;
+
+  if Item.Count <> Length(CAMPOS_ESPERADOS) then
+    Exit;
+
+  for I := 0 to High(CAMPOS_ESPERADOS) do
+  begin
+    if LowerCase(Item.Pairs[I].JsonString.Value) <>
+       CAMPOS_ESPERADOS[I] then
+    begin
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmPrincipal.EnviarParaHTML(const aJSON: string);
@@ -561,11 +604,18 @@ begin
       oElemento := TElemento.Create(dtmPrincipal.ConexaoDB);
       try
         oElemento.codigo  := aJSON.GetValue<Integer>('elementoId');
+        try
+          if oElemento.Apagar then
+            EnviarParaHTML('{"acao":"ok","msg":"Elemento excluído!"}')
+          else
+            EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
 
-        if oElemento.Apagar then
-          EnviarParaHTML('{"acao":"ok","msg":"Elemento excluído!"}')
-        else
-          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        except
+          on E: Exception do
+            EnviarParaHTML(
+              '{"acao":"erro","msg":"' + E.Message + '"}'
+            );
+        end;
       finally
         oElemento.Free;
       end;
@@ -576,11 +626,17 @@ begin
       oGrupo := TGrupo.Create(dtmPrincipal.ConexaoDB);
       try
         oGrupo.codigo := aJSON.GetValue<Integer>('grupoId');
-
-        if oGrupo.Apagar  then
-          EnviarParaHTML('{"acao":"ok","msg":"Grupo excluído!"}')
-        else
-          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        try
+          if oGrupo.Apagar  then
+            EnviarParaHTML('{"acao":"ok","msg":"Grupo excluído!"}')
+          else
+            EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        except
+          on E: Exception do
+            EnviarParaHTML(
+              '{"acao":"erro","msg":"' + E.Message + '"}'
+            );
+        end;
       finally
         oGrupo.Free;
       end;
@@ -591,11 +647,17 @@ begin
       oPeriodo := TPeriodo.Create(dtmPrincipal.ConexaoDB);
       try
         oPeriodo.codigo := aJSON.GetValue<Integer>('periodoId');
-
-        if oPeriodo.Apagar  then
-          EnviarParaHTML('{"acao":"ok","msg":"Período excluído!"}')
-        else
-          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        try
+          if oPeriodo.Apagar  then
+            EnviarParaHTML('{"acao":"ok","msg":"Período excluído!"}')
+          else
+            EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        except
+          on E: Exception do
+            EnviarParaHTML(
+              '{"acao":"erro","msg":"' + E.Message + '"}'
+            );
+        end;
       finally
         oPeriodo.Free;
       end;
@@ -606,11 +668,17 @@ begin
       oFamilia := TFamilia.Create(dtmPrincipal.ConexaoDB);
       try
         oFamilia.codigo := aJSON.GetValue<Integer>('familiaId');
-
-        if oFamilia.Apagar  then
-          EnviarParaHTML('{"acao":"ok","msg":"Família excluído!"}')
-        else
-          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        try
+          if oFamilia.Apagar  then
+            EnviarParaHTML('{"acao":"ok","msg":"Família excluído!"}')
+          else
+            EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        except
+          on E: Exception do
+            EnviarParaHTML(
+              '{"acao":"erro","msg":"' + E.Message + '"}'
+            );
+        end;
       finally
         oFamilia.Free;
       end;
@@ -621,11 +689,17 @@ begin
       oCategoria := TCategoriaQuimica.Create(dtmPrincipal.ConexaoDB);
       try
         oCategoria.codigo :=  aJSON.GetValue<Integer>('categoria_quimicaId');
-
-        if oCategoria.Apagar  then
-          EnviarParaHTML('{"acao":"ok","msg":"Categoria Química excluído!"}')
-        else
-          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        try
+          if oCategoria.Apagar  then
+            EnviarParaHTML('{"acao":"ok","msg":"Categoria Química excluído!"}')
+          else
+            EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+        except
+          on E: Exception do
+            EnviarParaHTML(
+              '{"acao":"erro","msg":"' + E.Message + '"}'
+            );
+        end;
       finally
         oCategoria.Free;
       end;
@@ -644,6 +718,16 @@ begin
       if (Dados = nil) or (Dados.Count = 0) then
       begin
         EnviarParaHTML('{"acao":"erro","msg":"Tabela vazia"}');
+        Exit;
+      end;
+
+      Item := Dados.Items[0] as TJSONObject;
+
+      if not ValidarCabecalho(Item) then
+      begin
+        EnviarParaHTML(
+          '{"acao":"erro","msg":"Formatação inválida ou ordem errada das colunas"}'
+        );
         Exit;
       end;
 

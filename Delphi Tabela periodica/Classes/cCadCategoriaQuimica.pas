@@ -9,7 +9,7 @@ type
   TCategoriaQuimica = class
     private
       ConexaoDB: TFDConnection;
-      F_id: Integer;
+      F_categoriaId: Integer;
       F_descricao: string;
 
     public
@@ -22,7 +22,7 @@ type
       function Selecionar(id: Integer): Boolean;
 
     published
-      property codigo: Integer read F_id write F_id;
+      property codigo: Integer read F_categoriaId write F_categoriaId;
       property descricao: string read F_descricao write F_descricao;
 
 end;
@@ -62,7 +62,7 @@ begin
       Qry.ParamByName('descricao').AsString := F_descricao;
 
       Qry.Open;
-      F_id := Qry.Fields[0].AsInteger;
+      F_categoriaId := Qry.Fields[0].AsInteger;
 
       ConexaoDB.Commit;
       Result := True;
@@ -94,7 +94,7 @@ begin
                   '  WHERE categoria_quimicaId = :id ');
 
       Qry.ParamByName('descricao').AsString := F_descricao;
-      Qry.ParamByName('id').AsInteger := F_id;
+      Qry.ParamByName('id').AsInteger := F_categoriaId;
 
       Qry.ExecSQL;
 
@@ -120,13 +120,26 @@ begin
   try
     Qry.Connection := ConexaoDB;
 
-    ConexaoDB.StartTransaction;
     try
+    Qry.SQL.Clear;
+      Qry.SQL.Add(' SELECT COUNT(*) AS TOTAL'+
+                  ' FROM elemento'+
+                  ' WHERE categoria_quimica_id =:categoria_quimicaId');
+
+      Qry.ParamByName('categoria_quimicaId').AsInteger := F_categoriaId;
+      Qry.Open;
+
+      if Qry.FieldByName('TOTAL').AsInteger > 0 then
+      raise Exception.Create(
+      'Não é possível excluir este periodo pois existem elementos vinculados.');
+
+      ConexaoDB.StartTransaction;
+
       Qry.SQL.Clear;
       Qry.SQL.Add(' DELETE FROM categoria_quimica '+
                   ' WHERE categoria_quimicaId = :id ');
 
-      Qry.ParamByName('id').AsInteger := F_id;
+      Qry.ParamByName('id').AsInteger := F_categoriaId;
 
       Qry.ExecSQL;
 
@@ -162,7 +175,7 @@ begin
 
     if not Qry.IsEmpty then
     begin
-      F_id := Qry.FieldByName('categoria_quimicaId').AsInteger;
+      F_categoriaId := Qry.FieldByName('categoria_quimicaId').AsInteger;
       F_descricao := Qry.FieldByName('descricao').AsString;
       Result := True;
     end;

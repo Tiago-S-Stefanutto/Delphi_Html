@@ -10,44 +10,44 @@ File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data
 File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data\firedac\FireDAC.Stan.Param.pas',0,1,1,1,12,0,0,,
 
 [Modules]
-Module0=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
-Module1=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
-Module2=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
-Module3=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
-Module4=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
+Module0=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
+Module1=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
+Module2=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
+Module3=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
+Module4=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
 Module5=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
-Module6=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
-Module7=C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj
+Module6=C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj
+Module7=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
 Count=8
 EditWindowCount=1
 
+[C:\Curso\Delphi Tabela periodica\uPrincipal.pas]
+ModuleType=TSourceModule
+
 [C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas]
-ModuleType=TSourceModule
-
-[C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas]
-ModuleType=TSourceModule
-
-[C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas]
-ModuleType=TSourceModule
-
-[C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas]
 ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas]
 ModuleType=TSourceModule
 
-[C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas]
+[C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas]
 ModuleType=TSourceModule
 
-[C:\Curso\Delphi Tabela periodica\uPrincipal.pas]
+[C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas]
+ModuleType=TSourceModule
+
+[C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas]
 ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj]
 ModuleType=TBaseProject
 
+[C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas]
+ModuleType=TSourceModule
+
 [EditWindow0]
 ViewCount=8
-CurrentEditView=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
+CurrentEditView=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
 View0=0
 View1=1
 View2=2
@@ -88,9 +88,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
-CursorX=16
-CursorY=347
-TopLine=333
+CursorX=31
+CursorY=721
+TopLine=704
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -110,9 +110,9 @@ EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
 [View2]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
-CursorX=19
-CursorY=53
-TopLine=43
+CursorX=17
+CursorY=71
+TopLine=45
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -121,9 +121,9 @@ EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
 [View3]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
-CursorX=1
-CursorY=32
-TopLine=112
+CursorX=47
+CursorY=122
+TopLine=118
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -132,9 +132,9 @@ EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
 [View4]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
-CursorX=3
-CursorY=118
-TopLine=117
+CursorX=8
+CursorY=123
+TopLine=114
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -143,8 +143,8 @@ EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
 [View5]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
-CursorX=3
-CursorY=118
+CursorX=43
+CursorY=129
 TopLine=117
 LeftCol=1
 Elisions=
@@ -229,17 +229,15 @@ PercentageSizes=1
 Create=1
 Visible=1
 Docked=0
-State=2
+State=1
 Left=146
 Top=273
 Width=8931
 Height=8529
 MaxLeft=-7
 MaxTop=-13
-MaxWidth=8931
-MaxHeight=8529
-ClientWidth=10029
-ClientHeight=9740
+ClientWidth=8814
+ClientHeight=8021
 BottomPanelSize=8958
 BottomPanelClients=EditWindow0
 BottomPanelData=0000080000000000000000000000000000000000000000000000000100000000000000000C0000004564697457696E646F775F30FFFFFFFF
@@ -358,6 +356,11 @@ LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Action,OnClose
+ExpandedItems=Anchors=0,LiveBindings=0
 
 [ClassBrowserTool]
 PercentageSizes=1

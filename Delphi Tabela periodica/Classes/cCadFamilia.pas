@@ -120,8 +120,23 @@ begin
   try
     Qry.Connection := ConexaoDB;
 
-    ConexaoDB.StartTransaction;
     try
+      Qry.SQL.Clear;
+      Qry.SQL.Add(' SELECT COUNT(*) AS TOTAL'+
+                  ' FROM elemento'+
+                  ' WHERE familia_Id =:familiaId');
+
+      Qry.ParamByName('familiaId').AsInteger := F_familiaId;
+      Qry.Open;
+
+      if Qry.FieldByName('TOTAL').AsInteger > 0 then
+      raise Exception.Create(
+      'Não é possível excluir esta família pois existem elementos vinculados.');
+
+      Qry.Close;
+
+      ConexaoDB.StartTransaction;
+
       Qry.SQL.Clear;
       Qry.SQL.Add(' DELETE FROM familia '+
                   ' WHERE familiaId = :id ');
