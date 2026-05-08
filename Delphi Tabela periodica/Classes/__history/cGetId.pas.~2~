@@ -1,0 +1,48 @@
+unit cGetId;
+
+interface
+
+uses
+  System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client, System.SysUtils, FireDAC.Stan.Param, uDTMConexao;
+
+type
+  TGet = class
+
+    private
+      ConexaoDB : TFDconnection;
+
+end;
+
+implementation
+
+function GetGrupoID(const ADescricao: string): Integer;
+var
+  Qry: TFDQuery;
+begin
+  Result := -1;
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := dtmPrincipal.ConexaoDB;
+
+    Qry.SQL.Text := 'SELECT grupoId FROM grupo WHERE descricao = :d';
+    Qry.ParamByName('d').AsString := ADescricao;
+    Qry.Open;
+
+    if not Qry.IsEmpty then
+      Exit(Qry.Fields[0].AsInteger);
+
+    Qry.Close;
+    Qry.SQL.Text := 'INSERT INTO grupo(descricao) VALUES(:d); SELECT SCOPE_IDENTITY();';
+    Qry.ParamByName('d').AsString := ADescricao;
+    Qry.Open;
+
+    Result := Qry.Fields[0].AsInteger;
+  finally
+    Qry.Free;
+  end;
+end;
+
+end.

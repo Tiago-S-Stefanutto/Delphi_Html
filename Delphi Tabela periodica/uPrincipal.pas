@@ -1,0 +1,766 @@
+﻿unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics,Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client, uDTMConexao, cArquivoIni,
+  cAtualizaBancoDeDados, Winapi.ShellAPI, System.IOUtils, Vcl.OleCtrls, SHDocVw, uWVBrowserBase, uWVBrowser, uWVWinControl,
+  uWVWindowParent, uWVLoader,  System.JSON, cCadElemento, cCadGrupo, cCadPeriodo,
+  cCadFamilia, cCadCategoriaQuimica, uWVCoreWebView2Args, uWVInterfaces, uWVTypeLibrary,
+  uWVTypes, cGetId;
+
+type
+  TfrmPrincipal = class(TForm)
+    WVWindowParent1: TWVWindowParent;
+    WVBrowser1: TWVBrowser;
+    procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+  private
+    { Private declarations }
+    FViteProcessHandle: THandle;
+    FBrowserReady: Boolean;
+    FRegistrosExportar: TJSONArray;
+    procedure ExportarXML;
+    procedure AtualizacaoBancoDados;
+    procedure WVBrowser1WebMessageReceived(Sender: TObject;
+      const aWebView: ICoreWebView2;
+      const aArgs: ICoreWebView2WebMessageReceivedEventArgs);
+    procedure WVBrowser1AfterCreated(Sender: TObject);
+    procedure TimerNavigate(Sender: TObject);
+    procedure ExecutarAcao(const aJSON: TJSONObject);
+    procedure EnviarParaHTML(const aJSON: string);
+    function QueryParaJSON(Qry: TFDQuery; const aEntidade: string): string;
+  public
+    { Public declarations }
+  end;
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+{$REGION 'Browser'}
+procedure TfrmPrincipal.WVBrowser1AfterCreated(Sender: TObject);
+begin
+   FBrowserReady := True;
+  WVWindowParent1.SetBounds(0, 0, ClientWidth, ClientHeight);
+  WVWindowParent1.UpdateSize;
+end;
+
+
+
+procedure TfrmPrincipal.WVBrowser1WebMessageReceived(Sender: TObject; const aWebView: ICoreWebView2;
+  const aArgs: ICoreWebView2WebMessageReceivedEventArgs);
+var
+  TempArgs: TCoreWebView2WebMessageReceivedEventArgs;
+  Mensagem: wvstring;
+  oJSON: TJSONObject;
+begin
+  TempArgs := TCoreWebView2WebMessageReceivedEventArgs.Create(aArgs);
+  try
+    Mensagem := TempArgs.WebMessageAsString;
+    oJSON := TJSONObject.ParseJSONValue(Mensagem) as TJSONObject;
+    if Assigned(oJSON) then
+    try
+      ExecutarAcao(oJSON);
+    finally
+      oJSON.Free;
+    end;
+  finally
+    FreeAndNil(TempArgs);
+  end;
+end;
+
+
+procedure TfrmPrincipal.FormResize(Sender: TObject);
+begin
+  if WVBrowser1.Initialized then
+  begin
+    WVWindowParent1.SetBounds(0, 0, ClientWidth, ClientHeight);
+    WVWindowParent1.UpdateSize;
+  end;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  if FBrowserReady then
+    WVBrowser1.Navigate('http://localhost:5173');
+end;
+
+procedure TfrmPrincipal.TimerNavigate(Sender: TObject);
+begin
+  if FBrowserReady then
+  begin
+    TTimer(Sender).Enabled := False;
+    WVWindowParent1.SetBounds(0, 0, ClientWidth, ClientHeight);
+    WVWindowParent1.UpdateSize;
+    WVBrowser1.Navigate('http://localhost:5173');
+  end;
+end;
+{$ENDREGION}
+
+procedure TfrmPrincipal.AtualizacaoBancoDados;
+var
+  oAtualizarMSSQL: TAtualizaBancoDeDadosMSSQL;
+begin
+  try
+    oAtualizarMSSQL := TAtualizaBancoDeDadosMSSQL.Create(dtmPrincipal.ConexaoDB);
+    oAtualizarMSSQL.AtualizaBancoDeDadosMSSQL;
+  finally
+    if Assigned(oAtualizarMSSQL) then
+      FreeAndNil(oAtualizarMSSQL);
+  end;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+  oTimer: TTimer;
+  oStartInfo: TStartupInfo;
+  oProcessInfo: TProcessInformation;
+  sCmd: string;
+begin
+  {$REGION 'LocalHost'}
+    if FViteProcessHandle <> 0 then
+  begin
+    TerminateProcess(FViteProcessHandle, 0);
+    CloseHandle(FViteProcessHandle);
+    FViteProcessHandle := 0;
+  end;
+
+  sCmd := 'cmd.exe /c cd /d "' +
+          ExtractFilePath(ParamStr(0)) + 'html" && npm run dev';
+
+  ZeroMemory(@oStartInfo, SizeOf(oStartInfo));
+  oStartInfo.cb          := SizeOf(oStartInfo);
+  oStartInfo.dwFlags     := STARTF_USESHOWWINDOW;
+  oStartInfo.wShowWindow := SW_HIDE;
+
+  if CreateProcess(nil, PChar(sCmd), nil, nil, False,
+                   CREATE_NEW_CONSOLE, nil, nil,
+                   oStartInfo, oProcessInfo) then
+  begin
+    FViteProcessHandle := oProcessInfo.hProcess;
+    CloseHandle(oProcessInfo.hThread);
+  end;
+
+  WVWindowParent1.Browser           := WVBrowser1;
+  WVBrowser1.OnAfterCreated         := WVBrowser1AfterCreated;
+  WVBrowser1.OnWebMessageReceived := WVBrowser1WebMessageReceived;
+  WVBrowser1.CreateBrowser(WVWindowParent1.Handle);
+  OnResize := FormResize;
+
+  oTimer          := TTimer.Create(Self);
+  oTimer.Interval := 2500;
+  oTimer.OnTimer  := TimerNavigate;
+  oTimer.Enabled  := True;
+  {$ENDREGION}
+
+  if not FileExists(TArquivoIni.ArquivoIni) then
+  begin
+    TArquivoIni.AtualizarIni('SERVER', 'TipoDataBase', 'MSSQL');
+    TArquivoIni.AtualizarIni('SERVER', 'HostName', '.\');
+    TArquivoIni.AtualizarIni('SERVER', 'Port', '1433');
+    TArquivoIni.AtualizarIni('SERVER', 'OSAuthent', 'Yes');
+    TArquivoIni.AtualizarIni('SERVER', 'User', 'admin');
+    TArquivoIni.AtualizarIni('SERVER', 'Password', 'admin');
+    TArquivoIni.AtualizarIni('SERVER', 'Database', 'Quimica');
+
+    MessageDlg('Arquivo ' + TArquivoIni.ArquivoIni + ' criado com sucesso!' + #13 + 'Configure o arquivo antes de inicializar a aplicação!!!', mtInformation, [mbOK], 0);
+
+    Application.Terminate;
+    Exit;
+  end;
+
+  dtmPrincipal := TdtmPrincipal.Create(Self);
+
+  with dtmPrincipal.ConexaoDB do
+  begin
+    Connected := False;
+    Params.Clear;
+    Params.DriverID := 'MSSQL';
+    Params.Add('Server=' + TArquivoIni.LerIni('SERVER', 'HostName'));
+    Params.Add('Database=' + TArquivoIni.LerIni('SERVER', 'Database'));
+
+    if TArquivoIni.LerIni('SERVER', 'OSAuthent') = 'Yes' then
+      Params.Add('OSAuthent=Yes')
+    else
+    begin
+      Params.Add('User_Name=' + TArquivoIni.LerIni('SERVER', 'User'));
+      Params.Add('Password=' + TArquivoIni.LerIni('SERVER', 'Password'));
+    end;
+
+    if TArquivoIni.LerIni('SERVER', 'Port') <> '' then
+      Params.Add('Port=' + TArquivoIni.LerIni('SERVER', 'Port'));
+
+    LoginPrompt := False;
+    try
+      Connected := True;
+    except
+      on E: Exception do
+      begin
+        ShowMessage('Erro ao conectar: ' + E.Message);
+        Exit;
+      end;
+    end;
+  end;
+
+  dtmPrincipal.ConexaoDB.Connected := True;
+
+  AtualizacaoBancoDados;
+end;
+
+procedure TfrmPrincipal.FormDestroy(Sender: TObject);
+begin
+   if FViteProcessHandle <> 0 then
+  begin
+    TerminateProcess(FViteProcessHandle, 0);
+    CloseHandle(FViteProcessHandle);
+    FViteProcessHandle := 0;
+  end;
+end;
+
+{$REGION 'ExecutarAcao'}
+function TfrmPrincipal.QueryParaJSON(Qry: TFDQuery; const aEntidade: string): string;
+var
+  oResp: TJSONObject;
+  oArray: TJSONArray;
+  oRow: TJSONObject;
+  i: Integer;
+begin
+  oResp  := TJSONObject.Create;
+  oArray := TJSONArray.Create;
+  try
+    Qry.First;
+    while not Qry.Eof do
+    begin
+      oRow := TJSONObject.Create;
+      for i := 0 to Qry.FieldCount  -1 do
+        oRow.AddPair(Qry.Fields[i].FieldName, Qry.Fields[i].AsString);
+      oArray.Add(oRow);
+      Qry.Next;
+    end;
+
+    oResp.AddPair('acao', 'dados');
+    oResp.AddPair('entidade', aEntidade);
+    oResp.AddPair('registros', oArray);
+
+    Result := oResp.ToJSON;
+  finally
+    oResp.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.ExportarXML;
+var
+  oSave : TSaveDialog;
+  oXML  : TStringList;
+  I     : Integer;
+  Item  : TJSONObject;
+begin
+if (FRegistrosExportar  = nil) or (FRegistrosExportar.Count = 0) then
+  begin
+    EnviarParaHTML('{"acao":"erro","msg":"Nenhum registro para exportar"}');
+    Exit;
+  end;
+
+  oSave := TSaveDialog.Create(nil);
+  oXML  := TStringList.Create;
+
+  try
+    oSave.Filter   := 'XML (*.xml)|*.xml';
+    oSave.FileName := 'exportacao.xml';
+
+    if not oSave.Execute then
+      Exit;
+
+    oXML.Add('<?xml version="1.0" encoding="UTF-8"?>');
+    oXML.Add('<dados>');
+
+    for I := 0 to FRegistrosExportar.Count - 1 do
+    begin
+      Item := FRegistrosExportar.Items[I] as TJSONObject;
+
+      oXML.Add('  <elemento>');
+      oXML.Add('    <numero_atomico>' + Item.GetValue<string>('numero_atomico') + '</numero_atomico>');
+      oXML.Add('    <simbolo>'        + Item.GetValue<string>('simbolo')        + '</simbolo>');
+      oXML.Add('    <nome>'           + Item.GetValue<string>('nome')           + '</nome>');
+      oXML.Add('    <massa_atomica>'  + Item.GetValue<string>('massa_atomica')  + '</massa_atomica>');
+      oXML.Add('    <grupo>'          + Item.GetValue<string>('grupo')          + '</grupo>');
+      oXML.Add('    <periodo>'        + Item.GetValue<string>('periodo')        + '</periodo>');
+      oXML.Add('    <familia>'        + Item.GetValue<string>('familia')        + '</familia>');
+      oXML.Add('    <categoria_quimica>' + Item.GetValue<string>('categoria_quimica') + '</categoria_quimica>');
+      oXML.Add('  </elemento>');
+    end;
+
+    oXML.Add('</dados>');
+
+    oXML.SaveToFile(oSave.FileName, TEncoding.UTF8);
+
+    EnviarParaHTML('{"acao":"ok","msg":"XML exportado com sucesso"}');
+
+  finally
+    oSave.Free;
+    oXML.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.EnviarParaHTML(const aJSON: string);
+var
+  oStr: TJSONString;
+begin
+  oStr := TJSONString.Create(aJSON);
+  try
+    WVBrowser1.ExecuteScript('window.receberDelphi(' + oStr.ToJSON + ')');
+  finally
+    oStr.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.ExecutarAcao(const aJSON: TJSONObject);
+var
+  sAcao, sEntidade: string;
+  oResp: TJSONObject;
+  oElemento: TElemento;
+  oGrupo: TGrupo;
+  oFamilia: TFamilia;
+  oPeriodo: TPeriodo;
+  oCategoria: TCategoriaQuimica;
+  Qry: TFDQuery;
+  sJSON: string;
+  Dados: TJSONArray;
+  I: Integer;
+  oGet: TGetID;
+  Item: TJSONObject;
+  GrupoID: Integer;
+  PeriodoID: Integer;
+  FamiliaID: Integer;
+  CategoriaID: Integer;
+begin
+  sAcao     := aJSON.GetValue<string>('acao');      //Acoes do CRUD e listar e fechar (Popular os DataTables)
+  sEntidade := '';
+  aJSON.TryGetValue<string>('entidade', sEntidade);  //Elemento,Grupo,Periodo,Familia e Categoria_Quimica
+
+  if sAcao = 'listar' then
+  begin
+    Qry := TFDQuery.Create(nil);
+      try
+        Qry.Connection := dtmPrincipal.ConexaoDB;
+
+        if sEntidade = 'elemento' then
+          Qry.SQL.Text  :=
+          ' SELECT e.elementoId, e.numero_atomico, e.simbolo, e.nome, ' +
+          '        e.massa_atomica, g.descricao as grupo, p.descricao as periodo, ' +
+          '        f.descricao as familia, c.descricao as categoria_quimica ' +
+          '   FROM elemento e ' +
+          '   LEFT JOIN grupo g ON g.grupoId = e.grupo_id ' +
+          '   LEFT JOIN periodo p ON p.periodoId = e.periodo_id ' +
+          '   LEFT JOIN familia f ON f.familiaId = e.familia_id ' +
+          '   LEFT JOIN categoria_quimica c ON c.categoria_quimicaId = e.categoria_quimica_id ' +
+          '  ORDER BY e.numero_atomico '
+          else if sEntidade = 'grupo' then
+          Qry.SQL.Text := 'SELECT grupoId, descricao FROM grupo ORDER BY descricao'
+        else if sEntidade = 'periodo' then
+          Qry.SQL.Text := 'SELECT periodoId, descricao FROM periodo ORDER BY descricao'
+        else if sEntidade = 'familia' then
+          Qry.SQL.Text := 'SELECT familiaId, descricao FROM familia ORDER BY descricao'
+        else if sEntidade = 'categoria_quimica' then
+          Qry.SQL.Text := 'SELECT categoria_quimicaId, descricao FROM categoria_quimica ORDER BY descricao';
+
+          Qry.Open;
+          EnviarParaHTML(QueryParaJSON(Qry, sEntidade));
+      finally
+        Qry.Free;
+      end;
+  end
+
+  else if sAcao = 'inserir' then
+  begin
+    if sEntidade = 'elemento' then
+    begin
+      oElemento := TElemento.Create(dtmPrincipal.ConexaoDB);
+      try
+        oElemento.atomico   := aJSON.GetValue<Integer>('numero_atomico');
+        oElemento.simbolo   := aJSON.GetValue<string>('simbolo');
+        oElemento.nome      := aJSON.GetValue<string>('nome');
+        oElemento.massa     := aJSON.GetValue<Double>('massa_atomica');
+        oElemento.grupo     := aJSON.GetValue<Integer>('grupo_id');
+        oElemento.periodo   := aJSON.GetValue<Integer>('periodo_id');
+        oElemento.familia   := aJSON.GetValue<Integer>('familia_id');
+        oElemento.categoria := aJSON.GetValue<Integer>('categoria_quimica_id');
+
+         if oElemento.Inserir then
+          EnviarParaHTML('{"acao":"ok","msg":"Elemento inserido com sucesso!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao inserir."}');
+      finally
+        oElemento.Free;
+      end;
+    end
+
+    else if sEntidade = 'grupo' then
+    begin
+      oGrupo := TGrupo.Create(dtmPrincipal.ConexaoDB);
+      try
+        oGrupo.descricao := aJSON.GetValue<string>('descricao');
+
+        if oGrupo.Inserir then
+          EnviarParaHTML('{"acao":"ok","msg":"Grupo inserido com sucesso!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao inserir."}');
+      finally
+        oGrupo.Free;
+      end;
+    end
+
+    else if sEntidade = 'periodo' then
+    begin
+      oPeriodo := TPeriodo.Create(dtmPrincipal.ConexaoDB);
+      try
+        oPeriodo.descricao := aJSON.GetValue<string>('descricao');
+
+        if oPeriodo.Inserir then
+          EnviarParaHTML('{"acao":"ok","msg":"Período inserido com sucesso!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao inserir."}');
+      finally
+        oPeriodo.Free;
+      end;
+    end
+
+    else if sEntidade = 'familia' then
+    begin
+      oFamilia := TFamilia.Create(dtmPrincipal.ConexaoDB);
+      try
+        oFamilia.descricao := aJSON.GetValue<string>('descricao');
+
+        if oFamilia.Inserir then
+          EnviarParaHTML('{"acao":"ok","msg":"Família inserida com sucesso!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao inserir."}');
+      finally
+        oFamilia.Free;
+      end;
+    end
+
+    else if sEntidade = 'categoria_quimica' then
+    begin
+      oCategoria := TCategoriaQuimica.Create(dtmPrincipal.ConexaoDB);
+      try
+        oCategoria.descricao := aJSON.GetValue<string>('descricao');
+
+        if oCategoria.Inserir then
+          EnviarParaHTML('{"acao":"ok","msg":"Grupo inserido com sucesso!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao inserir."}');
+      finally
+        oCategoria.Free;
+      end;
+    end;
+  end
+
+  else if sAcao = 'atualizar' then
+  begin
+    if sEntidade = 'elemento' then
+    begin
+      oElemento := TElemento.create(dtmPrincipal.ConexaoDB);
+      try
+        oElemento.codigo    := aJSON.GetValue<Integer>('elementoId');
+        oElemento.atomico   := aJSON.GetValue<Integer>('numero_atomico');
+        oElemento.simbolo   := aJSON.GetValue<string>('simbolo');
+        oElemento.nome      := aJSON.GetValue<string>('nome');
+        oElemento.massa     := aJSON.GetValue<Double>('massa_atomica');
+        oElemento.grupo     := aJSON.GetValue<Integer>('grupo_id');
+        oElemento.periodo   := aJSON.GetValue<Integer>('periodo_id');
+        oElemento.familia   := aJSON.GetValue<Integer>('familia_id');
+        oElemento.categoria := aJSON.GetValue<Integer>('categoria_quimica_id');
+
+        if oElemento.Atualizar  then
+          EnviarParaHTML('{"acao":"ok","msg":"Elemento atualizado!"}')
+        else
+          EnviarParaHTML('{"acao":"ok","msg":"Falha ao atualizar."}');
+      finally
+        oElemento.Free;
+      end;
+    end
+
+    else if sEntidade = 'grupo' then
+    begin
+      oGrupo := TGrupo.Create(dtmPrincipal.ConexaoDB);
+      try
+        oGrupo.codigo    := aJSON.GetValue<Integer>('grupoId');
+        oGrupo.descricao := aJSON.GetValue<string>('descricao');
+
+        if oGrupo.Atualizar then
+          EnviarParaHTML('{"acao":"ok","msg":"Grupo atualizado!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao atualizar."}');
+      finally
+        oGrupo.Free;
+      end;
+    end
+
+    else if sEntidade = 'periodo' then
+    begin
+      oPeriodo := TPeriodo.Create(dtmPrincipal.ConexaoDB);
+      try
+        oPeriodo.codigo    := aJSON.GetValue<Integer>('periodoId');
+        oPeriodo.descricao := aJSON.GetValue<string>('descricao');
+
+        if oPeriodo.Atualizar then
+          EnviarParaHTML('{"acao":"ok","msg":"Período atualizado!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao atualizar."}');
+      finally
+        oPeriodo.Free;
+      end;
+    end
+
+    else if sEntidade = 'familia' then
+    begin
+      oFamilia := TFamilia.Create(dtmPrincipal.ConexaoDB);
+      try
+        oFamilia.codigo    := aJSON.GetValue<integer>('familiaId');
+        oFamilia.descricao := aJSON.GetValue<string>('descricao');
+
+        if oFamilia.Atualizar then
+          EnviarParaHTML('{"acao":"ok","msg":"Família atualizado!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao atualizar."}');
+      finally
+        oFamilia.Free;
+      end;
+    end
+
+    else if sEntidade = 'categoria_quimica' then
+    begin
+      oCategoria := TCategoriaQuimica.Create(dtmPrincipal.ConexaoDB);
+      try
+        oCategoria.codigo    := aJSON.GetValue<Integer>('categoria_quimicaId');
+        oCategoria.descricao := aJSON.GetValue<string>('descricao');
+
+        if oCategoria.Atualizar then
+          EnviarParaHTML('{"acao":"ok","msg":"Grupo atualizado!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao atualizar."}');
+      finally
+        oCategoria.Free;
+      end;
+    end;
+  end
+
+  else if sAcao = 'apagar' then
+  begin
+    if sEntidade = 'elemento' then
+    begin
+      oElemento := TElemento.Create(dtmPrincipal.ConexaoDB);
+      try
+        oElemento.codigo  := aJSON.GetValue<Integer>('elementoId');
+
+        if oElemento.Apagar then
+          EnviarParaHTML('{"acao":"ok","msg":"Elemento excluído!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+      finally
+        oElemento.Free;
+      end;
+    end
+
+    else if sEntidade = 'grupo' then
+    begin
+      oGrupo := TGrupo.Create(dtmPrincipal.ConexaoDB);
+      try
+        oGrupo.codigo := aJSON.GetValue<Integer>('grupoId');
+
+        if oGrupo.Apagar  then
+          EnviarParaHTML('{"acao":"ok","msg":"Grupo excluído!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+      finally
+        oGrupo.Free;
+      end;
+    end
+
+    else if sEntidade = 'periodo' then
+    begin
+      oPeriodo := TPeriodo.Create(dtmPrincipal.ConexaoDB);
+      try
+        oPeriodo.codigo := aJSON.GetValue<Integer>('periodoId');
+
+        if oPeriodo.Apagar  then
+          EnviarParaHTML('{"acao":"ok","msg":"Período excluído!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+      finally
+        oPeriodo.Free;
+      end;
+    end
+
+    else if sEntidade = 'familia' then
+    begin
+      oFamilia := TFamilia.Create(dtmPrincipal.ConexaoDB);
+      try
+        oFamilia.codigo := aJSON.GetValue<Integer>('familiaId');
+
+        if oFamilia.Apagar  then
+          EnviarParaHTML('{"acao":"ok","msg":"Família excluído!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+      finally
+        oFamilia.Free;
+      end;
+    end
+
+    else if sEntidade = 'categoria_quimica' then
+    begin
+      oCategoria := TCategoriaQuimica.Create(dtmPrincipal.ConexaoDB);
+      try
+        oCategoria.codigo :=  aJSON.GetValue<Integer>('categoria_quimicaId');
+
+        if oCategoria.Apagar  then
+          EnviarParaHTML('{"acao":"ok","msg":"Categoria Química excluído!"}')
+        else
+          EnviarParaHTML('{"acao":"erro","msg":"Falha ao excluir."}');
+      finally
+        oCategoria.Free;
+      end;
+    end;
+  end
+
+  else if sAcao = 'importar' then
+  begin
+    Qry := TFDQuery.Create(nil);
+    oGet := TGetID.Create(dtmPrincipal.ConexaoDB);
+    try
+      Qry.Connection  := dtmPrincipal.ConexaoDB;
+
+      Dados := aJSON.GetValue<TJSONArray>('dados');
+
+      if (Dados = nil) or (Dados.Count = 0) then
+      begin
+        EnviarParaHTML('{"acao":"erro","msg":"Tabela vazia"}');
+        Exit;
+      end;
+
+      dtmPrincipal.ConexaoDB.StartTransaction;
+      try
+        for I := 0 to Dados.Count -1 do
+        begin
+          Item := Dados.Items[I] as TJSONObject;
+
+          if Trim(Item.GetValue<string>('numero_atomico')) = '' then
+          raise Exception.Create('Tabela faltando número atômico');
+
+          if Trim(Item.GetValue<string>('simbolo')) = '' then
+            raise Exception.Create('Tabela faltando símbolo');
+
+          if Trim(Item.GetValue<string>('nome')) = '' then
+            raise Exception.Create('Tabela faltando nome');
+
+          if Trim(Item.GetValue<string>('grupo')) = '' then
+            raise Exception.Create('Tabela faltando grupo');
+
+          if Trim(Item.GetValue<string>('periodo')) = '' then
+            raise Exception.Create('Tabela faltando período');
+
+          Qry.Close;
+          Qry.SQL.Clear;
+          Qry.SQL.Add(' SELECT elementoId '+
+                      ' FROM elemento '+
+                      ' WHERE numero_atomico =:numero_atomico');
+
+          Qry.ParamByName('numero_atomico').AsInteger := Item.GetValue<Integer>('numero_atomico');
+
+          Qry.Open;
+
+          if not Qry.IsEmpty then
+            Continue;
+
+          GrupoID :=
+          oGet.GetGrupoID(
+            Item.GetValue<string>('grupo')
+          );
+
+          PeriodoID :=
+            oGet.GetPeriodoID(
+              Item.GetValue<string>('periodo')
+            );
+
+          FamiliaID :=
+            oGet.GetFamiliaID(
+              Item.GetValue<string>('familia')
+            );
+
+          CategoriaID :=
+            oGet.GetCategoriaID(
+              Item.GetValue<string>('categoria_quimica')
+            );
+
+          Qry.Close;
+          Qry.SQL.Clear;
+
+          oElemento := TElemento.Create(dtmPrincipal.ConexaoDB);
+          try
+            oElemento.atomico :=
+              Item.GetValue<Integer>('numero_atomico');
+            oElemento.simbolo :=
+              Item.GetValue<string>('simbolo');
+            oElemento.nome :=
+              Item.GetValue<string>('nome');
+            oElemento.massa :=
+              Item.GetValue<Double>('massa_atomica');
+            oElemento.grupo := GrupoID;
+            oElemento.periodo := PeriodoID;
+            oElemento.familia := FamiliaID;
+            oElemento.categoria := CategoriaID;
+
+            oElemento.Inserir(False);
+
+          finally
+            oElemento.Free;
+          end;
+        end;
+
+        dtmPrincipal.ConexaoDB.Commit;
+
+        EnviarParaHTML('{"acao":"ok","msg":"Importação realizada com sucesso"}');
+      except
+          on E: Exception do
+          begin
+            dtmPrincipal.ConexaoDB.Rollback;
+
+            EnviarParaHTML(
+              '{"acao":"erro","msg":"' + E.Message + '"}'
+            );
+          end;
+      end;
+    finally
+      Qry.Free;
+      oGet.Free;
+    end;
+  end
+
+  else if sAcao = 'exportar' then
+  begin
+    FreeAndNil(FRegistrosExportar);
+
+    FRegistrosExportar :=
+      aJSON.GetValue<TJSONArray>('registros').Clone as TJSONArray;
+
+    TThread.Queue(nil,
+      procedure
+      begin
+        ExportarXML;
+      end);
+  end
+
+  else if sAcao = 'Fechar' then
+    Application.Terminate;
+end;
+{$ENDREGION}
+end.

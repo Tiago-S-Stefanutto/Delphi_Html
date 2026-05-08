@@ -1,0 +1,32 @@
+program ProjectQuimica;
+
+uses
+  Vcl.Forms,
+  System.SysUtils,
+  uWVLoader,
+  uWVInterfaces,
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  uDTMConexao in 'DataModule\uDTMConexao.pas' {dtmPrincipal},
+  cArquivoIni in 'Classes\cArquivoIni.pas',
+  cAtualizaBancoDeDados in 'Classes\cAtualizaBancoDeDados.pas',
+  cAtualizaTabelaMSSQL in 'Classes\cAtualizaTabelaMSSQL.pas',
+  uEnum in 'Heranca\uEnum.pas' {/,},
+  cCadElemento in 'Classes\cCadElemento.pas',
+  cCadGrupo in 'Classes\cCadGrupo.pas',
+  cCadPeriodo in 'Classes\cCadPeriodo.pas',
+  cCadFamilia in 'Classes\cCadFamilia.pas',
+  cCadCategoriaQuimica in 'Classes\cCadCategoriaQuimica.pas',
+  cGetId in 'Classes\cGetId.pas';
+
+{$R *.res}
+
+begin
+  GlobalWebView2Loader                := TWVLoader.Create(nil);
+  GlobalWebView2Loader.UserDataFolder := ExtractFilePath(ParamStr(0)) + 'WVCache';
+  GlobalWebView2Loader.StartWebView2;
+
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.Run;
+end.
