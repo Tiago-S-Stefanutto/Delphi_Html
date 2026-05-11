@@ -1,4 +1,4 @@
-﻿unit uPrincipal;
+unit uPrincipal;
 
 interface
 
@@ -10,7 +10,7 @@ uses
   cAtualizaBancoDeDados, Winapi.ShellAPI, System.IOUtils, Vcl.OleCtrls, SHDocVw, uWVBrowserBase, uWVBrowser, uWVWinControl,
   uWVWindowParent, uWVLoader,  System.JSON, cCadElemento, cCadGrupo, cCadPeriodo,
   cCadFamilia, cCadCategoriaQuimica, uWVCoreWebView2Args, uWVInterfaces, uWVTypeLibrary,
-  uWVTypes, cGetId;
+  uWVTypes, cGetId, Registry ;
 
 type
   TfrmPrincipal = class(TForm)
@@ -18,7 +18,6 @@ type
     WVBrowser1: TWVBrowser;
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
@@ -36,6 +35,7 @@ type
     procedure ExecutarAcao(const aJSON: TJSONObject);
     procedure EnviarParaHTML(const aJSON: string);
     function QueryParaJSON(Qry: TFDQuery; const aEntidade: string): string;
+    function GetNodePath: string;
   public
     { Public declarations }
   end;
@@ -49,12 +49,10 @@ implementation
 {$REGION 'Browser'}
 procedure TfrmPrincipal.WVBrowser1AfterCreated(Sender: TObject);
 begin
-   FBrowserReady := True;
+FBrowserReady := True;
   WVWindowParent1.SetBounds(0, 0, ClientWidth, ClientHeight);
   WVWindowParent1.UpdateSize;
 end;
-
-
 
 procedure TfrmPrincipal.WVBrowser1WebMessageReceived(Sender: TObject; const aWebView: ICoreWebView2;
   const aArgs: ICoreWebView2WebMessageReceivedEventArgs);
@@ -78,7 +76,6 @@ begin
   end;
 end;
 
-
 procedure TfrmPrincipal.FormResize(Sender: TObject);
 begin
   if WVBrowser1.Initialized then
@@ -86,12 +83,6 @@ begin
     WVWindowParent1.SetBounds(0, 0, ClientWidth, ClientHeight);
     WVWindowParent1.UpdateSize;
   end;
-end;
-
-procedure TfrmPrincipal.FormShow(Sender: TObject);
-begin
-  if FBrowserReady then
-    WVBrowser1.Navigate('http://localhost:5173');
 end;
 
 procedure TfrmPrincipal.TimerNavigate(Sender: TObject);
@@ -119,6 +110,59 @@ begin
   end;
 end;
 
+
+function TfrmPrincipal.GetNodePath: string;
+var
+  oReg: TRegistry;
+  sPaths: string;
+  aPathList: TArray<string>;
+  sPath: string;
+  i: Integer;
+begin
+  Result := '';
+
+  oReg := TRegistry.Create(KEY_READ);
+  try
+    oReg.RootKey := HKEY_LOCAL_MACHINE;
+    if oReg.OpenKey('\SOFTWARE\Node.js', False) then
+    begin
+      Result := oReg.ReadString('InstallPath');
+      Result := ExcludeTrailingPathDelimiter(Result);
+      oReg.CloseKey;
+    end;
+  finally
+    oReg.Free;
+  end;
+
+  if DirectoryExists(Result) and FileExists(Result + '\npm.cmd') then
+    Exit;
+
+  Result := '';
+  if FileExists('C:\Program Files\nodejs\npm.cmd') then
+  begin
+    Result := 'C:\Program Files\nodejs';
+    Exit;
+  end;
+
+  if FileExists('C:\Program Files (x86)\nodejs\npm.cmd') then
+  begin
+    Result := 'C:\Program Files (x86)\nodejs';
+    Exit;
+  end;
+
+  sPaths    := GetEnvironmentVariable('PATH');
+  aPathList := sPaths.Split([';']);
+  for i := 0 to High(aPathList) do
+  begin
+    sPath := Trim(aPathList[i]);
+    if FileExists(sPath + '\npm.cmd') then
+    begin
+      Result := sPath;
+      Exit;
+    end;
+  end;
+end;
+
 procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   if FViteProcessHandle <> 0 then
@@ -134,23 +178,39 @@ var
   oTimer: TTimer;
   oStartInfo: TStartupInfo;
   oProcessInfo: TProcessInformation;
+  sNodePath: string;
   sCmd: string;
+  sNpm: string;
 begin
   {$REGION 'LocalHost'}
-    if FViteProcessHandle <> 0 then
+  if FViteProcessHandle <> 0 then
   begin
     TerminateProcess(FViteProcessHandle, 0);
     CloseHandle(FViteProcessHandle);
     FViteProcessHandle := 0;
   end;
-                  //c
-  sCmd := 'cmd.exe /k cd /d "' +
-          ExtractFilePath(ParamStr(0)) + 'html" && npm.cmd run dev';
+
+  sNodePath := GetNodePath;
+
+  if sNodePath = '' then
+  begin
+    ShowMessage('Node.js não encontrado!' + #13 +
+                'Instale o Node.js em nodejs.org e reinicie.');
+    Application.Terminate;
+    Exit;
+  end;
+
+  SetEnvironmentVariable('PATH',
+    PChar(sNodePath + ';' + GetEnvironmentVariable('PATH')));
+
+  sNpm := '"' + sNodePath + '\npm.cmd"';
+  sCmd := 'cmd.exe /c cd /d "' +
+          ExtractFilePath(ParamStr(0)) + 'html" && ' + sNpm + ' run dev';
 
   ZeroMemory(@oStartInfo, SizeOf(oStartInfo));
   oStartInfo.cb          := SizeOf(oStartInfo);
   oStartInfo.dwFlags     := STARTF_USESHOWWINDOW;
-  oStartInfo.wShowWindow := SW_SHOW; //SW_HIDE
+  oStartInfo.wShowWindow := SW_HIDE;
 
   if CreateProcess(nil, PChar(sCmd), nil, nil, False,
                    CREATE_NEW_CONSOLE, nil, nil,
@@ -158,10 +218,12 @@ begin
   begin
     FViteProcessHandle := oProcessInfo.hProcess;
     CloseHandle(oProcessInfo.hThread);
-  end;
+  end
+  else
+    ShowMessage('Falha ao iniciar Vite. Erro: ' + SysErrorMessage(GetLastError));
 
-  WVWindowParent1.Browser           := WVBrowser1;
-  WVBrowser1.OnAfterCreated         := WVBrowser1AfterCreated;
+  WVWindowParent1.Browser         := WVBrowser1;
+  WVBrowser1.OnAfterCreated       := WVBrowser1AfterCreated;
   WVBrowser1.OnWebMessageReceived := WVBrowser1WebMessageReceived;
   WVBrowser1.CreateBrowser(WVWindowParent1.Handle);
   OnResize := FormResize;
