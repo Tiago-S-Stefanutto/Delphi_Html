@@ -53,7 +53,7 @@ begin
     ExecutaDiretoBancoDeDados(
     ' CREATE TABLE grupo ( '+
     ' grupoId INT IDENTITY(1,1) PRIMARY KEY, '+
-    ' descricao VARCHAR(50) not null '+
+    ' descricao VARCHAR(5) not null '+
     ' ) '
     );
 end;
@@ -64,7 +64,7 @@ begin
     ExecutaDiretoBancoDeDados(
     ' CREATE TABLE periodo ( '+
     ' periodoId INT IDENTITY(1,1) PRIMARY KEY, '+
-    ' descricao VARCHAR(50) not null '+
+    ' descricao VARCHAR(5) not null '+
     ' ) '
     );
 end;

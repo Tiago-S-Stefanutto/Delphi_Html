@@ -1,64 +1,199 @@
-import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import Welcome from "./pages/Welcome";
-import Dashboard from "./pages/Dashboard";
-import Elementos from "./pages/Elementos";
-import Grupos from "./pages/Grupos";
-import Periodos from "./pages/Periodos";
-import Familias from "./pages/Familias";
-import Categorias from "./pages/Categorias";
-import ElementoForm from "./pages/ElementoForm";
-import GrupoForm from "./pages/GrupoForm";
-import PeriodoForm from "./pages/PeriodoForm";
-import FamiliaForm from "./pages/FamiliaForm";
-import CategoriaForm from "./pages/CategoriaForm";
+import { useState, useCallback } from 'react'
+import { Welcome } from '@/components/Welcome'
+import { Navbar } from '@/components/Navbar'
+import { Elementos } from '@/pages/Elementos'
+import { CrudSimples } from '@/pages/CrudSimples'
+import { ToastContainer } from '@/components/Toast'
+import type { ToastData } from '@/components/Toast'
+import { useDelphi, emptyStore } from '@/hooks/useDelphi'
+import type {
+  DataStore, Elemento, Grupo, Periodo, Familia, CategoriaQuimica,
+  MsgParaDelphi
+} from '@/types'
 
+type Screen = 'elemento' | 'grupo' | 'periodo' | 'familia' | 'categoria_quimica'
 
-function Router() {
+let toastSeq = 0
+
+export default function App() {
+  const [tela, setTela]       = useState<'welcome' | Screen>('welcome')
+  const [store, setStore]     = useState<DataStore>(emptyStore)
+  const [toasts, setToasts]   = useState<ToastData[]>([])
+
+  // ─── Toast helpers ────────────────────────────────────────────────
+  const addToast = useCallback((tipo: 'ok' | 'erro', msg: string) => {
+    setToasts(t => [...t, { id: ++toastSeq, tipo, msg }])
+  }, [])
+  const removeToast = useCallback((id: number) => {
+    setToasts(t => t.filter(x => x.id !== id))
+  }, [])
+
+  // ─── Delphi callbacks ─────────────────────────────────────────────
+  const onDados = useCallback((entidade: string, registros: Record<string, string>[]) => {
+    setStore(prev => {
+      const next = { ...prev }
+      switch (entidade) {
+        case 'elemento':
+          next.elemento = registros as unknown as Elemento[]
+          break
+        case 'grupo':
+          next.grupo = registros as unknown as Grupo[]
+          break
+        case 'periodo':
+          next.periodo = registros as unknown as Periodo[]
+          break
+        case 'familia':
+          next.familia = registros as unknown as Familia[]
+          break
+        case 'categoria_quimica':
+          next.categoria_quimica = registros as unknown as CategoriaQuimica[]
+          break
+      }
+      return next
+    })
+  }, [])
+
+  const onResposta = useCallback((acao: 'ok' | 'erro', msg: string) => {
+    addToast(acao, msg || (acao === 'ok' ? 'Operação realizada!' : 'Erro na operação.'))
+  }, [addToast])
+
+  const { enviar, listar } = useDelphi(onDados, onResposta)
+
+  // ─── Envio tipado ─────────────────────────────────────────────────
+  const send = useCallback((msg: MsgParaDelphi) => enviar(msg), [enviar])
+
+  // ─── Navegar entre telas e buscar dados ──────────────────────────
+  function navegarPara(screen: Screen) {
+    setTela(screen)
+    listar(screen)
+    // elementos precisam dos lookups
+    if (screen === 'elemento') {
+      listar('grupo')
+      listar('periodo')
+      listar('familia')
+      listar('categoria_quimica')
+    }
+  }
+
+  function entrar() {
+    setTela('elemento')
+    // Carrega tudo de uma vez na entrada
+    ;(['elemento', 'grupo', 'periodo', 'familia', 'categoria_quimica'] as const)
+      .forEach(e => listar(e))
+  }
+
+  function sair() {
+    // Envia ao Delphi para encerrar o Application (Application.Terminate)
+    enviar({ acao: 'Fechar' })
+  }
+
+  // ─── Refresh após operação ────────────────────────────────────────
+  function refresh() {
+    if (tela !== 'welcome') listar(tela as string)
+    if (tela === 'elemento') {
+      listar('grupo'); listar('periodo'); listar('familia'); listar('categoria_quimica')
+    }
+  }
+
+  // ─── Grupos/Períodos/etc como ItemSimples ─────────────────────────
+  const gruposSimples   = store.grupo.map(g  => ({ id: g.grupoId,              descricao: g.descricao }))
+  const periodosSimples = store.periodo.map(p => ({ id: p.periodoId,            descricao: p.descricao }))
+  const familiasSimples = store.familia.map(f => ({ id: f.familiaId,            descricao: f.descricao }))
+  const catSimples      = store.categoria_quimica.map(c => ({ id: c.categoria_quimicaId, descricao: c.descricao }))
+
+  // ─── Render ───────────────────────────────────────────────────────
+  if (tela === 'welcome') {
+    return (
+      <>
+        <Welcome onEntrar={entrar} />
+        <ToastContainer toasts={toasts} remove={removeToast} />
+      </>
+    )
+  }
+
   return (
-    <Switch>
-      <Route path={"/"} component={Welcome} />
-      <Route path={"/dashboard"} component={Dashboard} />
-      <Route path={"/elementos"} component={Elementos} />
-      <Route path={"/grupos"} component={Grupos} />
-      <Route path={"/periodos"} component={Periodos} />
-      <Route path={"/familias"} component={Familias} />
-      <Route path={"/categorias"} component={Categorias} />
-      <Route path={"/elemento-form"} component={ElementoForm} />
-      <Route path={"/grupo-form"} component={GrupoForm} />
-      <Route path={"/periodo-form"} component={PeriodoForm} />
-      <Route path={"/familia-form"} component={FamiliaForm} />
-      <Route path={"/categoria-form"} component={CategoriaForm} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
+    <div className="min-h-screen flex flex-col bg-[#f0f4f8]">
+      <Navbar
+        current={tela}
+        onChange={navegarPara}
+        onSair={sair}
+      />
+
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full">
+        {tela === 'elemento' && (
+          <Elementos
+            elementos={store.elemento}
+            grupos={store.grupo}
+            periodos={store.periodo}
+            familias={store.familia}
+            categorias={store.categoria_quimica}
+            enviar={send}
+            onRefresh={refresh}
+          />
+        )}
+
+        {tela === 'grupo' && (
+          <CrudSimples
+            titulo="Grupos"
+            icone="📋"
+            subtitulo="Gerencie as colunas verticais da tabela periódica"
+            entidade="grupo"
+            idField="grupoId"
+            labelColuna="Descrição (Número / Nome)"
+            maxLengthDescricao={5}
+            itens={gruposSimples}
+            enviar={send}
+            onRefresh={refresh}
+          />
+        )}
+
+        {tela === 'periodo' && (
+          <CrudSimples
+            titulo="Períodos"
+            icone="📈"
+            subtitulo="Gerencie as linhas horizontais da tabela periódica"
+            entidade="periodo"
+            idField="periodoId"
+            labelColuna="Descrição (Número da Linha)"
+            maxLengthDescricao={5}
+            itens={periodosSimples}
+            enviar={send}
+            onRefresh={refresh}
+          />
+        )}
+
+        {tela === 'familia' && (
+          <CrudSimples
+            titulo="Famílias"
+            icone="👨‍👩‍👧‍👦"
+            subtitulo="Gerencie as famílias de elementos"
+            entidade="familia"
+            idField="familiaId"
+            labelColuna="Nome da Família"
+            maxLengthDescricao={50}
+            itens={familiasSimples}
+            enviar={send}
+            onRefresh={refresh}
+          />
+        )}
+
+        {tela === 'categoria_quimica' && (
+          <CrudSimples
+            titulo="Categorias Químicas"
+            icone="🏷️"
+            subtitulo="Gerencie os tipos gerais de elementos"
+            entidade="categoria_quimica"
+            idField="categoria_quimicaId"
+            labelColuna="Nome da Categoria"
+            maxLengthDescricao={50}
+            itens={catSimples}
+            enviar={send}
+            onRefresh={refresh}
+          />
+        )}
+      </main>
+
+      <ToastContainer toasts={toasts} remove={removeToast} />
+    </div>
+  )
 }
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
-function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
-}
-
-export default App;

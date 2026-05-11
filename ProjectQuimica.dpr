@@ -15,7 +15,8 @@ uses
   cCadGrupo in 'Classes\cCadGrupo.pas',
   cCadPeriodo in 'Classes\cCadPeriodo.pas',
   cCadFamilia in 'Classes\cCadFamilia.pas',
-  cCadCategoriaQuimica in 'Classes\cCadCategoriaQuimica.pas';
+  cCadCategoriaQuimica in 'Classes\cCadCategoriaQuimica.pas',
+  cGetId in 'Classes\cGetId.pas';
 
 {$R *.res}
 

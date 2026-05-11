@@ -26,7 +26,7 @@ type
       constructor Create(aConexao: TFDConnection);
       destructor  Destroy; override;
 
-      function Inserir:Boolean;
+      function Inserir(aControlaTransacao: Boolean = True): Boolean;
       function Atualizar:Boolean;
       function Apagar:Boolean;
       function Selecionar(id:Integer):Boolean;
@@ -65,13 +65,6 @@ var
   Qry:TFDQuery;
 begin
   Result := False;
-  if MessageDlg('Apagar o Registro: '+#13+#13+
-                'C digo: '+IntToStr(F_elementoId)+#13+
-                'Descrição: '+F_nome,mtConfirmation,[mbYes, mbNo],0)=mrNo
-  then begin
-     abort;
-  end;
-
   Qry := TFDQuery.Create(nil);
   try
     Qry.Connection := ConexaoDB;
@@ -152,7 +145,7 @@ begin
   end;
 end;
 
-function TElemento.Inserir: Boolean;
+function TElemento.Inserir(aControlaTransacao: Boolean): Boolean;
 var
   Qry:TFDQuery;
 begin
@@ -161,7 +154,8 @@ begin
   try
     Qry.Connection:=ConexaoDB;
 
-    ConexaoDB.StartTransaction;
+    if aControlaTransacao then
+      ConexaoDB.StartTransaction;
     try
       Qry.SQL.Clear;
       Qry.SQL.Add(' INSERT INTO elemento (numero_atomico, '+
@@ -194,12 +188,14 @@ begin
       Qry.Open;
       Self.F_elementoId := Qry.Fields[0].AsInteger;
 
-      ConexaoDB.Commit;
+      if aControlaTransacao then
+        ConexaoDB.Commit;
 
     except
       on E: Exception do
       begin
-        ConexaoDB.Rollback;
+        if aControlaTransacao then
+          ConexaoDB.Rollback;
         raise;
       end;
     end;

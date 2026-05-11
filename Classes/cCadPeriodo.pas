@@ -120,8 +120,23 @@ begin
   try
     Qry.Connection := ConexaoDB;
 
-    ConexaoDB.StartTransaction;
     try
+      Qry.SQL.Clear;
+      Qry.SQL.Add(' SELECT COUNT(*) AS TOTAL'+
+                  ' FROM elemento'+
+                  ' WHERE periodo_id =:periodoId');
+
+      Qry.ParamByName('periodoId').AsInteger := F_periodoId;
+      Qry.Open;
+
+      if Qry.FieldByName('TOTAL').AsInteger > 0 then
+      raise Exception.Create(
+      'Não é possível excluir este periodo pois existem elementos vinculados.');
+
+      Qry.Close;
+
+      ConexaoDB.StartTransaction;
+
       Qry.SQL.Clear;
       Qry.SQL.Add(' DELETE FROM periodo '+
                   ' WHERE periodoId = :id ');
