@@ -112,9 +112,9 @@ export function CrudSimples({
 
       {modalOpen && (
         <Modal title={editItem ? `Editar ${titulo.replace(/s$/, '')}` : `Novo ${titulo.replace(/s$/, '')}`} onClose={() => setModalOpen(false)}>
-          <div className="space-y-4">
-            <div>
-              <label className="text-xs font-bold text-gray-400 uppercase block mb-1">
+          <div className="space-y-6 min-w-0">
+            <div className="w-full">
+              <label className="text-xs font-bold text-gray-400 uppercase block mb-2">
                 {labelColuna} * — {descricao.length}/{maxLengthDescricao}
               </label>
               <input
@@ -127,7 +127,7 @@ export function CrudSimples({
                 className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition"
               />
             </div>
-            <div className="flex justify-end gap-3 pt-4">
+            <div className="flex justify-end gap-3 pt-2">
               <button onClick={() => setModalOpen(false)} className="px-5 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition text-sm">
                 Cancelar
               </button>

@@ -267,44 +267,68 @@ export function Elementos({ elementos, grupos, periodos, familias, categorias, e
       {/* Modal Form */}
       {modalOpen && (
         <Modal title={editItem ? `Editar: ${editItem.nome}` : 'Novo Elemento'} onClose={() => setModalOpen(false)}>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-bold text-gray-400 uppercase block mb-1">Nº Atômico *</label>
+          <div className="space-y-5 min-w-0">
+            <div className="grid grid-cols-2 gap-4 w-full">
+              <div className="min-w-0">
+                <label className="text-xs font-bold text-gray-400 uppercase block mb-2">Nº Atômico *</label>
                 <input type="number" min={1} max={999} value={form.numero_atomico} onChange={e => setForm(p => ({...p, numero_atomico: e.target.value}))}
                   className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition" />
               </div>
-              <div>
-                <label className="text-xs font-bold text-gray-400 uppercase block mb-1">
+              <div className="min-w-0">
+                <label className="text-xs font-bold text-gray-400 uppercase block mb-2">
                   Símbolo * — {form.simbolo.length}/5
                 </label>
                 <input type="text" value={form.simbolo} maxLength={5} onChange={e => setForm(p => ({...p, simbolo: e.target.value}))}
                   className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition" />
               </div>
             </div>
-            <div>
-              <label className="text-xs font-bold text-gray-400 uppercase block mb-1">
+            <div className="w-full">
+              <label className="text-xs font-bold text-gray-400 uppercase block mb-2">
                 Nome * — {form.nome.length}/50
               </label>
               <input type="text" value={form.nome} maxLength={50} onChange={e => setForm(p => ({...p, nome: e.target.value}))}
                 className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition" />
             </div>
-            <div>
-              <label className="text-xs font-bold text-gray-400 uppercase block mb-1">Massa Atômica — DECIMAL(10,4)</label>
-              <input type="number" step="0.0001" min={0} value={form.massa_atomica} onChange={e => setForm(p => ({...p, massa_atomica: e.target.value}))}
-                className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition" />
+            <div className="w-full">
+              <label className="text-xs font-bold text-gray-400 uppercase block mb-2">Massa Atômica — DECIMAL(10,4) (máx: 999999.9999)</label>
+              <input 
+                type="text" 
+                value={form.massa_atomica} 
+                onChange={e => {
+                  let valor = e.target.value.replace(/[^0-9.]/g, '');
+                  
+                  // Permitir apenas um ponto decimal
+                  const partes = valor.split('.');
+                  if (partes.length > 2) {
+                    valor = partes[0] + '.' + partes.slice(1).join('');
+                  }
+                  
+                  // Validar formato: máximo 6 dígitos inteiros e 4 decimais
+                  if (valor.includes('.')) {
+                    const [inteira, decimal] = valor.split('.');
+                    if (inteira.length > 6) return; // Rejeita se mais de 6 dígitos inteiros
+                    if (decimal.length > 4) return; // Rejeita se mais de 4 decimais
+                  } else {
+                    if (valor.length > 6) return; // Rejeita se mais de 6 dígitos
+                  }
+                  
+                  setForm(p => ({...p, massa_atomica: valor}));
+                }}
+                placeholder="0.0000"
+                className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition" 
+              />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-bold text-gray-400 uppercase block mb-1">Grupo *</label>
+            <div className="grid grid-cols-2 gap-4 w-full">
+              <div className="min-w-0">
+                <label className="text-xs font-bold text-gray-400 uppercase block mb-2">Grupo *</label>
                 <select value={form.grupo_id} onChange={e => setForm(p => ({...p, grupo_id: e.target.value}))}
                   className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition bg-white">
                   <option value="">Selecione...</option>
                   {grupos.map(g => <option key={g.grupoId} value={g.grupoId}>{g.descricao}</option>)}
                 </select>
               </div>
-              <div>
-                <label className="text-xs font-bold text-gray-400 uppercase block mb-1">Período *</label>
+              <div className="min-w-0">
+                <label className="text-xs font-bold text-gray-400 uppercase block mb-2">Período *</label>
                 <select value={form.periodo_id} onChange={e => setForm(p => ({...p, periodo_id: e.target.value}))}
                   className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition bg-white">
                   <option value="">Selecione...</option>
@@ -312,16 +336,16 @@ export function Elementos({ elementos, grupos, periodos, familias, categorias, e
                 </select>
               </div>
             </div>
-            <div>
-              <label className="text-xs font-bold text-gray-400 uppercase block mb-1">Família</label>
+            <div className="w-full">
+              <label className="text-xs font-bold text-gray-400 uppercase block mb-2">Família</label>
               <select value={form.familia_id} onChange={e => setForm(p => ({...p, familia_id: e.target.value}))}
                 className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition bg-white">
                 <option value="">Selecione...</option>
                 {familias.map(f => <option key={f.familiaId} value={f.familiaId}>{f.descricao}</option>)}
               </select>
             </div>
-            <div>
-              <label className="text-xs font-bold text-gray-400 uppercase block mb-1">Categoria Química</label>
+            <div className="w-full">
+              <label className="text-xs font-bold text-gray-400 uppercase block mb-2">Categoria Química</label>
               <select value={form.categoria_quimica_id} onChange={e => setForm(p => ({...p, categoria_quimica_id: e.target.value}))}
                 className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition bg-white">
                 <option value="">Selecione...</option>
@@ -329,7 +353,7 @@ export function Elementos({ elementos, grupos, periodos, familias, categorias, e
               </select>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4">
+            <div className="flex justify-end gap-3 pt-2">
               <button onClick={() => setModalOpen(false)} className="px-5 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition text-sm">
                 Cancelar
               </button>
