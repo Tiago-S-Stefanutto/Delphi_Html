@@ -133,9 +133,11 @@ begin
 end;
 
 function TElemento.Atualizar: Boolean;
-var Qry:TFDQuery;
+var
+  Qry:TFDQuery;
 begin
   Result:=true;
+
   Qry:=TFDQuery.Create(nil);
   Try
     Qry.Connection:=ConexaoDB;

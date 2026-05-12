@@ -10,19 +10,16 @@ File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data
 File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data\firedac\FireDAC.Stan.Param.pas',0,1,1,1,12,0,0,,
 
 [Modules]
-Module0=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
-Module1=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
-Module2=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
+Module0=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
+Module1=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
+Module2=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
 Module3=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
-Module4=C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj
-Module5=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
+Module4=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
+Module5=C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj
 Module6=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
 Module7=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
 Count=8
 EditWindowCount=1
-
-[C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas]
-ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas]
 ModuleType=TSourceModule
@@ -30,14 +27,17 @@ ModuleType=TSourceModule
 [C:\Curso\Delphi Tabela periodica\uPrincipal.pas]
 ModuleType=TSourceModule
 
+[C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas]
+ModuleType=TSourceModule
+
 [C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas]
+ModuleType=TSourceModule
+
+[C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas]
 ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj]
 ModuleType=TBaseProject
-
-[C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas]
-ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas]
 ModuleType=TSourceModule
@@ -47,7 +47,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=8
-CurrentEditView=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
+CurrentEditView=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
 View0=0
 View1=1
 View2=2
@@ -88,20 +88,20 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
-CursorX=25
-CursorY=511
-TopLine=496
+CursorX=5
+CursorY=1028
+TopLine=1005
 LeftCol=1
 Elisions=
-Bookmarks={1,921,5}
+Bookmarks={1,1028,5}{2,1028,5}
 EditViewName=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
 
 [View1]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
-CursorX=59
-CursorY=61
-TopLine=49
+CursorX=26
+CursorY=104
+TopLine=70
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -154,20 +154,20 @@ EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
 [View6]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
-CursorX=20
-CursorY=199
-TopLine=187
+CursorX=52
+CursorY=151
+TopLine=145
 LeftCol=1
-Elisions={{49,0},{59,11},{'Constructor and Destructor'}}
+Elisions={{50,0},{60,11},{'Constructor and Destructor'}}
 Bookmarks=
 EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
 
 [View7]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\ProjectQuimica.dpr
-CursorX=19
-CursorY=5
-TopLine=16
+CursorX=15
+CursorY=28
+TopLine=15
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -309,14 +309,14 @@ Docked=0
 State=0
 Left=0
 Top=0
-Width=1786
-Height=6107
+Width=2767
+Height=5768
 MaxLeft=-7
 MaxTop=-13
-ClientWidth=1698
-ClientHeight=5638
-TBDockHeight=6107
-LRDockWidth=1786
+ClientWidth=2650
+ClientHeight=5260
+TBDockHeight=5768
+LRDockWidth=2767
 Dockable=1
 StayOnTop=0
 
@@ -329,12 +329,12 @@ State=0
 Left=0
 Top=0
 Width=1933
-Height=7031
+Height=6680
 MaxLeft=-7
 MaxTop=-13
 ClientWidth=1816
-ClientHeight=6523
-TBDockHeight=7031
+ClientHeight=6172
+TBDockHeight=6680
 LRDockWidth=1933
 Dockable=1
 StayOnTop=0
@@ -353,7 +353,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3346
-TBDockHeight=8724
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0
@@ -852,7 +852,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1896
 ClientHeight=3385
-TBDockHeight=8724
+TBDockHeight=9010
 LRDockWidth=1896
 Dockable=1
 StayOnTop=0

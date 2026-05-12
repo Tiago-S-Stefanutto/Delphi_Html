@@ -1,8 +1,15 @@
 import { useEffect, useRef, useCallback } from 'react'
 import type { MsgParaDelphi, DataStore } from '@/types'
 
-type OnDadosCallback    = (entidade: string, registros: Record<string, string>[]) => void
-type OnRespostaCallback = (acao: 'ok' | 'erro', msg: string) => void
+type OnDadosCallback = (
+  entidade: string,
+  registros: Record<string, any>[]
+) => void
+
+type OnRespostaCallback = (
+  acao: 'ok' | 'erro',
+  msg: string
+) => void
 
 interface UseDelphi {
   enviar: (msg: MsgParaDelphi) => void
@@ -21,46 +28,130 @@ export function useDelphi(
   onDados: OnDadosCallback,
   onResposta: OnRespostaCallback
 ): UseDelphi {
-  const onDadosRef    = useRef(onDados)
+
+  const onDadosRef = useRef(onDados)
   const onRespostaRef = useRef(onResposta)
-  onDadosRef.current    = onDados
-  onRespostaRef.current = onResposta
 
   useEffect(() => {
-    // O Delphi chama: WVBrowser1.ExecuteScript('window.receberDelphi(' + oStr.ToJSON + ')')
-    // oStr é TJSONString → ToJSON coloca o JSON entre aspas como string JS
-    // Então receberDelphi recebe uma STRING com o JSON puro dentro
+    onDadosRef.current = onDados
+  }, [onDados])
+
+  useEffect(() => {
+    onRespostaRef.current = onResposta
+  }, [onResposta])
+
+  useEffect(() => {
+
     ;(window as any).receberDelphi = (jsonStr: string) => {
       try {
-        const msg = JSON.parse(jsonStr)
-        if (msg.acao === 'dados' && msg.entidade && Array.isArray(msg.registros)) {
-          onDadosRef.current(msg.entidade, msg.registros)
-        } else if (msg.acao === 'ok' || msg.acao === 'erro') {
-          onRespostaRef.current(msg.acao, msg.msg ?? '')
+
+        if (!jsonStr || typeof jsonStr !== 'string') {
+          console.error('[Delphi Bridge] Mensagem inválida:', jsonStr)
+          return
         }
+
+        const msg = JSON.parse(jsonStr)
+
+        console.log('[Delphi -> React]', msg)
+
+        // =========================
+        // NOVO PADRÃO DO DELPHI
+        // =========================
+        if (msg.sucesso === true && msg.entidade && Array.isArray(msg.dados)) {
+          onDadosRef.current(msg.entidade, msg.dados)
+          return
+        }
+
+        // =========================
+        // RESPOSTAS DE SUCESSO
+        // =========================
+        if (msg.sucesso === true) {
+          onRespostaRef.current(
+            'ok',
+            msg.mensagem ?? 'Operação realizada com sucesso.'
+          )
+          return
+        }
+
+        // =========================
+        // RESPOSTAS DE ERRO
+        // =========================
+        if (msg.sucesso === false) {
+          onRespostaRef.current(
+            'erro',
+            msg.mensagem ?? 'Erro na operação.'
+          )
+          return
+        }
+
+        // =========================
+        // COMPATIBILIDADE ANTIGA
+        // =========================
+        if (
+          msg.acao === 'dados' &&
+          msg.entidade &&
+          Array.isArray(msg.registros)
+        ) {
+          onDadosRef.current(msg.entidade, msg.registros)
+          return
+        }
+
+        if (msg.acao === 'ok' || msg.acao === 'erro') {
+          onRespostaRef.current(
+            msg.acao,
+            msg.msg ?? ''
+          )
+          return
+        }
+
+        console.warn('[Delphi Bridge] Mensagem desconhecida:', msg)
+
       } catch (e) {
-        console.error('[Delphi Bridge] JSON invalido:', jsonStr, e)
+        console.error(
+          '[Delphi Bridge] Erro ao processar JSON:',
+          jsonStr,
+          e
+        )
       }
     }
-    return () => { delete (window as any).receberDelphi }
+
+    return () => {
+      delete (window as any).receberDelphi
+    }
+
   }, [])
 
-  // O Delphi recebe via WVBrowser1WebMessageReceived -> TempArgs.WebMessageAsString
-  // postMessage do WebView2 espera uma STRING
   const enviar = useCallback((msg: MsgParaDelphi) => {
-    const json = JSON.stringify(msg)
-    if (isWebView2()) {
-      getWebView().postMessage(json)
-    } else {
-      console.log('[DEV -> Delphi]', json)
+
+    try {
+
+      const json = JSON.stringify(msg)
+
+      console.log('[React -> Delphi]', json)
+
+      if (isWebView2()) {
+        getWebView().postMessage(json)
+      } else {
+        console.log('[DEV MODE]', json)
+      }
+
+    } catch (e) {
+      console.error('[React -> Delphi] Erro ao enviar mensagem:', e)
     }
+
   }, [])
 
   const listar = useCallback((entidade: string) => {
-    enviar({ acao: 'listar', entidade })
+    enviar({
+      acao: 'listar',
+      entidade
+    })
   }, [enviar])
 
-  return { enviar, listar }
+  return {
+    enviar,
+    listar
+  }
 }
 
 export function emptyStore(): DataStore {

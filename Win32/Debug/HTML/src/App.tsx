@@ -16,57 +16,81 @@ type Screen = 'elemento' | 'grupo' | 'periodo' | 'familia' | 'categoria_quimica'
 let toastSeq = 0
 
 export default function App() {
-  const [tela, setTela]       = useState<'welcome' | Screen>('welcome')
-  const [store, setStore]     = useState<DataStore>(emptyStore)
-  const [toasts, setToasts]   = useState<ToastData[]>([])
+  const [tela, setTela] = useState<'welcome' | Screen>('welcome')
+  const [store, setStore] = useState<DataStore>(emptyStore)
+  const [toasts, setToasts] = useState<ToastData[]>([])
 
-  // ─── Toast helpers ────────────────────────────────────────────────
+  // ───────────────── Toast helpers ─────────────────
   const addToast = useCallback((tipo: 'ok' | 'erro', msg: string) => {
     setToasts(t => [...t, { id: ++toastSeq, tipo, msg }])
   }, [])
+
   const removeToast = useCallback((id: number) => {
     setToasts(t => t.filter(x => x.id !== id))
   }, [])
 
-  // ─── Delphi callbacks ─────────────────────────────────────────────
-  const onDados = useCallback((entidade: string, registros: Record<string, string>[]) => {
-    setStore(prev => {
-      const next = { ...prev }
-      switch (entidade) {
-        case 'elemento':
-          next.elemento = registros as unknown as Elemento[]
-          break
-        case 'grupo':
-          next.grupo = registros as unknown as Grupo[]
-          break
-        case 'periodo':
-          next.periodo = registros as unknown as Periodo[]
-          break
-        case 'familia':
-          next.familia = registros as unknown as Familia[]
-          break
-        case 'categoria_quimica':
-          next.categoria_quimica = registros as unknown as CategoriaQuimica[]
-          break
-      }
-      return next
-    })
-  }, [])
+  // ───────────────── Dados vindos do Delphi ─────────────────
+  const onDados = useCallback(
+    (entidade: string, registros: Record<string, string>[]) => {
+      setStore(prev => {
+        const next = { ...prev }
 
-  const onResposta = useCallback((acao: 'ok' | 'erro', msg: string) => {
-    addToast(acao, msg || (acao === 'ok' ? 'Operação realizada!' : 'Erro na operação.'))
-  }, [addToast])
+        switch (entidade) {
+          case 'elemento':
+            next.elemento = registros as unknown as Elemento[]
+            break
+
+          case 'grupo':
+            next.grupo = registros as unknown as Grupo[]
+            break
+
+          case 'periodo':
+            next.periodo = registros as unknown as Periodo[]
+            break
+
+          case 'familia':
+            next.familia = registros as unknown as Familia[]
+            break
+
+          case 'categoria_quimica':
+            next.categoria_quimica =
+              registros as unknown as CategoriaQuimica[]
+            break
+        }
+
+        return next
+      })
+    },
+    []
+  )
+
+  // ───────────────── Respostas Delphi ─────────────────
+  const onResposta = useCallback(
+    (acao: 'ok' | 'erro', msg: string) => {
+      addToast(
+        acao,
+        msg || (acao === 'ok'
+          ? 'Operação realizada!'
+          : 'Erro na operação.')
+      )
+    },
+    [addToast]
+  )
 
   const { enviar, listar } = useDelphi(onDados, onResposta)
 
-  // ─── Envio tipado ─────────────────────────────────────────────────
-  const send = useCallback((msg: MsgParaDelphi) => enviar(msg), [enviar])
+  // ───────────────── Envio tipado ─────────────────
+  const send = useCallback(
+    (msg: MsgParaDelphi) => enviar(msg),
+    [enviar]
+  )
 
-  // ─── Navegar entre telas e buscar dados ──────────────────────────
+  // ───────────────── Navegação ─────────────────
   function navegarPara(screen: Screen) {
     setTela(screen)
+
     listar(screen)
-    // elementos precisam dos lookups
+
     if (screen === 'elemento') {
       listar('grupo')
       listar('periodo')
@@ -77,36 +101,63 @@ export default function App() {
 
   function entrar() {
     setTela('elemento')
-    // Carrega tudo de uma vez na entrada
-    ;(['elemento', 'grupo', 'periodo', 'familia', 'categoria_quimica'] as const)
-      .forEach(e => listar(e))
+
+    ;([
+      'elemento',
+      'grupo',
+      'periodo',
+      'familia',
+      'categoria_quimica'
+    ] as const).forEach(e => listar(e))
   }
 
   function sair() {
-    // Envia ao Delphi para encerrar o Application (Application.Terminate)
     enviar({ acao: 'Fechar' })
   }
 
-  // ─── Refresh após operação ────────────────────────────────────────
+  // ───────────────── Refresh ─────────────────
   function refresh() {
-    if (tela !== 'welcome') listar(tela as string)
+    if (tela !== 'welcome')
+      listar(tela as string)
+
     if (tela === 'elemento') {
-      listar('grupo'); listar('periodo'); listar('familia'); listar('categoria_quimica')
+      listar('grupo')
+      listar('periodo')
+      listar('familia')
+      listar('categoria_quimica')
     }
   }
 
-  // ─── Grupos/Períodos/etc como ItemSimples ─────────────────────────
-  const gruposSimples   = store.grupo.map(g  => ({ id: g.grupoId,              descricao: g.descricao }))
-  const periodosSimples = store.periodo.map(p => ({ id: p.periodoId,            descricao: p.descricao }))
-  const familiasSimples = store.familia.map(f => ({ id: f.familiaId,            descricao: f.descricao }))
-  const catSimples      = store.categoria_quimica.map(c => ({ id: c.categoria_quimicaId, descricao: c.descricao }))
+  // ───────────────── Conversão simples ─────────────────
+  const gruposSimples = store.grupo.map(g => ({
+    id: g.grupoId,
+    descricao: g.descricao
+  }))
 
-  // ─── Render ───────────────────────────────────────────────────────
+  const periodosSimples = store.periodo.map(p => ({
+    id: p.periodoId,
+    descricao: p.descricao
+  }))
+
+  const familiasSimples = store.familia.map(f => ({
+    id: f.familiaId,
+    descricao: f.descricao
+  }))
+
+  const catSimples = store.categoria_quimica.map(c => ({
+    id: c.categoria_quimicaId,
+    descricao: c.descricao
+  }))
+
+  // ───────────────── Render ─────────────────
   if (tela === 'welcome') {
     return (
       <>
         <Welcome onEntrar={entrar} />
-        <ToastContainer toasts={toasts} remove={removeToast} />
+        <ToastContainer
+          toasts={toasts}
+          remove={removeToast}
+        />
       </>
     )
   }
@@ -193,7 +244,10 @@ export default function App() {
         )}
       </main>
 
-      <ToastContainer toasts={toasts} remove={removeToast} />
+      <ToastContainer
+        toasts={toasts}
+        remove={removeToast}
+      />
     </div>
   )
 }

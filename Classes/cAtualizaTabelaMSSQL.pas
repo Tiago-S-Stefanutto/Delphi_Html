@@ -53,7 +53,7 @@ begin
     ExecutaDiretoBancoDeDados(
     ' CREATE TABLE grupo ( '+
     ' grupoId INT IDENTITY(1,1) PRIMARY KEY, '+
-    ' descricao VARCHAR(5) not null '+
+    ' descricao VARCHAR(5) not null UNIQUE'+
     ' ) '
     );
 end;
@@ -64,7 +64,7 @@ begin
     ExecutaDiretoBancoDeDados(
     ' CREATE TABLE periodo ( '+
     ' periodoId INT IDENTITY(1,1) PRIMARY KEY, '+
-    ' descricao VARCHAR(5) not null '+
+    ' descricao VARCHAR(5) not null UNIQUE'+
     ' ) '
     );
 end;
@@ -75,7 +75,7 @@ begin
     ExecutaDiretoBancoDeDados(
     ' CREATE TABLE familia ( '+
     ' familiaId INT IDENTITY(1,1) PRIMARY KEY, '+
-    ' descricao VARCHAR(50) not null '+
+    ' descricao VARCHAR(50) not null UNIQUE'+
     ' ) '
     );
 end;
@@ -86,7 +86,7 @@ begin
     ExecutaDiretoBancoDeDados(
     ' CREATE TABLE categoria_quimica ( '+
     ' categoria_quimicaId INT IDENTITY(1,1) PRIMARY KEY, '+
-    ' descricao VARCHAR(50) not null '+
+    ' descricao VARCHAR(50) not null UNIQUE'+
     ' ) '
     );
 end;
