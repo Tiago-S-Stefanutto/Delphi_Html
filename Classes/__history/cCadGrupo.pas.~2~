@@ -1,0 +1,35 @@
+unit cCadGrupo;
+
+interface
+
+uses
+  System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client, System.SysUtils, FireDAC.Stan.Param;
+
+type
+  TElemento = class
+
+    private
+      ConexaoDB : TFDconnection;
+      F_grupoId : integer;
+      F_descricao : integer;
+
+    public
+      constructor Create(aConexao: TFDConnection);
+      destructor  Destroy; override;
+
+      function Inserir:Boolean;
+      function Atualizar:Boolean;
+      function Apagar:Boolean;
+      function Selecionar(id:Integer):Boolean;
+
+    published
+      property codigo       : integer read F_grupoId        write F_grupoId;
+      property descricao    : integer read F_descricao      write F_descricao;
+
+end;
+
+implementation
+
+end.

@@ -10,133 +10,85 @@ interface ModalProps {
 
 export function Modal({ title, onClose, children }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
-  const backdropRef = useRef<HTMLDivElement>(null)
   const previousActiveElement = useRef<HTMLElement | null>(null)
 
-  // ─── Mover foco para dentro do modal ao abrir ──────────────────────
   useEffect(() => {
-    // Salvar o elemento que tinha foco antes do modal abrir
     previousActiveElement.current = document.activeElement as HTMLElement
 
-    // Função para encontrar e focar no primeiro elemento focável
+    // Bloqueia scroll do body enquanto modal estiver aberto
+    document.body.style.overflow = 'hidden'
+
     const focusFirstElement = () => {
       const modal = modalRef.current
       if (!modal) return
-
-      const focusableElements = modal.querySelectorAll(
+      const focusable = modal.querySelectorAll<HTMLElement>(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       )
-      const firstElement = focusableElements[0] as HTMLElement
-
-      if (firstElement) {
-        // Usar setTimeout para garantir que o foco seja aplicado após a renderização
-        setTimeout(() => {
-          firstElement.focus()
-        }, 0)
-      }
+      if (focusable[0]) setTimeout(() => focusable[0].focus(), 0)
     }
-
     focusFirstElement()
 
-    // Cleanup: restaurar foco ao elemento anterior quando o modal fechar
     return () => {
-      if (previousActiveElement.current && previousActiveElement.current.focus) {
-        previousActiveElement.current.focus()
-      }
+      document.body.style.overflow = ''
+      if (previousActiveElement.current?.focus) previousActiveElement.current.focus()
     }
   }, [])
 
-  // ─── Tab Trap ─────────────────────────────────────────────────────
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { onClose(); return }
       if (e.key !== 'Tab') return
-
       const modal = modalRef.current
       if (!modal) return
-
-      // Obter todos os elementos focáveis dentro do modal
-      const focusableElements = modal.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      const focusable = Array.from(
+        modal.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
       )
-      const focusableArray = Array.from(focusableElements) as HTMLElement[]
-
-      if (focusableArray.length === 0) return
-
-      const firstElement = focusableArray[0]
-      const lastElement = focusableArray[focusableArray.length - 1]
-      const activeElement = document.activeElement
-
-      // Se o foco está fora do modal, trazer para dentro
-      if (!modal.contains(activeElement as Node)) {
-        e.preventDefault()
-        firstElement.focus()
-        return
-      }
-
-      // Se Shift+Tab no primeiro elemento, ir para o último
-      if (e.shiftKey) {
-        if (activeElement === firstElement) {
-          e.preventDefault()
-          lastElement.focus()
-        }
-      } else {
-        // Se Tab no último elemento, ir para o primeiro
-        if (activeElement === lastElement) {
-          e.preventDefault()
-          firstElement.focus()
-        }
-      }
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last  = focusable[focusable.length - 1]
+      if (!modal.contains(document.activeElement)) { e.preventDefault(); first.focus(); return }
+      if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus() } }
+      else            { if (document.activeElement === last)  { e.preventDefault(); first.focus() } }
     }
-
-    // Adicionar listener de keydown
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [])
-
-  // ─── Fechar ao pressionar Escape ───────────────────────────────────
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose()
-      }
-    }
-
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [onClose])
 
-  // ─── Fechar ao clicar no backdrop ──────────────────────────────────
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === backdropRef.current) {
-      onClose()
-    }
-  }
-
   return (
+    /*
+      O backdrop ocupa a tela toda e tem overflow-y: auto.
+      O conteúdo dentro cresce livremente — sem altura máxima —
+      e o backdrop provê o scroll quando necessário.
+    */
     <div
-      ref={backdropRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center modal-backdrop p-4 overflow-y-auto"
-      onClick={handleBackdropClick}
+      className="fixed inset-0 z-[100] modal-backdrop"
+      style={{ overflowY: 'auto' }}
+      onClick={e => { if (e.target === e.currentTarget) onClose() }}
     >
-      <div
-        ref={modalRef}
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-slideIn flex flex-col max-h-[90vh]"
-      >
-        {/* Header */}
-        <div className="bg-[#001f3f] text-white px-6 py-4 flex justify-between items-center flex-shrink-0">
-          <h2 className="text-lg font-bold tracking-wide">{title}</h2>
-          <button
-            onClick={onClose}
-            className="opacity-70 hover:opacity-100 hover:rotate-90 transition-all duration-200 flex-shrink-0"
-            aria-label="Fechar modal"
-          >
-            <X size={22} />
-          </button>
-        </div>
+      <div className="flex justify-center min-h-full py-10 px-4">
+        <div
+          ref={modalRef}
+          className="bg-white rounded-2xl shadow-2xl w-full max-w-lg animate-slideIn self-start"
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="bg-[#001f3f] text-white px-6 py-4 flex justify-between items-center rounded-t-2xl">
+            <h2 className="text-lg font-bold tracking-wide">{title}</h2>
+            <button
+              onClick={onClose}
+              className="opacity-70 hover:opacity-100 hover:rotate-90 transition-all duration-200"
+              aria-label="Fechar modal"
+            >
+              <X size={22} />
+            </button>
+          </div>
 
-        {/* Content - scrollable if needed */}
-        <div className="p-6 overflow-y-auto flex-1">
-          {children}
+          {/* Conteúdo — sem overflow, sem altura máxima, cresce com o conteúdo */}
+          <div className="p-6">
+            {children}
+          </div>
         </div>
       </div>
     </div>
@@ -151,113 +103,52 @@ interface ConfirmModalProps {
 
 export function ConfirmModal({ mensagem, onConfirm, onCancel }: ConfirmModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
-  const backdropRef = useRef<HTMLDivElement>(null)
   const previousActiveElement = useRef<HTMLElement | null>(null)
 
-  // ─── Mover foco para dentro do modal ao abrir ──────────────────────
   useEffect(() => {
-    // Salvar o elemento que tinha foco antes do modal abrir
     previousActiveElement.current = document.activeElement as HTMLElement
-
-    // Função para encontrar e focar no primeiro botão (Cancelar)
+    document.body.style.overflow = 'hidden'
     const focusFirstElement = () => {
       const modal = modalRef.current
       if (!modal) return
-
-      const focusableElements = modal.querySelectorAll(
+      const focusable = modal.querySelectorAll<HTMLElement>(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       )
-      const firstElement = focusableElements[0] as HTMLElement
-
-      if (firstElement) {
-        // Usar setTimeout para garantir que o foco seja aplicado após a renderização
-        setTimeout(() => {
-          firstElement.focus()
-        }, 0)
-      }
+      if (focusable[0]) setTimeout(() => focusable[0].focus(), 0)
     }
-
     focusFirstElement()
-
-    // Cleanup: restaurar foco ao elemento anterior quando o modal fechar
     return () => {
-      if (previousActiveElement.current && previousActiveElement.current.focus) {
-        previousActiveElement.current.focus()
-      }
+      document.body.style.overflow = ''
+      if (previousActiveElement.current?.focus) previousActiveElement.current.focus()
     }
   }, [])
 
-  // ─── Tab Trap ─────────────────────────────────────────────────────
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { onCancel(); return }
       if (e.key !== 'Tab') return
-
       const modal = modalRef.current
       if (!modal) return
-
-      // Obter todos os elementos focáveis dentro do modal
-      const focusableElements = modal.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      const focusable = Array.from(
+        modal.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
       )
-      const focusableArray = Array.from(focusableElements) as HTMLElement[]
-
-      if (focusableArray.length === 0) return
-
-      const firstElement = focusableArray[0]
-      const lastElement = focusableArray[focusableArray.length - 1]
-      const activeElement = document.activeElement
-
-      // Se o foco está fora do modal, trazer para dentro
-      if (!modal.contains(activeElement as Node)) {
-        e.preventDefault()
-        firstElement.focus()
-        return
-      }
-
-      // Se Shift+Tab no primeiro elemento, ir para o último
-      if (e.shiftKey) {
-        if (activeElement === firstElement) {
-          e.preventDefault()
-          lastElement.focus()
-        }
-      } else {
-        // Se Tab no último elemento, ir para o primeiro
-        if (activeElement === lastElement) {
-          e.preventDefault()
-          firstElement.focus()
-        }
-      }
+      if (!focusable.length) return
+      const first = focusable[0]
+      const last  = focusable[focusable.length - 1]
+      if (!modal.contains(document.activeElement)) { e.preventDefault(); first.focus(); return }
+      if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus() } }
+      else            { if (document.activeElement === last)  { e.preventDefault(); first.focus() } }
     }
-
-    // Adicionar listener de keydown
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [])
-
-  // ─── Fechar ao pressionar Escape ───────────────────────────────────
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onCancel()
-      }
-    }
-
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [onCancel])
 
-  // ─── Fechar ao clicar no backdrop ──────────────────────────────────
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === backdropRef.current) {
-      onCancel()
-    }
-  }
-
   return (
     <div
-      ref={backdropRef}
       className="fixed inset-0 z-[110] flex items-center justify-center modal-backdrop p-4"
-      onClick={handleBackdropClick}
+      onClick={e => { if (e.target === e.currentTarget) onCancel() }}
     >
       <div
         ref={modalRef}

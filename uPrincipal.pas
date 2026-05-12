@@ -1,4 +1,4 @@
-unit uPrincipal;
+﻿unit uPrincipal;
 
 interface
 
@@ -6,11 +6,14 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics,Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
   FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
-  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client, uDTMConexao, cArquivoIni,
+  FireDAC.Phys.MSSQLDef, Data.DB, FireDAC.Comp.Client, uDTMConexao, cArquivoIni,
   cAtualizaBancoDeDados, Winapi.ShellAPI, System.IOUtils, Vcl.OleCtrls, SHDocVw, uWVBrowserBase, uWVBrowser, uWVWinControl,
   uWVWindowParent, uWVLoader,  System.JSON, cCadElemento, cCadGrupo, cCadPeriodo,
   cCadFamilia, cCadCategoriaQuimica, uWVCoreWebView2Args, uWVInterfaces, uWVTypeLibrary,
   uWVTypes, cGetId, Registry ;
+
+const
+  WM_EXPORTAR_XML = WM_USER + 1;
 
 type
   TfrmPrincipal = class(TForm)
@@ -36,6 +39,7 @@ type
     procedure EnviarParaHTML(const aJSON: string);
     function QueryParaJSON(Qry: TFDQuery; const aEntidade: string): string;
     function GetNodePath: string;
+    procedure WMExportarXML(var Msg: TMessage); message WM_EXPORTAR_XML;
   public
     { Public declarations }
   end;
@@ -46,6 +50,11 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmPrincipal.WMExportarXML(var Msg: TMessage);
+begin
+  ExportarXML;
+end;
+
 {$REGION 'Browser'}
 procedure TfrmPrincipal.WVBrowser1AfterCreated(Sender: TObject);
 begin
@@ -54,6 +63,45 @@ FBrowserReady := True;
   WVWindowParent1.UpdateSize;
 end;
 
+procedure TfrmPrincipal.WVBrowser1WebMessageReceived(
+  Sender: TObject;
+  const aWebView: ICoreWebView2;
+  const aArgs: ICoreWebView2WebMessageReceivedEventArgs);
+var
+  TempArgs : TCoreWebView2WebMessageReceivedEventArgs;
+  Mensagem : wvstring;
+  oJSON    : TJSONObject;
+  oClone   : TJSONObject;
+begin
+  TempArgs := TCoreWebView2WebMessageReceivedEventArgs.Create(aArgs);
+
+  try
+    Mensagem := TempArgs.WebMessageAsString;
+
+    oJSON := TJSONObject.ParseJSONValue(Mensagem) as TJSONObject;
+
+    if Assigned(oJSON) then
+    begin
+      oClone := oJSON.Clone as TJSONObject;
+
+      TThread.Queue(nil,
+        procedure
+        begin
+          try
+            ExecutarAcao(oClone);
+          finally
+            oClone.Free;
+          end;
+        end);
+    end;
+
+  finally
+    oJSON.Free;
+    TempArgs.Free;
+  end;
+end;
+
+{
 procedure TfrmPrincipal.WVBrowser1WebMessageReceived(Sender: TObject; const aWebView: ICoreWebView2;
   const aArgs: ICoreWebView2WebMessageReceivedEventArgs);
 var
@@ -75,6 +123,7 @@ begin
     FreeAndNil(TempArgs);
   end;
 end;
+ }
 
 procedure TfrmPrincipal.FormResize(Sender: TObject);
 begin
@@ -240,8 +289,8 @@ begin
     TArquivoIni.AtualizarIni('SERVER', 'HostName', '.\');
     TArquivoIni.AtualizarIni('SERVER', 'Port', '1433');
     TArquivoIni.AtualizarIni('SERVER', 'OSAuthent', 'Yes');
-    TArquivoIni.AtualizarIni('SERVER', 'User', 'admin');
-    TArquivoIni.AtualizarIni('SERVER', 'Password', 'admin');
+    TArquivoIni.AtualizarIni('SERVER', 'User', 'sa');
+    TArquivoIni.AtualizarIni('SERVER', 'Password', 'Sua_Senha');
     TArquivoIni.AtualizarIni('SERVER', 'Database', 'Quimica');
 
     MessageDlg('Arquivo ' + TArquivoIni.ArquivoIni + ' criado com sucesso!' + #13 + 'Configure o arquivo antes de inicializar a aplicação!!!', mtInformation, [mbOK], 0);
@@ -496,8 +545,17 @@ begin
         oElemento.massa     := aJSON.GetValue<Double>('massa_atomica');
         oElemento.grupo     := aJSON.GetValue<Integer>('grupo_id');
         oElemento.periodo   := aJSON.GetValue<Integer>('periodo_id');
-        oElemento.familia   := aJSON.GetValue<Integer>('familia_id');
-        oElemento.categoria := aJSON.GetValue<Integer>('categoria_quimica_id');
+         if (aJSON.Values['familia_id'] = nil) or
+           (aJSON.Values['familia_id'] is TJSONNull) then
+           oElemento.familia := 0
+        else
+          oElemento.familia := aJSON.GetValue<Integer>('familia_id');
+
+        if (aJSON.Values['categoria_quimica_id'] = nil) or
+           (aJSON.Values['categoria_quimica_id'] is TJSONNull) then
+          oElemento.categoria := 0
+        else
+          oElemento.categoria := aJSON.GetValue<Integer>('categoria_quimica_id');
 
          if oElemento.Inserir then
           EnviarParaHTML('{"acao":"ok","msg":"Elemento inserido com sucesso!"}')
@@ -898,11 +956,7 @@ begin
     FRegistrosExportar :=
       aJSON.GetValue<TJSONArray>('registros').Clone as TJSONArray;
 
-    TThread.Queue(nil,
-      procedure
-      begin
-        ExportarXML;
-      end);
+    PostMessage(Handle, WM_EXPORTAR_XML, 0, 0);
   end
 
   else if sAcao = 'Fechar' then

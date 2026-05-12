@@ -1,0 +1,326 @@
+unit cCadElemento;
+
+interface
+
+uses
+  System.Classes, Vcl.Controls, Vcl.ExtCtrls, Vcl.Dialogs, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MSSQL,
+  FireDAC.Phys.MSSQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client, System.SysUtils, FireDAC.Stan.Param;
+
+type
+  TElemento = class
+
+    private
+      ConexaoDB : TFDconnection;
+      F_elementoId : integer;
+      F_numero_atomico : integer;
+      F_simbolo : string;
+      F_nome : string;
+      F_massa_atomica : Double;
+      F_grupo : integer;
+      F_periodo : integer;
+      F_familia : integer;
+      F_categoria_quimica : Integer;
+    function ExisteElemento: string;
+
+    public
+      constructor Create(aConexao: TFDConnection);
+      destructor  Destroy; override;
+
+      function Inserir(aControlaTransacao: Boolean = True): Boolean;
+      function Atualizar:Boolean;
+      function Apagar:Boolean;
+      function Selecionar(id:Integer):Boolean;
+
+    published
+      property codigo       : integer read F_elementoId        write F_elementoId;
+      property atomico      : integer read F_numero_atomico    write F_numero_atomico;
+      property simbolo      : string  read F_simbolo           write F_simbolo;
+      property nome         : string  read F_nome              write F_nome;
+      property massa        : Double  read F_massa_atomica     write F_massa_atomica ;
+      property grupo        : integer read F_grupo             write F_grupo;
+      property periodo      : integer read F_periodo           write F_periodo;
+      property familia      : integer read F_familia           write F_familia;
+      property categoria    : integer read F_categoria_quimica write F_categoria_quimica;
+
+end;
+
+implementation
+
+{$region 'Constructor and Destructor'}
+  constructor TElemento.Create(aConexao: TFDConnection);
+  begin
+    ConexaoDB:=aConexao;
+  end;
+
+  destructor TElemento.Destroy;
+  begin
+    inherited;
+  end;
+{$endRegion}
+
+{ TElemento }
+
+function TElemento.ExisteElemento: string;
+var
+  Qry: TFDQuery;
+begin
+  Result := '';
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text :=
+      ' SELECT ' +
+      '   CASE ' +
+      '     WHEN numero_atomico = :numero_atomico THEN ''numero_atomico'' ' +
+      '     WHEN simbolo = :simbolo THEN ''simbolo'' ' +
+      '     WHEN nome = :nome THEN ''nome'' ' +
+      '   END AS campo ' +
+      ' FROM elemento ' +
+      ' WHERE numero_atomico = :numero_atomico ' +
+      '    OR simbolo = :simbolo ' +
+      '    OR nome = :nome ';
+
+    Qry.ParamByName('numero_atomico').AsInteger := Self.F_numero_atomico;
+    Qry.ParamByName('simbolo').AsString         := Self.F_simbolo;
+    Qry.ParamByName('nome').AsString            := Self.F_nome;
+
+    Qry.Open;
+
+    if not Qry.IsEmpty then
+      Result := Qry.FieldByName('campo').AsString;
+
+  finally
+    Qry.Free;
+  end;
+end;
+
+function TElemento.Apagar: Boolean;
+var
+  Qry:TFDQuery;
+begin
+  Result := False;
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    ConexaoDB.StartTransaction;
+    try
+      Qry.SQL.Clear;
+      Qry.SQL.Add('DELETE FROM elemento ' +
+                  'WHERE elementoId = :elementoId');
+
+      Qry.ParamByName('elementoId').AsInteger := F_elementoId;
+
+      Qry.ExecSQL;
+
+      ConexaoDB.Commit;
+      Result := True;
+
+    except
+      on E: Exception do
+      begin
+        ConexaoDB.Rollback;
+        raise Exception.Create('Erro ao excluir Elemento: ' + E.Message);
+      end;
+    end;
+
+  finally
+    Qry.Free;
+  end;
+end;
+
+function TElemento.Atualizar: Boolean;
+var Qry:TFDQuery;
+begin
+  Result:=true;
+  Qry:=TFDQuery.Create(nil);
+  Try
+    Qry.Connection:=ConexaoDB;
+
+    ConexaoDB.StartTransaction;
+    try
+      Qry.SQL.Clear;
+      Qry.SQL.Add('UPDATE elemento '+
+                  '   SET numero_atomico            =:numero_atomico '+
+                  '       ,simbolo                  =:simbolo '+
+                  '       ,nome                     =:nome '+
+                  '       ,massa_atomica            =:massa_atomica '+
+                  '       ,grupo_id                 =:grupo_id '+
+                  '       ,periodo_id               =:periodo_id '+
+                  '       ,familia_id               =:familia_id '+
+                  '       ,categoria_quimica_id     =:categoria_quimica_id '+
+                  ' WHERE elementoId=:elementoId ');
+
+      Qry.ParamByName('elementoId').AsInteger             :=Self.F_elementoId;
+      Qry.ParamByName('numero_atomico').AsInteger         :=Self.F_numero_atomico;
+      Qry.ParamByName('simbolo').AsString                 :=Self.F_simbolo;
+      Qry.ParamByName('nome').AsString                    :=Self.F_nome;
+      Qry.ParamByName('massa_atomica').AsFloat            :=Self.F_massa_atomica;
+      Qry.ParamByName('grupo_id').AsInteger               :=Self.F_grupo;
+      Qry.ParamByName('periodo_id').AsInteger             :=Self.F_periodo;
+      Qry.ParamByName('familia_id').AsInteger             :=Self.F_familia;
+      Qry.ParamByName('categoria_quimica_id').AsInteger   :=Self.F_categoria_quimica;
+
+      Qry.ExecSQL;
+
+      ConexaoDB.Commit;
+
+    except
+      on E: Exception do
+      begin
+        ConexaoDB.Rollback;
+        raise;
+      end;
+    end;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+function TElemento.Inserir(aControlaTransacao: Boolean): Boolean;
+var
+  Qry:TFDQuery;
+  sCampoDuplicado: string;
+begin
+  Result := True;
+
+  sCampoDuplicado := ExisteElemento;
+
+  if sCampoDuplicado = 'numero_atomico' then
+    raise Exception.Create('Número atômico já cadastrado.');
+
+  if sCampoDuplicado = 'simbolo' then
+    raise Exception.Create('Símbolo já cadastrado.');
+
+  if sCampoDuplicado = 'nome' then
+    raise Exception.Create('Nome já cadastrado.');
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection:=ConexaoDB;
+
+    if aControlaTransacao then
+      ConexaoDB.StartTransaction;
+    try
+      Qry.SQL.Clear;
+      Qry.SQL.Add(' INSERT INTO elemento (numero_atomico, '+
+                  '                       simbolo, '+
+                  '                       nome, '+
+                  '                       massa_atomica, ' +
+                  '                       grupo_id, ' +
+                  '                       periodo_id, ' +
+                  '                       familia_id, ' +
+                  '                       categoria_quimica_id) ' +
+                  ' OUTPUT INSERTED.elementoId ' +
+                  ' VALUES              (:numero_atomico, '+
+                  '                      :simbolo, ' +
+                  '                      :nome, ' +
+                  '                      :massa_atomica, ' +
+                  '                      :grupo_id, ' +
+                  '                      :periodo_id, ' +
+                  '                      :familia_id, ' +
+                  '                      :categoria_quimica_id) ');
+
+      Qry.ParamByName('numero_atomico').AsInteger        :=Self.F_numero_atomico;
+      Qry.ParamByName('simbolo').AsString                :=Self.F_simbolo;
+      Qry.ParamByName('nome').AsString                   :=Self.F_nome;
+      Qry.ParamByName('massa_atomica').AsFloat           :=Self.F_massa_atomica;
+      Qry.ParamByName('grupo_id').AsInteger              :=Self.F_grupo;
+      Qry.ParamByName('periodo_id').AsInteger            :=Self.F_periodo;
+      if Self.F_familia > 0 then
+      begin
+        Qry.ParamByName('familia_id').AsInteger := Self.F_familia;
+      end
+      else
+      begin
+        Qry.ParamByName('familia_id').DataType := ftInteger;
+        Qry.ParamByName('familia_id').Clear;
+      end;
+
+      if Self.F_categoria_quimica > 0 then
+      begin
+        Qry.ParamByName('categoria_quimica_id').AsInteger := Self.F_categoria_quimica;
+      end
+      else
+      begin
+        Qry.ParamByName('categoria_quimica_id').DataType := ftInteger;
+        Qry.ParamByName('categoria_quimica_id').Clear;
+      end;
+
+      Qry.Open;
+      Self.F_elementoId := Qry.Fields[0].AsInteger;
+
+      if aControlaTransacao then
+        ConexaoDB.Commit;
+
+    except
+      on E: Exception do
+      begin
+        if aControlaTransacao then
+          ConexaoDB.Rollback;
+        raise;
+      end;
+    end;
+
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+function TElemento.Selecionar(id: Integer): Boolean;
+var
+  Qry: TFDQuery;
+begin
+  Result := False;
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+    Qry.SQL.Clear;
+    Qry.SQL.Add('SELECT elementoId, ' +
+                '       numero_atomico, ' +
+                '       simbolo, ' +
+                '       nome, ' +
+                '       massa_atomica, ' +
+                '       grupo_id, ' +
+                '       periodo_id, ' +
+                '       familia_id, ' +
+                '       categoria_quimica_id ' +
+                '  FROM elemento ' +
+                ' WHERE elementoId = :elementoId');
+
+     Qry.ParamByName('elementoId').AsInteger := id;
+    try
+      Qry.Open;
+
+      Self.F_elementoId        := Qry.FieldByName('elementoId').AsInteger;
+      Self.F_numero_atomico    := Qry.FieldByName('numero_atomico').AsInteger;
+      Self.F_simbolo           := Qry.FieldByName('simbolo').AsString;
+      Self.F_nome              := Qry.FieldByName('nome').AsString;
+      Self.F_massa_atomica     := Qry.FieldByName('massa_atomica').AsFloat;
+      Self.F_grupo             := Qry.FieldByName('grupo_id').AsInteger;
+      Self.F_periodo           := Qry.FieldByName('periodo_id').AsInteger;
+      Self.F_familia           := Qry.FieldByName('familia_id').AsInteger;
+      Self.F_categoria_quimica := Qry.FieldByName('categoria_quimica_id').AsInteger;
+
+    except
+       on E: Exception do
+      begin
+        Result := False;
+        raise Exception.Create('Erro ao selecionar elemento: ' + E.Message);
+      end;
+    end;
+
+    Result := True;
+  finally
+    if Assigned(Qry) then
+       FreeAndNil(Qry);
+  end;
+end;
+
+end.

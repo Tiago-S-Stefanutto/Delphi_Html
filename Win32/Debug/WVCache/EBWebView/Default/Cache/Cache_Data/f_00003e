@@ -1,6 +1,1046 @@
-import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/index.css");import { updateStyle as __vite__updateStyle, removeStyle as __vite__removeStyle } from "/@vite/client"
-const __vite__id = "C:/Curso/Delphi Tabela periodica/Win32/Debug/HTML/src/index.css"
-const __vite__css = "/*! tailwindcss v4.2.4 | MIT License | https://tailwindcss.com */\n@layer properties;\n@layer theme, base, components, utilities;\n@layer theme {\n  :root, :host {\n    --font-sans: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\",\n      \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";\n    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\",\n      \"Courier New\", monospace;\n    --color-red-200: oklch(88.5% 0.062 18.334);\n    --color-red-400: oklch(70.4% 0.191 22.216);\n    --color-red-600: oklch(57.7% 0.245 27.325);\n    --color-red-700: oklch(50.5% 0.213 27.518);\n    --color-emerald-700: oklch(50.8% 0.118 165.612);\n    --color-emerald-800: oklch(43.2% 0.095 166.913);\n    --color-blue-500: oklch(62.3% 0.214 259.815);\n    --color-blue-700: oklch(48.8% 0.243 264.376);\n    --color-blue-800: oklch(42.4% 0.199 265.638);\n    --color-gray-50: oklch(98.5% 0.002 247.839);\n    --color-gray-100: oklch(96.7% 0.003 264.542);\n    --color-gray-200: oklch(92.8% 0.006 264.531);\n    --color-gray-300: oklch(87.2% 0.01 258.338);\n    --color-gray-400: oklch(70.7% 0.022 261.325);\n    --color-gray-500: oklch(55.1% 0.027 264.364);\n    --color-gray-600: oklch(44.6% 0.03 256.802);\n    --color-gray-800: oklch(27.8% 0.033 256.848);\n    --color-white: #fff;\n    --spacing: 0.25rem;\n    --container-sm: 24rem;\n    --container-lg: 32rem;\n    --container-7xl: 80rem;\n    --text-xs: 0.75rem;\n    --text-xs--line-height: calc(1 / 0.75);\n    --text-sm: 0.875rem;\n    --text-sm--line-height: calc(1.25 / 0.875);\n    --text-base: 1rem;\n    --text-base--line-height: calc(1.5 / 1);\n    --text-lg: 1.125rem;\n    --text-lg--line-height: calc(1.75 / 1.125);\n    --text-xl: 1.25rem;\n    --text-xl--line-height: calc(1.75 / 1.25);\n    --text-2xl: 1.5rem;\n    --text-2xl--line-height: calc(2 / 1.5);\n    --text-4xl: 2.25rem;\n    --text-4xl--line-height: calc(2.5 / 2.25);\n    --text-5xl: 3rem;\n    --text-5xl--line-height: 1;\n    --text-6xl: 3.75rem;\n    --text-6xl--line-height: 1;\n    --text-7xl: 4.5rem;\n    --text-7xl--line-height: 1;\n    --font-weight-light: 300;\n    --font-weight-medium: 500;\n    --font-weight-semibold: 600;\n    --font-weight-bold: 700;\n    --tracking-tight: -0.025em;\n    --tracking-wide: 0.025em;\n    --tracking-widest: 0.1em;\n    --radius-lg: 0.5rem;\n    --radius-xl: 0.75rem;\n    --radius-2xl: 1rem;\n    --drop-shadow-lg: 0 4px 4px rgb(0 0 0 / 0.15);\n    --animate-bounce: bounce 1s infinite;\n    --default-transition-duration: 150ms;\n    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);\n    --default-font-family: var(--font-sans);\n    --default-mono-font-family: var(--font-mono);\n  }\n}\n@layer base {\n  *, ::after, ::before, ::backdrop, ::file-selector-button {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n    border: 0 solid;\n  }\n  html, :host {\n    line-height: 1.5;\n    -webkit-text-size-adjust: 100%;\n    tab-size: 4;\n    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\");\n    font-feature-settings: var(--default-font-feature-settings, normal);\n    font-variation-settings: var(--default-font-variation-settings, normal);\n    -webkit-tap-highlight-color: transparent;\n  }\n  hr {\n    height: 0;\n    color: inherit;\n    border-top-width: 1px;\n  }\n  abbr:where([title]) {\n    -webkit-text-decoration: underline dotted;\n    text-decoration: underline dotted;\n  }\n  h1, h2, h3, h4, h5, h6 {\n    font-size: inherit;\n    font-weight: inherit;\n  }\n  a {\n    color: inherit;\n    -webkit-text-decoration: inherit;\n    text-decoration: inherit;\n  }\n  b, strong {\n    font-weight: bolder;\n  }\n  code, kbd, samp, pre {\n    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace);\n    font-feature-settings: var(--default-mono-font-feature-settings, normal);\n    font-variation-settings: var(--default-mono-font-variation-settings, normal);\n    font-size: 1em;\n  }\n  small {\n    font-size: 80%;\n  }\n  sub, sup {\n    font-size: 75%;\n    line-height: 0;\n    position: relative;\n    vertical-align: baseline;\n  }\n  sub {\n    bottom: -0.25em;\n  }\n  sup {\n    top: -0.5em;\n  }\n  table {\n    text-indent: 0;\n    border-color: inherit;\n    border-collapse: collapse;\n  }\n  :-moz-focusring {\n    outline: auto;\n  }\n  progress {\n    vertical-align: baseline;\n  }\n  summary {\n    display: list-item;\n  }\n  ol, ul, menu {\n    list-style: none;\n  }\n  img, svg, video, canvas, audio, iframe, embed, object {\n    display: block;\n    vertical-align: middle;\n  }\n  img, video {\n    max-width: 100%;\n    height: auto;\n  }\n  button, input, select, optgroup, textarea, ::file-selector-button {\n    font: inherit;\n    font-feature-settings: inherit;\n    font-variation-settings: inherit;\n    letter-spacing: inherit;\n    color: inherit;\n    border-radius: 0;\n    background-color: transparent;\n    opacity: 1;\n  }\n  :where(select:is([multiple], [size])) optgroup {\n    font-weight: bolder;\n  }\n  :where(select:is([multiple], [size])) optgroup option {\n    padding-inline-start: 20px;\n  }\n  ::file-selector-button {\n    margin-inline-end: 4px;\n  }\n  ::placeholder {\n    opacity: 1;\n  }\n  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {\n    ::placeholder {\n      color: currentcolor;\n      @supports (color: color-mix(in lab, red, red)) {\n        color: color-mix(in oklab, currentcolor 50%, transparent);\n      }\n    }\n  }\n  textarea {\n    resize: vertical;\n  }\n  ::-webkit-search-decoration {\n    -webkit-appearance: none;\n  }\n  ::-webkit-date-and-time-value {\n    min-height: 1lh;\n    text-align: inherit;\n  }\n  ::-webkit-datetime-edit {\n    display: inline-flex;\n  }\n  ::-webkit-datetime-edit-fields-wrapper {\n    padding: 0;\n  }\n  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {\n    padding-block: 0;\n  }\n  ::-webkit-calendar-picker-indicator {\n    line-height: 1;\n  }\n  :-moz-ui-invalid {\n    box-shadow: none;\n  }\n  button, input:where([type=\"button\"], [type=\"reset\"], [type=\"submit\"]), ::file-selector-button {\n    appearance: button;\n  }\n  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {\n    height: auto;\n  }\n  [hidden]:where(:not([hidden=\"until-found\"])) {\n    display: none !important;\n  }\n}\n@layer utilities {\n  .visible {\n    visibility: visible;\n  }\n  .absolute {\n    position: absolute;\n  }\n  .fixed {\n    position: fixed;\n  }\n  .relative {\n    position: relative;\n  }\n  .sticky {\n    position: sticky;\n  }\n  .inset-0 {\n    inset: calc(var(--spacing) * 0);\n  }\n  .-top-32 {\n    top: calc(var(--spacing) * -32);\n  }\n  .top-0 {\n    top: calc(var(--spacing) * 0);\n  }\n  .top-1\\/2 {\n    top: calc(1 / 2 * 100%);\n  }\n  .-right-32 {\n    right: calc(var(--spacing) * -32);\n  }\n  .right-6 {\n    right: calc(var(--spacing) * 6);\n  }\n  .-bottom-20 {\n    bottom: calc(var(--spacing) * -20);\n  }\n  .bottom-6 {\n    bottom: calc(var(--spacing) * 6);\n  }\n  .-left-20 {\n    left: calc(var(--spacing) * -20);\n  }\n  .left-1\\/4 {\n    left: calc(1 / 4 * 100%);\n  }\n  .z-10 {\n    z-index: 10;\n  }\n  .z-50 {\n    z-index: 50;\n  }\n  .z-\\[100\\] {\n    z-index: 100;\n  }\n  .z-\\[110\\] {\n    z-index: 110;\n  }\n  .z-\\[200\\] {\n    z-index: 200;\n  }\n  .mx-auto {\n    margin-inline: auto;\n  }\n  .mb-1 {\n    margin-bottom: calc(var(--spacing) * 1);\n  }\n  .mb-2 {\n    margin-bottom: calc(var(--spacing) * 2);\n  }\n  .mb-3 {\n    margin-bottom: calc(var(--spacing) * 3);\n  }\n  .mb-4 {\n    margin-bottom: calc(var(--spacing) * 4);\n  }\n  .mb-6 {\n    margin-bottom: calc(var(--spacing) * 6);\n  }\n  .mb-8 {\n    margin-bottom: calc(var(--spacing) * 8);\n  }\n  .mb-10 {\n    margin-bottom: calc(var(--spacing) * 10);\n  }\n  .block {\n    display: block;\n  }\n  .flex {\n    display: flex;\n  }\n  .grid {\n    display: grid;\n  }\n  .hidden {\n    display: none;\n  }\n  .inline-block {\n    display: inline-block;\n  }\n  .h-48 {\n    height: calc(var(--spacing) * 48);\n  }\n  .h-64 {\n    height: calc(var(--spacing) * 64);\n  }\n  .h-96 {\n    height: calc(var(--spacing) * 96);\n  }\n  .min-h-screen {\n    min-height: 100vh;\n  }\n  .w-24 {\n    width: calc(var(--spacing) * 24);\n  }\n  .w-28 {\n    width: calc(var(--spacing) * 28);\n  }\n  .w-48 {\n    width: calc(var(--spacing) * 48);\n  }\n  .w-64 {\n    width: calc(var(--spacing) * 64);\n  }\n  .w-96 {\n    width: calc(var(--spacing) * 96);\n  }\n  .w-full {\n    width: 100%;\n  }\n  .max-w-7xl {\n    max-width: var(--container-7xl);\n  }\n  .max-w-lg {\n    max-width: var(--container-lg);\n  }\n  .max-w-sm {\n    max-width: var(--container-sm);\n  }\n  .flex-1 {\n    flex: 1;\n  }\n  .shrink-0 {\n    flex-shrink: 0;\n  }\n  .transform {\n    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);\n  }\n  .animate-bounce {\n    animation: var(--animate-bounce);\n  }\n  .cursor-pointer {\n    cursor: pointer;\n  }\n  .grid-cols-2 {\n    grid-template-columns: repeat(2, minmax(0, 1fr));\n  }\n  .flex-col {\n    flex-direction: column;\n  }\n  .items-center {\n    align-items: center;\n  }\n  .items-end {\n    align-items: flex-end;\n  }\n  .items-start {\n    align-items: flex-start;\n  }\n  .items-stretch {\n    align-items: stretch;\n  }\n  .justify-between {\n    justify-content: space-between;\n  }\n  .justify-center {\n    justify-content: center;\n  }\n  .justify-end {\n    justify-content: flex-end;\n  }\n  .gap-1 {\n    gap: calc(var(--spacing) * 1);\n  }\n  .gap-2 {\n    gap: calc(var(--spacing) * 2);\n  }\n  .gap-3 {\n    gap: calc(var(--spacing) * 3);\n  }\n  .gap-4 {\n    gap: calc(var(--spacing) * 4);\n  }\n  .space-y-4 {\n    :where(& > :not(:last-child)) {\n      --tw-space-y-reverse: 0;\n      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));\n      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));\n    }\n  }\n  .overflow-hidden {\n    overflow: hidden;\n  }\n  .overflow-y-auto {\n    overflow-y: auto;\n  }\n  .rounded {\n    border-radius: 0.25rem;\n  }\n  .rounded-2xl {\n    border-radius: var(--radius-2xl);\n  }\n  .rounded-full {\n    border-radius: calc(infinity * 1px);\n  }\n  .rounded-lg {\n    border-radius: var(--radius-lg);\n  }\n  .rounded-xl {\n    border-radius: var(--radius-xl);\n  }\n  .border {\n    border-style: var(--tw-border-style);\n    border-width: 1px;\n  }\n  .border-2 {\n    border-style: var(--tw-border-style);\n    border-width: 2px;\n  }\n  .border-b {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 1px;\n  }\n  .border-b-2 {\n    border-bottom-style: var(--tw-border-style);\n    border-bottom-width: 2px;\n  }\n  .border-\\[\\#00d084\\] {\n    border-color: #00d084;\n  }\n  .border-\\[\\#00d084\\]\\/40 {\n    border-color: color-mix(in oklab, #00d084 40%, transparent);\n  }\n  .border-gray-50 {\n    border-color: var(--color-gray-50);\n  }\n  .border-gray-100 {\n    border-color: var(--color-gray-100);\n  }\n  .border-gray-200 {\n    border-color: var(--color-gray-200);\n  }\n  .border-transparent {\n    border-color: transparent;\n  }\n  .bg-\\[\\#00d4ff\\] {\n    background-color: #00d4ff;\n  }\n  .bg-\\[\\#00d084\\] {\n    background-color: #00d084;\n  }\n  .bg-\\[\\#001f3f\\] {\n    background-color: #001f3f;\n  }\n  .bg-\\[\\#001f3f\\]\\/10 {\n    background-color: color-mix(in oklab, #001f3f 10%, transparent);\n  }\n  .bg-\\[\\#f0f4f8\\] {\n    background-color: #f0f4f8;\n  }\n  .bg-blue-700 {\n    background-color: var(--color-blue-700);\n  }\n  .bg-emerald-700 {\n    background-color: var(--color-emerald-700);\n  }\n  .bg-gray-50 {\n    background-color: var(--color-gray-50);\n  }\n  .bg-red-600 {\n    background-color: var(--color-red-600);\n  }\n  .bg-red-700 {\n    background-color: var(--color-red-700);\n  }\n  .bg-white {\n    background-color: var(--color-white);\n  }\n  .bg-gradient-to-br {\n    --tw-gradient-position: to bottom right in oklab;\n    background-image: linear-gradient(var(--tw-gradient-stops));\n  }\n  .from-\\[\\#001f3f\\] {\n    --tw-gradient-from: #001f3f;\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .via-\\[\\#003d6b\\] {\n    --tw-gradient-via: #003d6b;\n    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);\n    --tw-gradient-stops: var(--tw-gradient-via-stops);\n  }\n  .to-\\[\\#00d084\\] {\n    --tw-gradient-to: #00d084;\n    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));\n  }\n  .p-2 {\n    padding: calc(var(--spacing) * 2);\n  }\n  .p-5 {\n    padding: calc(var(--spacing) * 5);\n  }\n  .p-6 {\n    padding: calc(var(--spacing) * 6);\n  }\n  .p-8 {\n    padding: calc(var(--spacing) * 8);\n  }\n  .px-2 {\n    padding-inline: calc(var(--spacing) * 2);\n  }\n  .px-4 {\n    padding-inline: calc(var(--spacing) * 4);\n  }\n  .px-5 {\n    padding-inline: calc(var(--spacing) * 5);\n  }\n  .px-6 {\n    padding-inline: calc(var(--spacing) * 6);\n  }\n  .px-8 {\n    padding-inline: calc(var(--spacing) * 8);\n  }\n  .px-14 {\n    padding-inline: calc(var(--spacing) * 14);\n  }\n  .py-0 {\n    padding-block: calc(var(--spacing) * 0);\n  }\n  .py-0\\.5 {\n    padding-block: calc(var(--spacing) * 0.5);\n  }\n  .py-2 {\n    padding-block: calc(var(--spacing) * 2);\n  }\n  .py-3 {\n    padding-block: calc(var(--spacing) * 3);\n  }\n  .py-4 {\n    padding-block: calc(var(--spacing) * 4);\n  }\n  .py-12 {\n    padding-block: calc(var(--spacing) * 12);\n  }\n  .pt-4 {\n    padding-top: calc(var(--spacing) * 4);\n  }\n  .pt-20 {\n    padding-top: calc(var(--spacing) * 20);\n  }\n  .pb-8 {\n    padding-bottom: calc(var(--spacing) * 8);\n  }\n  .text-center {\n    text-align: center;\n  }\n  .text-left {\n    text-align: left;\n  }\n  .text-right {\n    text-align: right;\n  }\n  .font-mono {\n    font-family: var(--font-mono);\n  }\n  .text-2xl {\n    font-size: var(--text-2xl);\n    line-height: var(--tw-leading, var(--text-2xl--line-height));\n  }\n  .text-4xl {\n    font-size: var(--text-4xl);\n    line-height: var(--tw-leading, var(--text-4xl--line-height));\n  }\n  .text-5xl {\n    font-size: var(--text-5xl);\n    line-height: var(--tw-leading, var(--text-5xl--line-height));\n  }\n  .text-6xl {\n    font-size: var(--text-6xl);\n    line-height: var(--tw-leading, var(--text-6xl--line-height));\n  }\n  .text-7xl {\n    font-size: var(--text-7xl);\n    line-height: var(--tw-leading, var(--text-7xl--line-height));\n  }\n  .text-base {\n    font-size: var(--text-base);\n    line-height: var(--tw-leading, var(--text-base--line-height));\n  }\n  .text-lg {\n    font-size: var(--text-lg);\n    line-height: var(--tw-leading, var(--text-lg--line-height));\n  }\n  .text-sm {\n    font-size: var(--text-sm);\n    line-height: var(--tw-leading, var(--text-sm--line-height));\n  }\n  .text-xl {\n    font-size: var(--text-xl);\n    line-height: var(--tw-leading, var(--text-xl--line-height));\n  }\n  .text-xs {\n    font-size: var(--text-xs);\n    line-height: var(--tw-leading, var(--text-xs--line-height));\n  }\n  .font-bold {\n    --tw-font-weight: var(--font-weight-bold);\n    font-weight: var(--font-weight-bold);\n  }\n  .font-light {\n    --tw-font-weight: var(--font-weight-light);\n    font-weight: var(--font-weight-light);\n  }\n  .font-medium {\n    --tw-font-weight: var(--font-weight-medium);\n    font-weight: var(--font-weight-medium);\n  }\n  .font-semibold {\n    --tw-font-weight: var(--font-weight-semibold);\n    font-weight: var(--font-weight-semibold);\n  }\n  .tracking-tight {\n    --tw-tracking: var(--tracking-tight);\n    letter-spacing: var(--tracking-tight);\n  }\n  .tracking-wide {\n    --tw-tracking: var(--tracking-wide);\n    letter-spacing: var(--tracking-wide);\n  }\n  .tracking-widest {\n    --tw-tracking: var(--tracking-widest);\n    letter-spacing: var(--tracking-widest);\n  }\n  .text-\\[\\#00d084\\] {\n    color: #00d084;\n  }\n  .text-\\[\\#001f3f\\] {\n    color: #001f3f;\n  }\n  .text-blue-500 {\n    color: var(--color-blue-500);\n  }\n  .text-gray-300 {\n    color: var(--color-gray-300);\n  }\n  .text-gray-400 {\n    color: var(--color-gray-400);\n  }\n  .text-gray-500 {\n    color: var(--color-gray-500);\n  }\n  .text-gray-600 {\n    color: var(--color-gray-600);\n  }\n  .text-gray-800 {\n    color: var(--color-gray-800);\n  }\n  .text-red-200 {\n    color: var(--color-red-200);\n  }\n  .text-red-400 {\n    color: var(--color-red-400);\n  }\n  .text-white {\n    color: var(--color-white);\n  }\n  .uppercase {\n    text-transform: uppercase;\n  }\n  .italic {\n    font-style: italic;\n  }\n  .opacity-5 {\n    opacity: 5%;\n  }\n  .opacity-10 {\n    opacity: 10%;\n  }\n  .opacity-30 {\n    opacity: 30%;\n  }\n  .opacity-50 {\n    opacity: 50%;\n  }\n  .opacity-60 {\n    opacity: 60%;\n  }\n  .opacity-70 {\n    opacity: 70%;\n  }\n  .opacity-80 {\n    opacity: 80%;\n  }\n  .shadow-2xl {\n    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-lg {\n    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .shadow-sm {\n    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));\n    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n  }\n  .drop-shadow-lg {\n    --tw-drop-shadow-size: drop-shadow(0 4px 4px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.15)));\n    --tw-drop-shadow: drop-shadow(var(--drop-shadow-lg));\n    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);\n  }\n  .transition {\n    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .transition-all {\n    transition-property: all;\n    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));\n    transition-duration: var(--tw-duration, var(--default-transition-duration));\n  }\n  .duration-200 {\n    --tw-duration: 200ms;\n    transition-duration: 200ms;\n  }\n  .duration-300 {\n    --tw-duration: 300ms;\n    transition-duration: 300ms;\n  }\n  .outline-none {\n    --tw-outline-style: none;\n    outline-style: none;\n  }\n  .select-none {\n    -webkit-user-select: none;\n    user-select: none;\n  }\n  .hover\\:-translate-y-1 {\n    &:hover {\n      @media (hover: hover) {\n        --tw-translate-y: calc(var(--spacing) * -1);\n        translate: var(--tw-translate-x) var(--tw-translate-y);\n      }\n    }\n  }\n  .hover\\:scale-110 {\n    &:hover {\n      @media (hover: hover) {\n        --tw-scale-x: 110%;\n        --tw-scale-y: 110%;\n        --tw-scale-z: 110%;\n        scale: var(--tw-scale-x) var(--tw-scale-y);\n      }\n    }\n  }\n  .hover\\:rotate-90 {\n    &:hover {\n      @media (hover: hover) {\n        rotate: 90deg;\n      }\n    }\n  }\n  .hover\\:border-white\\/30 {\n    &:hover {\n      @media (hover: hover) {\n        border-color: color-mix(in srgb, #fff 30%, transparent);\n        @supports (color: color-mix(in lab, red, red)) {\n          border-color: color-mix(in oklab, var(--color-white) 30%, transparent);\n        }\n      }\n    }\n  }\n  .hover\\:bg-\\[\\#00d4ff\\] {\n    &:hover {\n      @media (hover: hover) {\n        background-color: #00d4ff;\n      }\n    }\n  }\n  .hover\\:bg-\\[\\#003d6b\\] {\n    &:hover {\n      @media (hover: hover) {\n        background-color: #003d6b;\n      }\n    }\n  }\n  .hover\\:bg-blue-800 {\n    &:hover {\n      @media (hover: hover) {\n        background-color: var(--color-blue-800);\n      }\n    }\n  }\n  .hover\\:bg-emerald-800 {\n    &:hover {\n      @media (hover: hover) {\n        background-color: var(--color-emerald-800);\n      }\n    }\n  }\n  .hover\\:bg-gray-50 {\n    &:hover {\n      @media (hover: hover) {\n        background-color: var(--color-gray-50);\n      }\n    }\n  }\n  .hover\\:bg-red-700 {\n    &:hover {\n      @media (hover: hover) {\n        background-color: var(--color-red-700);\n      }\n    }\n  }\n  .hover\\:text-blue-700 {\n    &:hover {\n      @media (hover: hover) {\n        color: var(--color-blue-700);\n      }\n    }\n  }\n  .hover\\:text-red-400 {\n    &:hover {\n      @media (hover: hover) {\n        color: var(--color-red-400);\n      }\n    }\n  }\n  .hover\\:text-red-600 {\n    &:hover {\n      @media (hover: hover) {\n        color: var(--color-red-600);\n      }\n    }\n  }\n  .hover\\:text-white {\n    &:hover {\n      @media (hover: hover) {\n        color: var(--color-white);\n      }\n    }\n  }\n  .hover\\:opacity-100 {\n    &:hover {\n      @media (hover: hover) {\n        opacity: 100%;\n      }\n    }\n  }\n  .hover\\:shadow-2xl {\n    &:hover {\n      @media (hover: hover) {\n        --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));\n        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n      }\n    }\n  }\n  .focus\\:border-\\[\\#001f3f\\] {\n    &:focus {\n      border-color: #001f3f;\n    }\n  }\n  .focus\\:ring-2 {\n    &:focus {\n      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);\n      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);\n    }\n  }\n  .focus\\:ring-\\[\\#001f3f\\]\\/20 {\n    &:focus {\n      --tw-ring-color: color-mix(in oklab, #001f3f 20%, transparent);\n    }\n  }\n  .focus\\:outline-none {\n    &:focus {\n      --tw-outline-style: none;\n      outline-style: none;\n    }\n  }\n  .active\\:translate-y-0 {\n    &:active {\n      --tw-translate-y: calc(var(--spacing) * 0);\n      translate: var(--tw-translate-x) var(--tw-translate-y);\n    }\n  }\n  .md\\:grid-cols-4 {\n    @media (width >= 48rem) {\n      grid-template-columns: repeat(4, minmax(0, 1fr));\n    }\n  }\n  .lg\\:grid-cols-7 {\n    @media (width >= 64rem) {\n      grid-template-columns: repeat(7, minmax(0, 1fr));\n    }\n  }\n}\n:root {\n  --navy: #001f3f;\n  --navy-mid: #003d6b;\n  --green: #00d084;\n  --cyan: #00d4ff;\n  --font-main: 'Space Grotesk', sans-serif;\n  --font-mono: 'JetBrains Mono', monospace;\n}\n* {\n  font-family: var(--font-main);\n}\nbody {\n  background: #f0f4f8;\n  overflow-x: hidden;\n}\n::-webkit-scrollbar {\n  width: 6px;\n  height: 6px;\n}\n::-webkit-scrollbar-track {\n  background: #f0f4f8;\n}\n::-webkit-scrollbar-thumb {\n  background: var(--navy-mid);\n  border-radius: 3px;\n}\n@keyframes fadeUp {\n  from {\n    opacity: 0;\n    transform: translateY(16px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n@keyframes float {\n  0%, 100% {\n    transform: translateY(0);\n  }\n  50% {\n    transform: translateY(18px);\n  }\n}\n@keyframes slideIn {\n  from {\n    opacity: 0;\n    transform: scale(0.95);\n  }\n  to {\n    opacity: 1;\n    transform: scale(1);\n  }\n}\n@keyframes pulse-green {\n  0%, 100% {\n    box-shadow: 0 0 0 0 rgba(0, 208, 132, 0.4);\n  }\n  50% {\n    box-shadow: 0 0 0 8px rgba(0, 208, 132, 0);\n  }\n}\n.animate-fadeUp {\n  animation: fadeUp 0.35s ease forwards;\n}\n.animate-float {\n  animation: float 6s ease-in-out infinite;\n}\n.animate-slideIn {\n  animation: slideIn 0.25s ease forwards;\n}\n.animate-pulse-g {\n  animation: pulse-green 2s infinite;\n}\ntbody tr:nth-child(even) {\n  background-color: #f8fafc;\n}\ntbody tr:hover {\n  background-color: #e8f4fd !important;\n  transition: background 0.15s;\n}\n.nav-active {\n  color: var(--green) !important;\n  border-bottom: 2px solid var(--green);\n}\n.modal-backdrop {\n  background: rgba(0, 15, 35, 0.6);\n  backdrop-filter: blur(4px);\n}\n@property --tw-rotate-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-rotate-z {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-x {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-skew-y {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-space-y-reverse {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-border-style {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: solid;\n}\n@property --tw-gradient-position {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-via {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-to {\n  syntax: \"<color>\";\n  inherits: false;\n  initial-value: #0000;\n}\n@property --tw-gradient-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-via-stops {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-gradient-from-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 0%;\n}\n@property --tw-gradient-via-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 50%;\n}\n@property --tw-gradient-to-position {\n  syntax: \"<length-percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-font-weight {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-tracking {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-inset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-inset-ring-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-inset-ring-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-ring-inset {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-ring-offset-width {\n  syntax: \"<length>\";\n  inherits: false;\n  initial-value: 0px;\n}\n@property --tw-ring-offset-color {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: #fff;\n}\n@property --tw-ring-offset-shadow {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0 0 #0000;\n}\n@property --tw-blur {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-brightness {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-contrast {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-grayscale {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-hue-rotate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-invert {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-opacity {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-saturate {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-sepia {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-color {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-drop-shadow-alpha {\n  syntax: \"<percentage>\";\n  inherits: false;\n  initial-value: 100%;\n}\n@property --tw-drop-shadow-size {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-duration {\n  syntax: \"*\";\n  inherits: false;\n}\n@property --tw-translate-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-translate-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 0;\n}\n@property --tw-scale-x {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 1;\n}\n@property --tw-scale-y {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 1;\n}\n@property --tw-scale-z {\n  syntax: \"*\";\n  inherits: false;\n  initial-value: 1;\n}\n@keyframes bounce {\n  0%, 100% {\n    transform: translateY(-25%);\n    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);\n  }\n  50% {\n    transform: none;\n    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);\n  }\n}\n@layer properties {\n  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {\n    *, ::before, ::after, ::backdrop {\n      --tw-rotate-x: initial;\n      --tw-rotate-y: initial;\n      --tw-rotate-z: initial;\n      --tw-skew-x: initial;\n      --tw-skew-y: initial;\n      --tw-space-y-reverse: 0;\n      --tw-border-style: solid;\n      --tw-gradient-position: initial;\n      --tw-gradient-from: #0000;\n      --tw-gradient-via: #0000;\n      --tw-gradient-to: #0000;\n      --tw-gradient-stops: initial;\n      --tw-gradient-via-stops: initial;\n      --tw-gradient-from-position: 0%;\n      --tw-gradient-via-position: 50%;\n      --tw-gradient-to-position: 100%;\n      --tw-font-weight: initial;\n      --tw-tracking: initial;\n      --tw-shadow: 0 0 #0000;\n      --tw-shadow-color: initial;\n      --tw-shadow-alpha: 100%;\n      --tw-inset-shadow: 0 0 #0000;\n      --tw-inset-shadow-color: initial;\n      --tw-inset-shadow-alpha: 100%;\n      --tw-ring-color: initial;\n      --tw-ring-shadow: 0 0 #0000;\n      --tw-inset-ring-color: initial;\n      --tw-inset-ring-shadow: 0 0 #0000;\n      --tw-ring-inset: initial;\n      --tw-ring-offset-width: 0px;\n      --tw-ring-offset-color: #fff;\n      --tw-ring-offset-shadow: 0 0 #0000;\n      --tw-blur: initial;\n      --tw-brightness: initial;\n      --tw-contrast: initial;\n      --tw-grayscale: initial;\n      --tw-hue-rotate: initial;\n      --tw-invert: initial;\n      --tw-opacity: initial;\n      --tw-saturate: initial;\n      --tw-sepia: initial;\n      --tw-drop-shadow: initial;\n      --tw-drop-shadow-color: initial;\n      --tw-drop-shadow-alpha: 100%;\n      --tw-drop-shadow-size: initial;\n      --tw-duration: initial;\n      --tw-translate-x: 0;\n      --tw-translate-y: 0;\n      --tw-translate-z: 0;\n      --tw-scale-x: 1;\n      --tw-scale-y: 1;\n      --tw-scale-z: 1;\n    }\n  }\n}\n"
-__vite__updateStyle(__vite__id, __vite__css)
-import.meta.hot.accept()
-import.meta.hot.prune(() => __vite__removeStyle(__vite__id))
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/pages/Elementos.tsx");const useState = __vite__cjsImport0_react["useState"]; const useMemo = __vite__cjsImport0_react["useMemo"]; const useRef = __vite__cjsImport0_react["useRef"];const _jsxDEV = __vite__cjsImport4_react_jsxDevRuntime["jsxDEV"];import __vite__cjsImport0_react from "/node_modules/.vite/deps/react.js?v=f55781d8";
+import { Plus, Upload, Download, Search, Pencil, Trash2 } from "/node_modules/.vite/deps/lucide-react.js?v=f55781d8";
+import * as XLSX from "/node_modules/.vite/deps/xlsx.js?v=f55781d8";
+import { Modal, ConfirmModal } from "/src/components/Modal.tsx?t=1778584765809";
+var _jsxFileName = "C:/Curso/Delphi Tabela periodica/Win32/Debug/HTML/src/pages/Elementos.tsx";
+import __vite__cjsImport4_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=f55781d8";
+var _s = $RefreshSig$();
+// Componente auxiliar: label com asterisco vermelho
+function Label({ children, required, extra }) {
+	return /* @__PURE__ */ _jsxDEV("label", {
+		className: "text-xs font-bold text-gray-400 uppercase block mb-2",
+		children: [
+			children,
+			required && /* @__PURE__ */ _jsxDEV("span", {
+				className: "text-red-500 font-bold ml-0.5",
+				children: "*"
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 32,
+				columnNumber: 20
+			}, this),
+			extra && /* @__PURE__ */ _jsxDEV("span", {
+				className: "normal-case font-normal",
+				children: [" — ", extra]
+			}, void 0, true, {
+				fileName: _jsxFileName,
+				lineNumber: 33,
+				columnNumber: 17
+			}, this)
+		]
+	}, void 0, true, {
+		fileName: _jsxFileName,
+		lineNumber: 30,
+		columnNumber: 5
+	}, this);
+}
+_c = Label;
+export function Elementos({ elementos, grupos, periodos, familias, categorias, enviar, onRefresh }) {
+	_s();
+	const fileRef = useRef(null);
+	const [filtros, setFiltros] = useState({
+		categoria: "",
+		numero: "",
+		simbolo: "",
+		nome: "",
+		grupo: "",
+		periodo: "",
+		familia: ""
+	});
+	const [modalOpen, setModalOpen] = useState(false);
+	const [editItem, setEditItem] = useState(null);
+	const [deleteItem, setDeleteItem] = useState(null);
+	const [form, setForm] = useState({
+		numero_atomico: "",
+		simbolo: "",
+		nome: "",
+		massa_atomica: "",
+		grupo_id: "",
+		periodo_id: "",
+		familia_id: "",
+		categoria_quimica_id: ""
+	});
+	const filtrados = useMemo(() => {
+		return elementos.filter((el) => (!filtros.categoria || el.categoria_quimica === filtros.categoria) && (!filtros.numero || el.numero_atomico === filtros.numero) && (!filtros.simbolo || el.simbolo.toLowerCase().includes(filtros.simbolo.toLowerCase())) && (!filtros.nome || el.nome.toLowerCase().includes(filtros.nome.toLowerCase())) && (!filtros.grupo || el.grupo === filtros.grupo) && (!filtros.periodo || el.periodo === filtros.periodo) && (!filtros.familia || el.familia === filtros.familia));
+	}, [elementos, filtros]);
+	function abrirNovo() {
+		setEditItem(null);
+		setForm({
+			numero_atomico: "",
+			simbolo: "",
+			nome: "",
+			massa_atomica: "",
+			grupo_id: "",
+			periodo_id: "",
+			familia_id: "",
+			categoria_quimica_id: ""
+		});
+		setModalOpen(true);
+	}
+	function abrirEditar(el) {
+		setEditItem(el);
+		setForm({
+			numero_atomico: el.numero_atomico,
+			simbolo: el.simbolo,
+			nome: el.nome,
+			massa_atomica: el.massa_atomica,
+			grupo_id: grupos.find((g) => g.descricao === el.grupo)?.grupoId ?? "",
+			periodo_id: periodos.find((p) => p.descricao === el.periodo)?.periodoId ?? "",
+			familia_id: familias.find((f) => f.descricao === el.familia)?.familiaId ?? "",
+			categoria_quimica_id: categorias.find((c) => c.descricao === el.categoria_quimica)?.categoria_quimicaId ?? ""
+		});
+		setModalOpen(true);
+	}
+	function salvar() {
+		const base = {
+			numero_atomico: Number(form.numero_atomico),
+			simbolo: form.simbolo,
+			nome: form.nome,
+			massa_atomica: parseFloat(form.massa_atomica),
+			grupo_id: Number(form.grupo_id),
+			periodo_id: Number(form.periodo_id),
+			familia_id: Number(form.familia_id),
+			categoria_quimica_id: Number(form.categoria_quimica_id)
+		};
+		if (editItem) {
+			enviar({
+				acao: "atualizar",
+				entidade: "elemento",
+				elementoId: Number(editItem.elementoId),
+				...base
+			});
+		} else {
+			enviar({
+				acao: "inserir",
+				entidade: "elemento",
+				...base
+			});
+		}
+		setModalOpen(false);
+		setTimeout(onRefresh, 400);
+	}
+	function excluir() {
+		if (!deleteItem) return;
+		enviar({
+			acao: "apagar",
+			entidade: "elemento",
+			elementoId: Number(deleteItem.elementoId)
+		});
+		setDeleteItem(null);
+		setTimeout(onRefresh, 400);
+	}
+	function processarXLSX(e) {
+		const file = e.target.files?.[0];
+		if (!file) return;
+		const reader = new FileReader();
+		reader.onload = (ev) => {
+			const data = new Uint8Array(ev.target.result);
+			const wb = XLSX.read(data, { type: "array" });
+			const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+			enviar({
+				acao: "importar",
+				entidade: "elemento",
+				dados: rows
+			});
+			setTimeout(onRefresh, 600);
+		};
+		reader.readAsArrayBuffer(file);
+		e.target.value = "";
+	}
+	function exportarXML() {
+		if (filtrados.length === 0) {
+			alert("Nenhum elemento para exportar com os filtros atuais.");
+			return;
+		}
+		enviar({
+			acao: "exportar",
+			entidade: "elemento",
+			registros: filtrados
+		});
+	}
+	const setF = (k) => (e) => setFiltros((prev) => ({
+		...prev,
+		[k]: e.target.value
+	}));
+	const inputCls = "w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition bg-transparent";
+	const selectCls = "w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition bg-white";
+	return /* @__PURE__ */ _jsxDEV("div", {
+		className: "animate-fadeUp",
+		children: [
+			/* @__PURE__ */ _jsxDEV("div", {
+				className: "flex justify-between items-end mb-8",
+				children: [/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("h1", {
+					className: "text-4xl font-bold text-[#001f3f] mb-1",
+					children: "⚛️ Elementos Químicos"
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 146,
+					columnNumber: 11
+				}, this), /* @__PURE__ */ _jsxDEV("p", {
+					className: "text-gray-500 text-sm",
+					children: "Gerencie os elementos da tabela periódica"
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 147,
+					columnNumber: 11
+				}, this)] }, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 145,
+					columnNumber: 9
+				}, this), /* @__PURE__ */ _jsxDEV("div", {
+					className: "flex gap-3",
+					children: [
+						/* @__PURE__ */ _jsxDEV("input", {
+							type: "file",
+							ref: fileRef,
+							className: "hidden",
+							accept: ".xlsx,.xls",
+							onChange: processarXLSX
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 150,
+							columnNumber: 11
+						}, this),
+						/* @__PURE__ */ _jsxDEV("button", {
+							onClick: () => fileRef.current?.click(),
+							className: "flex items-center gap-2 bg-emerald-700 text-white px-4 py-2 rounded-xl font-semibold hover:bg-emerald-800 transition text-sm",
+							children: [/* @__PURE__ */ _jsxDEV(Upload, { size: 16 }, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 152,
+								columnNumber: 13
+							}, this), " Importar XLSX"]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 151,
+							columnNumber: 11
+						}, this),
+						/* @__PURE__ */ _jsxDEV("button", {
+							onClick: exportarXML,
+							className: "flex items-center gap-2 bg-blue-700 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-800 transition text-sm",
+							children: [/* @__PURE__ */ _jsxDEV(Download, { size: 16 }, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 155,
+								columnNumber: 13
+							}, this), " Exportar XML"]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 154,
+							columnNumber: 11
+						}, this)
+					]
+				}, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 149,
+					columnNumber: 9
+				}, this)]
+			}, void 0, true, {
+				fileName: _jsxFileName,
+				lineNumber: 144,
+				columnNumber: 7
+			}, this),
+			/* @__PURE__ */ _jsxDEV("div", {
+				className: "bg-white p-5 rounded-2xl shadow-sm border border-gray-100 mb-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3",
+				children: [
+					/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("label", {
+						className: "text-xs font-bold text-gray-400 uppercase block mb-1",
+						children: "Categoria"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 163,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("select", {
+						value: filtros.categoria,
+						onChange: setF("categoria"),
+						className: "w-full border rounded-lg p-2 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#001f3f]/20",
+						children: [/* @__PURE__ */ _jsxDEV("option", {
+							value: "",
+							children: "Todas"
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 165,
+							columnNumber: 13
+						}, this), categorias.map((c) => /* @__PURE__ */ _jsxDEV("option", {
+							value: c.descricao,
+							children: c.descricao
+						}, c.categoria_quimicaId, false, {
+							fileName: _jsxFileName,
+							lineNumber: 166,
+							columnNumber: 34
+						}, this))]
+					}, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 164,
+						columnNumber: 11
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 162,
+						columnNumber: 9
+					}, this),
+					/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("label", {
+						className: "text-xs font-bold text-gray-400 uppercase block mb-1",
+						children: "Nº Atômico"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 170,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("input", {
+						type: "number",
+						value: filtros.numero,
+						onChange: setF("numero"),
+						placeholder: "Ex: 1",
+						className: "w-full border rounded-lg p-2 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#001f3f]/20"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 171,
+						columnNumber: 11
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 169,
+						columnNumber: 9
+					}, this),
+					/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("label", {
+						className: "text-xs font-bold text-gray-400 uppercase block mb-1",
+						children: "Símbolo"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 174,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("input", {
+						type: "text",
+						value: filtros.simbolo,
+						onChange: setF("simbolo"),
+						placeholder: "Ex: H",
+						className: "w-full border rounded-lg p-2 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#001f3f]/20"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 175,
+						columnNumber: 11
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 173,
+						columnNumber: 9
+					}, this),
+					/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("label", {
+						className: "text-xs font-bold text-gray-400 uppercase block mb-1",
+						children: "Nome"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 178,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("input", {
+						type: "text",
+						value: filtros.nome,
+						onChange: setF("nome"),
+						placeholder: "Ex: Hidrogênio",
+						className: "w-full border rounded-lg p-2 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#001f3f]/20"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 179,
+						columnNumber: 11
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 177,
+						columnNumber: 9
+					}, this),
+					/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("label", {
+						className: "text-xs font-bold text-gray-400 uppercase block mb-1",
+						children: "Grupo"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 182,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("select", {
+						value: filtros.grupo,
+						onChange: setF("grupo"),
+						className: "w-full border rounded-lg p-2 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#001f3f]/20",
+						children: [/* @__PURE__ */ _jsxDEV("option", {
+							value: "",
+							children: "Todos"
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 184,
+							columnNumber: 13
+						}, this), grupos.map((g) => /* @__PURE__ */ _jsxDEV("option", {
+							value: g.descricao,
+							children: g.descricao
+						}, g.grupoId, false, {
+							fileName: _jsxFileName,
+							lineNumber: 185,
+							columnNumber: 30
+						}, this))]
+					}, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 183,
+						columnNumber: 11
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 181,
+						columnNumber: 9
+					}, this),
+					/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("label", {
+						className: "text-xs font-bold text-gray-400 uppercase block mb-1",
+						children: "Período"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 189,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("select", {
+						value: filtros.periodo,
+						onChange: setF("periodo"),
+						className: "w-full border rounded-lg p-2 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#001f3f]/20",
+						children: [/* @__PURE__ */ _jsxDEV("option", {
+							value: "",
+							children: "Todos"
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 191,
+							columnNumber: 13
+						}, this), periodos.map((p) => /* @__PURE__ */ _jsxDEV("option", {
+							value: p.descricao,
+							children: p.descricao
+						}, p.periodoId, false, {
+							fileName: _jsxFileName,
+							lineNumber: 192,
+							columnNumber: 32
+						}, this))]
+					}, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 190,
+						columnNumber: 11
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 188,
+						columnNumber: 9
+					}, this),
+					/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV("label", {
+						className: "text-xs font-bold text-gray-400 uppercase block mb-1",
+						children: "Família"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 196,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("select", {
+						value: filtros.familia,
+						onChange: setF("familia"),
+						className: "w-full border rounded-lg p-2 text-sm bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#001f3f]/20",
+						children: [/* @__PURE__ */ _jsxDEV("option", {
+							value: "",
+							children: "Todas"
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 198,
+							columnNumber: 13
+						}, this), familias.map((f) => /* @__PURE__ */ _jsxDEV("option", {
+							value: f.descricao,
+							children: f.descricao
+						}, f.familiaId, false, {
+							fileName: _jsxFileName,
+							lineNumber: 199,
+							columnNumber: 32
+						}, this))]
+					}, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 197,
+						columnNumber: 11
+					}, this)] }, void 0, true, {
+						fileName: _jsxFileName,
+						lineNumber: 195,
+						columnNumber: 9
+					}, this)
+				]
+			}, void 0, true, {
+				fileName: _jsxFileName,
+				lineNumber: 161,
+				columnNumber: 7
+			}, this),
+			/* @__PURE__ */ _jsxDEV("div", {
+				className: "flex justify-between items-center mb-4",
+				children: [/* @__PURE__ */ _jsxDEV("p", {
+					className: "text-sm text-gray-500 flex items-center gap-2",
+					children: [
+						/* @__PURE__ */ _jsxDEV(Search, { size: 14 }, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 207,
+							columnNumber: 11
+						}, this),
+						" ",
+						filtrados.length,
+						" de ",
+						elementos.length,
+						" elemento(s)"
+					]
+				}, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 206,
+					columnNumber: 9
+				}, this), /* @__PURE__ */ _jsxDEV("button", {
+					onClick: abrirNovo,
+					className: "flex items-center gap-2 bg-[#001f3f] text-white px-5 py-2 rounded-xl font-bold hover:bg-[#003d6b] transition text-sm",
+					children: [/* @__PURE__ */ _jsxDEV(Plus, { size: 16 }, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 210,
+						columnNumber: 11
+					}, this), " Novo Elemento"]
+				}, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 209,
+					columnNumber: 9
+				}, this)]
+			}, void 0, true, {
+				fileName: _jsxFileName,
+				lineNumber: 205,
+				columnNumber: 7
+			}, this),
+			/* @__PURE__ */ _jsxDEV("div", {
+				className: "bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden",
+				children: /* @__PURE__ */ _jsxDEV("table", {
+					className: "w-full text-sm",
+					children: [/* @__PURE__ */ _jsxDEV("thead", {
+						className: "bg-[#001f3f] text-white",
+						children: /* @__PURE__ */ _jsxDEV("tr", { children: [
+							"Nº",
+							"Símbolo",
+							"Nome",
+							"Massa",
+							"Grupo",
+							"Período",
+							"Família",
+							"Categoria",
+							""
+						].map((h) => /* @__PURE__ */ _jsxDEV("th", {
+							className: "px-4 py-3 text-left font-semibold tracking-wide",
+							children: h
+						}, h, false, {
+							fileName: _jsxFileName,
+							lineNumber: 220,
+							columnNumber: 17
+						}, this)) }, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 218,
+							columnNumber: 13
+						}, this)
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 217,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("tbody", { children: filtrados.length === 0 ? /* @__PURE__ */ _jsxDEV("tr", { children: /* @__PURE__ */ _jsxDEV("td", {
+						colSpan: 9,
+						className: "px-4 py-12 text-center text-gray-400 italic",
+						children: elementos.length === 0 ? "Aguardando dados do banco..." : "Nenhum resultado para os filtros."
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 227,
+						columnNumber: 17
+					}, this) }, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 226,
+						columnNumber: 15
+					}, this) : filtrados.map((el) => /* @__PURE__ */ _jsxDEV("tr", {
+						className: "border-b border-gray-50",
+						children: [
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3 font-mono text-gray-500",
+								children: el.numero_atomico
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 233,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3 font-bold text-[#001f3f] text-base",
+								children: el.simbolo
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 234,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3",
+								children: el.nome
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 235,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3 font-mono text-gray-500",
+								children: el.massa_atomica
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 236,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3",
+								children: el.grupo
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 237,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3",
+								children: el.periodo
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 238,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3",
+								children: el.familia
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 239,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3",
+								children: /* @__PURE__ */ _jsxDEV("span", {
+									className: "px-2 py-0.5 bg-[#001f3f]/10 text-[#001f3f] rounded text-xs font-medium",
+									children: el.categoria_quimica
+								}, void 0, false, {
+									fileName: _jsxFileName,
+									lineNumber: 241,
+									columnNumber: 19
+								}, this)
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 240,
+								columnNumber: 17
+							}, this),
+							/* @__PURE__ */ _jsxDEV("td", {
+								className: "px-4 py-3",
+								children: /* @__PURE__ */ _jsxDEV("div", {
+									className: "flex gap-2 justify-end",
+									children: [/* @__PURE__ */ _jsxDEV("button", {
+										onClick: () => abrirEditar(el),
+										className: "text-blue-500 hover:text-blue-700 hover:scale-110 transition",
+										title: "Editar",
+										children: /* @__PURE__ */ _jsxDEV(Pencil, { size: 16 }, void 0, false, {
+											fileName: _jsxFileName,
+											lineNumber: 248,
+											columnNumber: 23
+										}, this)
+									}, void 0, false, {
+										fileName: _jsxFileName,
+										lineNumber: 247,
+										columnNumber: 21
+									}, this), /* @__PURE__ */ _jsxDEV("button", {
+										onClick: () => setDeleteItem(el),
+										className: "text-red-400 hover:text-red-600 hover:scale-110 transition",
+										title: "Excluir",
+										children: /* @__PURE__ */ _jsxDEV(Trash2, { size: 16 }, void 0, false, {
+											fileName: _jsxFileName,
+											lineNumber: 251,
+											columnNumber: 23
+										}, this)
+									}, void 0, false, {
+										fileName: _jsxFileName,
+										lineNumber: 250,
+										columnNumber: 21
+									}, this)]
+								}, void 0, true, {
+									fileName: _jsxFileName,
+									lineNumber: 246,
+									columnNumber: 19
+								}, this)
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 245,
+								columnNumber: 17
+							}, this)
+						]
+					}, el.elementoId, true, {
+						fileName: _jsxFileName,
+						lineNumber: 232,
+						columnNumber: 15
+					}, this)) }, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 224,
+						columnNumber: 11
+					}, this)]
+				}, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 216,
+					columnNumber: 9
+				}, this)
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 215,
+				columnNumber: 7
+			}, this),
+			modalOpen && /* @__PURE__ */ _jsxDEV(Modal, {
+				title: editItem ? `Editar: ${editItem.nome}` : "Novo Elemento",
+				onClose: () => setModalOpen(false),
+				children: /* @__PURE__ */ _jsxDEV("div", {
+					className: "space-y-5",
+					children: [
+						/* @__PURE__ */ _jsxDEV("div", {
+							className: "grid grid-cols-2 gap-4",
+							children: [/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, {
+								required: true,
+								children: "Nº Atômico"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 268,
+								columnNumber: 17
+							}, this), /* @__PURE__ */ _jsxDEV("input", {
+								type: "number",
+								min: 1,
+								max: 999,
+								value: form.numero_atomico,
+								onChange: (e) => setForm((p) => ({
+									...p,
+									numero_atomico: e.target.value
+								})),
+								className: inputCls
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 269,
+								columnNumber: 17
+							}, this)] }, void 0, true, {
+								fileName: _jsxFileName,
+								lineNumber: 267,
+								columnNumber: 15
+							}, this), /* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, {
+								required: true,
+								extra: `${form.simbolo.length}/5`,
+								children: "Símbolo"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 274,
+								columnNumber: 17
+							}, this), /* @__PURE__ */ _jsxDEV("input", {
+								type: "text",
+								value: form.simbolo,
+								maxLength: 5,
+								onChange: (e) => setForm((p) => ({
+									...p,
+									simbolo: e.target.value
+								})),
+								className: inputCls
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 275,
+								columnNumber: 17
+							}, this)] }, void 0, true, {
+								fileName: _jsxFileName,
+								lineNumber: 273,
+								columnNumber: 15
+							}, this)]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 266,
+							columnNumber: 13
+						}, this),
+						/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, {
+							required: true,
+							extra: `${form.nome.length}/50`,
+							children: "Nome"
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 282,
+							columnNumber: 15
+						}, this), /* @__PURE__ */ _jsxDEV("input", {
+							type: "text",
+							value: form.nome,
+							maxLength: 50,
+							onChange: (e) => setForm((p) => ({
+								...p,
+								nome: e.target.value
+							})),
+							className: inputCls
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 283,
+							columnNumber: 15
+						}, this)] }, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 281,
+							columnNumber: 13
+						}, this),
+						/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, {
+							extra: "DECIMAL(10,4) — máx: 999999.9999",
+							children: "Massa Atômica"
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 289,
+							columnNumber: 15
+						}, this), /* @__PURE__ */ _jsxDEV("input", {
+							type: "text",
+							value: form.massa_atomica,
+							onChange: (e) => {
+								let valor = e.target.value.replace(/[^0-9.]/g, "");
+								const partes = valor.split(".");
+								if (partes.length > 2) valor = partes[0] + "." + partes.slice(1).join("");
+								if (valor.includes(".")) {
+									const [inteira, decimal] = valor.split(".");
+									if (inteira.length > 6) return;
+									if (decimal.length > 4) return;
+								} else {
+									if (valor.length > 6) return;
+								}
+								setForm((p) => ({
+									...p,
+									massa_atomica: valor
+								}));
+							},
+							placeholder: "0.0000",
+							className: inputCls
+						}, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 290,
+							columnNumber: 15
+						}, this)] }, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 288,
+							columnNumber: 13
+						}, this),
+						/* @__PURE__ */ _jsxDEV("div", {
+							className: "grid grid-cols-2 gap-4",
+							children: [/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, {
+								required: true,
+								children: "Grupo"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 313,
+								columnNumber: 17
+							}, this), /* @__PURE__ */ _jsxDEV("select", {
+								value: form.grupo_id,
+								onChange: (e) => setForm((p) => ({
+									...p,
+									grupo_id: e.target.value
+								})),
+								className: selectCls,
+								children: [/* @__PURE__ */ _jsxDEV("option", {
+									value: "",
+									children: "Selecione..."
+								}, void 0, false, {
+									fileName: _jsxFileName,
+									lineNumber: 315,
+									columnNumber: 19
+								}, this), grupos.map((g) => /* @__PURE__ */ _jsxDEV("option", {
+									value: g.grupoId,
+									children: g.descricao
+								}, g.grupoId, false, {
+									fileName: _jsxFileName,
+									lineNumber: 316,
+									columnNumber: 36
+								}, this))]
+							}, void 0, true, {
+								fileName: _jsxFileName,
+								lineNumber: 314,
+								columnNumber: 17
+							}, this)] }, void 0, true, {
+								fileName: _jsxFileName,
+								lineNumber: 312,
+								columnNumber: 15
+							}, this), /* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, {
+								required: true,
+								children: "Período"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 320,
+								columnNumber: 17
+							}, this), /* @__PURE__ */ _jsxDEV("select", {
+								value: form.periodo_id,
+								onChange: (e) => setForm((p) => ({
+									...p,
+									periodo_id: e.target.value
+								})),
+								className: selectCls,
+								children: [/* @__PURE__ */ _jsxDEV("option", {
+									value: "",
+									children: "Selecione..."
+								}, void 0, false, {
+									fileName: _jsxFileName,
+									lineNumber: 322,
+									columnNumber: 19
+								}, this), periodos.map((p) => /* @__PURE__ */ _jsxDEV("option", {
+									value: p.periodoId,
+									children: p.descricao
+								}, p.periodoId, false, {
+									fileName: _jsxFileName,
+									lineNumber: 323,
+									columnNumber: 38
+								}, this))]
+							}, void 0, true, {
+								fileName: _jsxFileName,
+								lineNumber: 321,
+								columnNumber: 17
+							}, this)] }, void 0, true, {
+								fileName: _jsxFileName,
+								lineNumber: 319,
+								columnNumber: 15
+							}, this)]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 311,
+							columnNumber: 13
+						}, this),
+						/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, { children: "Família" }, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 329,
+							columnNumber: 15
+						}, this), /* @__PURE__ */ _jsxDEV("select", {
+							value: form.familia_id,
+							onChange: (e) => setForm((p) => ({
+								...p,
+								familia_id: e.target.value
+							})),
+							className: selectCls,
+							children: [/* @__PURE__ */ _jsxDEV("option", {
+								value: "",
+								children: "Selecione..."
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 331,
+								columnNumber: 17
+							}, this), familias.map((f) => /* @__PURE__ */ _jsxDEV("option", {
+								value: f.familiaId,
+								children: f.descricao
+							}, f.familiaId, false, {
+								fileName: _jsxFileName,
+								lineNumber: 332,
+								columnNumber: 36
+							}, this))]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 330,
+							columnNumber: 15
+						}, this)] }, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 328,
+							columnNumber: 13
+						}, this),
+						/* @__PURE__ */ _jsxDEV("div", { children: [/* @__PURE__ */ _jsxDEV(Label, { children: "Categoria Química" }, void 0, false, {
+							fileName: _jsxFileName,
+							lineNumber: 337,
+							columnNumber: 15
+						}, this), /* @__PURE__ */ _jsxDEV("select", {
+							value: form.categoria_quimica_id,
+							onChange: (e) => setForm((p) => ({
+								...p,
+								categoria_quimica_id: e.target.value
+							})),
+							className: selectCls,
+							children: [/* @__PURE__ */ _jsxDEV("option", {
+								value: "",
+								children: "Selecione..."
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 339,
+								columnNumber: 17
+							}, this), categorias.map((c) => /* @__PURE__ */ _jsxDEV("option", {
+								value: c.categoria_quimicaId,
+								children: c.descricao
+							}, c.categoria_quimicaId, false, {
+								fileName: _jsxFileName,
+								lineNumber: 340,
+								columnNumber: 38
+							}, this))]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 338,
+							columnNumber: 15
+						}, this)] }, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 336,
+							columnNumber: 13
+						}, this),
+						/* @__PURE__ */ _jsxDEV("p", {
+							className: "text-xs text-gray-400",
+							children: [/* @__PURE__ */ _jsxDEV("span", {
+								className: "text-red-500 font-bold",
+								children: "*"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 346,
+								columnNumber: 15
+							}, this), " Campos obrigatórios"]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 345,
+							columnNumber: 13
+						}, this),
+						/* @__PURE__ */ _jsxDEV("div", {
+							className: "flex justify-end gap-3 pt-2 border-t border-gray-100",
+							children: [/* @__PURE__ */ _jsxDEV("button", {
+								onClick: () => setModalOpen(false),
+								className: "px-5 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition text-sm",
+								children: "Cancelar"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 350,
+								columnNumber: 15
+							}, this), /* @__PURE__ */ _jsxDEV("button", {
+								onClick: salvar,
+								className: "px-5 py-2 bg-[#001f3f] text-white rounded-xl font-bold hover:bg-[#003d6b] transition text-sm",
+								children: editItem ? "Atualizar" : "Salvar no Banco"
+							}, void 0, false, {
+								fileName: _jsxFileName,
+								lineNumber: 353,
+								columnNumber: 15
+							}, this)]
+						}, void 0, true, {
+							fileName: _jsxFileName,
+							lineNumber: 349,
+							columnNumber: 13
+						}, this)
+					]
+				}, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 264,
+					columnNumber: 11
+				}, this)
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 263,
+				columnNumber: 9
+			}, this),
+			deleteItem && /* @__PURE__ */ _jsxDEV(ConfirmModal, {
+				mensagem: `Deseja excluir "${deleteItem.nome}" do banco de dados?`,
+				onConfirm: excluir,
+				onCancel: () => setDeleteItem(null)
+			}, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 362,
+				columnNumber: 9
+			}, this)
+		]
+	}, void 0, true, {
+		fileName: _jsxFileName,
+		lineNumber: 142,
+		columnNumber: 5
+	}, this);
+}
+_s(Elementos, "DujvnP4oq1HxHQ11ichksdeukEM=");
+_c2 = Elementos;
+var _c, _c2;
+$RefreshReg$(_c, "Label");
+$RefreshReg$(_c2, "Elementos");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/pages/Elementos.tsx?t=1778584765809";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Curso/Delphi Tabela periodica/Win32/Debug/HTML/src/pages/Elementos.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Curso/Delphi Tabela periodica/Win32/Debug/HTML/src/pages/Elementos.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "C:/Curso/Delphi Tabela periodica/Win32/Debug/HTML/src/pages/Elementos.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,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RSxDQUFDLENBQ3ZHOzs7OztlQUNMOzs7OztNQUdOLHdCQUFDLEtBQUQ7T0FBRyxXQUFVO2lCQUFiLENBQ0Usd0JBQUMsUUFBRDtRQUFNLFdBQVU7a0JBQXlCO1FBQVE7Ozs7d0NBQy9DOzs7Ozs7TUFFSix3QkFBQyxPQUFEO09BQUssV0FBVTtpQkFBZixDQUNFLHdCQUFDLFVBQUQ7UUFBUSxlQUFlLGFBQWEsTUFBTTtRQUFFLFdBQVU7a0JBQWdIO1FBRTdKOzs7O2lCQUNULHdCQUFDLFVBQUQ7UUFBUSxTQUFTO1FBQVEsV0FBVTtrQkFDaEMsV0FBVyxjQUFjO1FBQ25COzs7O2dCQUNMOzs7Ozs7TUFDRjs7Ozs7O0lBQ0E7Ozs7O0dBR1QsY0FDQyx3QkFBQyxjQUFEO0lBQ0UsVUFBVSxtQkFBbUIsV0FBVyxLQUFLO0lBQzdDLFdBQVc7SUFDWCxnQkFBZ0IsY0FBYyxLQUFLO0lBQ25DOzs7OztHQUVBOzs7Ozs7OzZDQUVUIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkVsZW1lbnRvcy50c3giXSwidmVyc2lvbiI6Mywic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlU3RhdGUsIHVzZU1lbW8sIHVzZVJlZiB9IGZyb20gJ3JlYWN0J1xuaW1wb3J0IHsgUGx1cywgVXBsb2FkLCBEb3dubG9hZCwgU2VhcmNoLCBQZW5jaWwsIFRyYXNoMiB9IGZyb20gJ2x1Y2lkZS1yZWFjdCdcbmltcG9ydCAqIGFzIFhMU1ggZnJvbSAneGxzeCdcbmltcG9ydCB7IE1vZGFsLCBDb25maXJtTW9kYWwgfSBmcm9tICdAL2NvbXBvbmVudHMvTW9kYWwnXG5pbXBvcnQgdHlwZSB7IEVsZW1lbnRvLCBHcnVwbywgUGVyaW9kbywgRmFtaWxpYSwgQ2F0ZWdvcmlhUXVpbWljYSwgTXNnUGFyYURlbHBoaSB9IGZyb20gJ0AvdHlwZXMnXG5cbmludGVyZmFjZSBFbGVtZW50b3NQcm9wcyB7XG4gIGVsZW1lbnRvczogRWxlbWVudG9bXVxuICBncnVwb3M6IEdydXBvW11cbiAgcGVyaW9kb3M6IFBlcmlvZG9bXVxuICBmYW1pbGlhczogRmFtaWxpYVtdXG4gIGNhdGVnb3JpYXM6IENhdGVnb3JpYVF1aW1pY2FbXVxuICBlbnZpYXI6IChtc2c6IE1zZ1BhcmFEZWxwaGkpID0+IHZvaWRcbiAgb25SZWZyZXNoOiAoKSA9PiB2b2lkXG59XG5cbmludGVyZmFjZSBGaWx0cm9zIHtcbiAgY2F0ZWdvcmlhOiBzdHJpbmdcbiAgbnVtZXJvOiBzdHJpbmdcbiAgc2ltYm9sbzogc3RyaW5nXG4gIG5vbWU6IHN0cmluZ1xuICBncnVwbzogc3RyaW5nXG4gIHBlcmlvZG86IHN0cmluZ1xuICBmYW1pbGlhOiBzdHJpbmdcbn1cblxuLy8gQ29tcG9uZW50ZSBhdXhpbGlhcjogbGFiZWwgY29tIGFzdGVyaXNjbyB2ZXJtZWxob1xuZnVuY3Rpb24gTGFiZWwoeyBjaGlsZHJlbiwgcmVxdWlyZWQsIGV4dHJhIH06IHsgY2hpbGRyZW46IFJlYWN0LlJlYWN0Tm9kZTsgcmVxdWlyZWQ/OiBib29sZWFuOyBleHRyYT86IHN0cmluZyB9KSB7XG4gIHJldHVybiAoXG4gICAgPGxhYmVsIGNsYXNzTmFtZT1cInRleHQteHMgZm9udC1ib2xkIHRleHQtZ3JheS00MDAgdXBwZXJjYXNlIGJsb2NrIG1iLTJcIj5cbiAgICAgIHtjaGlsZHJlbn1cbiAgICAgIHtyZXF1aXJlZCAmJiA8c3BhbiBjbGFzc05hbWU9XCJ0ZXh0LXJlZC01MDAgZm9udC1ib2xkIG1sLTAuNVwiPio8L3NwYW4+fVxuICAgICAge2V4dHJhICYmIDxzcGFuIGNsYXNzTmFtZT1cIm5vcm1hbC1jYXNlIGZvbnQtbm9ybWFsXCI+IOKAlCB7ZXh0cmF9PC9zcGFuPn1cbiAgICA8L2xhYmVsPlxuICApXG59XG5cbmV4cG9ydCBmdW5jdGlvbiBFbGVtZW50b3MoeyBlbGVtZW50b3MsIGdydXBvcywgcGVyaW9kb3MsIGZhbWlsaWFzLCBjYXRlZ29yaWFzLCBlbnZpYXIsIG9uUmVmcmVzaCB9OiBFbGVtZW50b3NQcm9wcykge1xuICBjb25zdCBmaWxlUmVmID0gdXNlUmVmPEhUTUxJbnB1dEVsZW1lbnQ+KG51bGwpXG4gIGNvbnN0IFtmaWx0cm9zLCBzZXRGaWx0cm9zXSA9IHVzZVN0YXRlPEZpbHRyb3M+KHtcbiAgICBjYXRlZ29yaWE6ICcnLCBudW1lcm86ICcnLCBzaW1ib2xvOiAnJywgbm9tZTogJycsIGdydXBvOiAnJywgcGVyaW9kbzogJycsIGZhbWlsaWE6ICcnXG4gIH0pXG4gIGNvbnN0IFttb2RhbE9wZW4sIHNldE1vZGFsT3Blbl0gPSB1c2VTdGF0ZShmYWxzZSlcbiAgY29uc3QgW2VkaXRJdGVtLCBzZXRFZGl0SXRlbV0gPSB1c2VTdGF0ZTxFbGVtZW50byB8IG51bGw+KG51bGwpXG4gIGNvbnN0IFtkZWxldGVJdGVtLCBzZXREZWxldGVJdGVtXSA9IHVzZVN0YXRlPEVsZW1lbnRvIHwgbnVsbD4obnVsbClcblxuICBjb25zdCBbZm9ybSwgc2V0Rm9ybV0gPSB1c2VTdGF0ZSh7XG4gICAgbnVtZXJvX2F0b21pY286ICcnLCBzaW1ib2xvOiAnJywgbm9tZTogJycsIG1hc3NhX2F0b21pY2E6ICcnLFxuICAgIGdydXBvX2lkOiAnJywgcGVyaW9kb19pZDogJycsIGZhbWlsaWFfaWQ6ICcnLCBjYXRlZ29yaWFfcXVpbWljYV9pZDogJydcbiAgfSlcblxuICBjb25zdCBmaWx0cmFkb3MgPSB1c2VNZW1vKCgpID0+IHtcbiAgICByZXR1cm4gZWxlbWVudG9zLmZpbHRlcihlbCA9PiAoXG4gICAgICAoIWZpbHRyb3MuY2F0ZWdvcmlhIHx8IGVsLmNhdGVnb3JpYV9xdWltaWNhID09PSBmaWx0cm9zLmNhdGVnb3JpYSkgJiZcbiAgICAgICghZmlsdHJvcy5udW1lcm8gICAgfHwgZWwubnVtZXJvX2F0b21pY28gPT09IGZpbHRyb3MubnVtZXJvKSAmJlxuICAgICAgKCFmaWx0cm9zLnNpbWJvbG8gICB8fCBlbC5zaW1ib2xvLnRvTG93ZXJDYXNlKCkuaW5jbHVkZXMoZmlsdHJvcy5zaW1ib2xvLnRvTG93ZXJDYXNlKCkpKSAmJlxuICAgICAgKCFmaWx0cm9zLm5vbWUgICAgICB8fCBlbC5ub21lLnRvTG93ZXJDYXNlKCkuaW5jbHVkZXMoZmlsdHJvcy5ub21lLnRvTG93ZXJDYXNlKCkpKSAmJlxuICAgICAgKCFmaWx0cm9zLmdydXBvICAgICB8fCBlbC5ncnVwbyA9PT0gZmlsdHJvcy5ncnVwbykgJiZcbiAgICAgICghZmlsdHJvcy5wZXJpb2RvICAgfHwgZWwucGVyaW9kbyA9PT0gZmlsdHJvcy5wZXJpb2RvKSAmJlxuICAgICAgKCFmaWx0cm9zLmZhbWlsaWEgICB8fCBlbC5mYW1pbGlhID09PSBmaWx0cm9zLmZhbWlsaWEpXG4gICAgKSlcbiAgfSwgW2VsZW1lbnRvcywgZmlsdHJvc10pXG5cbiAgZnVuY3Rpb24gYWJyaXJOb3ZvKCkge1xuICAgIHNldEVkaXRJdGVtKG51bGwpXG4gICAgc2V0Rm9ybSh7IG51bWVyb19hdG9taWNvOiAnJywgc2ltYm9sbzogJycsIG5vbWU6ICcnLCBtYXNzYV9hdG9taWNhOiAnJywgZ3J1cG9faWQ6ICcnLCBwZXJpb2RvX2lkOiAnJywgZmFtaWxpYV9pZDogJycsIGNhdGVnb3JpYV9xdWltaWNhX2lkOiAnJyB9KVxuICAgIHNldE1vZGFsT3Blbih0cnVlKVxuICB9XG5cbiAgZnVuY3Rpb24gYWJyaXJFZGl0YXIoZWw6IEVsZW1lbnRvKSB7XG4gICAgc2V0RWRpdEl0ZW0oZWwpXG4gICAgc2V0Rm9ybSh7XG4gICAgICBudW1lcm9fYXRvbWljbzogICAgICAgZWwubnVtZXJvX2F0b21pY28sXG4gICAgICBzaW1ib2xvOiAgICAgICAgICAgICAgZWwuc2ltYm9sbyxcbiAgICAgIG5vbWU6ICAgICAgICAgICAgICAgICBlbC5ub21lLFxuICAgICAgbWFzc2FfYXRvbWljYTogICAgICAgIGVsLm1hc3NhX2F0b21pY2EsXG4gICAgICBncnVwb19pZDogICAgICAgICAgICAgZ3J1cG9zLmZpbmQoZyA9PiBnLmRlc2NyaWNhbyA9PT0gZWwuZ3J1cG8pPy5ncnVwb0lkID8/ICcnLFxuICAgICAgcGVyaW9kb19pZDogICAgICAgICAgIHBlcmlvZG9zLmZpbmQocCA9PiBwLmRlc2NyaWNhbyA9PT0gZWwucGVyaW9kbyk/LnBlcmlvZG9JZCA/PyAnJyxcbiAgICAgIGZhbWlsaWFfaWQ6ICAgICAgICAgICBmYW1pbGlhcy5maW5kKGYgPT4gZi5kZXNjcmljYW8gPT09IGVsLmZhbWlsaWEpPy5mYW1pbGlhSWQgPz8gJycsXG4gICAgICBjYXRlZ29yaWFfcXVpbWljYV9pZDogY2F0ZWdvcmlhcy5maW5kKGMgPT4gYy5kZXNjcmljYW8gPT09IGVsLmNhdGVnb3JpYV9xdWltaWNhKT8uY2F0ZWdvcmlhX3F1aW1pY2FJZCA/PyAnJyxcbiAgICB9KVxuICAgIHNldE1vZGFsT3Blbih0cnVlKVxuICB9XG5cbiAgZnVuY3Rpb24gc2FsdmFyKCkge1xuICAgIGNvbnN0IGJhc2UgPSB7XG4gICAgICBudW1lcm9fYXRvbWljbzogICAgICAgTnVtYmVyKGZvcm0ubnVtZXJvX2F0b21pY28pLFxuICAgICAgc2ltYm9sbzogICAgICAgICAgICAgIGZvcm0uc2ltYm9sbyxcbiAgICAgIG5vbWU6ICAgICAgICAgICAgICAgICBmb3JtLm5vbWUsXG4gICAgICBtYXNzYV9hdG9taWNhOiAgICAgICAgcGFyc2VGbG9hdChmb3JtLm1hc3NhX2F0b21pY2EpLFxuICAgICAgZ3J1cG9faWQ6ICAgICAgICAgICAgIE51bWJlcihmb3JtLmdydXBvX2lkKSxcbiAgICAgIHBlcmlvZG9faWQ6ICAgICAgICAgICBOdW1iZXIoZm9ybS5wZXJpb2RvX2lkKSxcbiAgICAgIGZhbWlsaWFfaWQ6ICAgICAgICAgICBOdW1iZXIoZm9ybS5mYW1pbGlhX2lkKSxcbiAgICAgIGNhdGVnb3JpYV9xdWltaWNhX2lkOiBOdW1iZXIoZm9ybS5jYXRlZ29yaWFfcXVpbWljYV9pZCksXG4gICAgfVxuICAgIGlmIChlZGl0SXRlbSkge1xuICAgICAgZW52aWFyKHsgYWNhbzogJ2F0dWFsaXphcicsIGVudGlkYWRlOiAnZWxlbWVudG8nLCBlbGVtZW50b0lkOiBOdW1iZXIoZWRpdEl0ZW0uZWxlbWVudG9JZCksIC4uLmJhc2UgfSlcbiAgICB9IGVsc2Uge1xuICAgICAgZW52aWFyKHsgYWNhbzogJ2luc2VyaXInLCBlbnRpZGFkZTogJ2VsZW1lbnRvJywgLi4uYmFzZSB9KVxuICAgIH1cbiAgICBzZXRNb2RhbE9wZW4oZmFsc2UpXG4gICAgc2V0VGltZW91dChvblJlZnJlc2gsIDQwMClcbiAgfVxuXG4gIGZ1bmN0aW9uIGV4Y2x1aXIoKSB7XG4gICAgaWYgKCFkZWxldGVJdGVtKSByZXR1cm5cbiAgICBlbnZpYXIoeyBhY2FvOiAnYXBhZ2FyJywgZW50aWRhZGU6ICdlbGVtZW50bycsIGVsZW1lbnRvSWQ6IE51bWJlcihkZWxldGVJdGVtLmVsZW1lbnRvSWQpIH0pXG4gICAgc2V0RGVsZXRlSXRlbShudWxsKVxuICAgIHNldFRpbWVvdXQob25SZWZyZXNoLCA0MDApXG4gIH1cblxuICBmdW5jdGlvbiBwcm9jZXNzYXJYTFNYKGU6IFJlYWN0LkNoYW5nZUV2ZW50PEhUTUxJbnB1dEVsZW1lbnQ+KSB7XG4gICAgY29uc3QgZmlsZSA9IGUudGFyZ2V0LmZpbGVzPy5bMF1cbiAgICBpZiAoIWZpbGUpIHJldHVyblxuICAgIGNvbnN0IHJlYWRlciA9IG5ldyBGaWxlUmVhZGVyKClcbiAgICByZWFkZXIub25sb2FkID0gKGV2KSA9PiB7XG4gICAgICBjb25zdCBkYXRhID0gbmV3IFVpbnQ4QXJyYXkoZXYudGFyZ2V0IS5yZXN1bHQgYXMgQXJyYXlCdWZmZXIpXG4gICAgICBjb25zdCB3YiA9IFhMU1gucmVhZChkYXRhLCB7IHR5cGU6ICdhcnJheScgfSlcbiAgICAgIGNvbnN0IHJvd3MgPSBYTFNYLnV0aWxzLnNoZWV0X3RvX2pzb24od2IuU2hlZXRzW3diLlNoZWV0TmFtZXNbMF1dKVxuICAgICAgZW52aWFyKHsgYWNhbzogJ2ltcG9ydGFyJywgZW50aWRhZGU6ICdlbGVtZW50bycsIGRhZG9zOiByb3dzIH0pXG4gICAgICBzZXRUaW1lb3V0KG9uUmVmcmVzaCwgNjAwKVxuICAgIH1cbiAgICByZWFkZXIucmVhZEFzQXJyYXlCdWZmZXIoZmlsZSlcbiAgICBlLnRhcmdldC52YWx1ZSA9ICcnXG4gIH1cblxuICBmdW5jdGlvbiBleHBvcnRhclhNTCgpIHtcbiAgICBpZiAoZmlsdHJhZG9zLmxlbmd0aCA9PT0gMCkge1xuICAgICAgYWxlcnQoJ05lbmh1bSBlbGVtZW50byBwYXJhIGV4cG9ydGFyIGNvbSBvcyBmaWx0cm9zIGF0dWFpcy4nKVxuICAgICAgcmV0dXJuXG4gICAgfVxuICAgIGVudmlhcih7IGFjYW86ICdleHBvcnRhcicsIGVudGlkYWRlOiAnZWxlbWVudG8nLCByZWdpc3Ryb3M6IGZpbHRyYWRvcyB9KVxuICB9XG5cbiAgY29uc3Qgc2V0RiA9IChrOiBrZXlvZiBGaWx0cm9zKSA9PiAoZTogUmVhY3QuQ2hhbmdlRXZlbnQ8SFRNTElucHV0RWxlbWVudCB8IEhUTUxTZWxlY3RFbGVtZW50PikgPT5cbiAgICBzZXRGaWx0cm9zKHByZXYgPT4gKHsgLi4ucHJldiwgW2tdOiBlLnRhcmdldC52YWx1ZSB9KSlcblxuICBjb25zdCBpbnB1dENscyA9IFwidy1mdWxsIGJvcmRlci1iLTIgYm9yZGVyLWdyYXktMjAwIGZvY3VzOmJvcmRlci1bIzAwMWYzZl0gcC0yIG91dGxpbmUtbm9uZSB0ZXh0LXNtIHRyYW5zaXRpb24gYmctdHJhbnNwYXJlbnRcIlxuICBjb25zdCBzZWxlY3RDbHMgPSBcInctZnVsbCBib3JkZXItYi0yIGJvcmRlci1ncmF5LTIwMCBmb2N1czpib3JkZXItWyMwMDFmM2ZdIHAtMiBvdXRsaW5lLW5vbmUgdGV4dC1zbSB0cmFuc2l0aW9uIGJnLXdoaXRlXCJcblxuICByZXR1cm4gKFxuICAgIDxkaXYgY2xhc3NOYW1lPVwiYW5pbWF0ZS1mYWRlVXBcIj5cbiAgICAgIHsvKiBIZWFkZXIgKi99XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cImZsZXgganVzdGlmeS1iZXR3ZWVuIGl0ZW1zLWVuZCBtYi04XCI+XG4gICAgICAgIDxkaXY+XG4gICAgICAgICAgPGgxIGNsYXNzTmFtZT1cInRleHQtNHhsIGZvbnQtYm9sZCB0ZXh0LVsjMDAxZjNmXSBtYi0xXCI+4pqb77iPIEVsZW1lbnRvcyBRdcOtbWljb3M8L2gxPlxuICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQtZ3JheS01MDAgdGV4dC1zbVwiPkdlcmVuY2llIG9zIGVsZW1lbnRvcyBkYSB0YWJlbGEgcGVyacOzZGljYTwvcD5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBnYXAtM1wiPlxuICAgICAgICAgIDxpbnB1dCB0eXBlPVwiZmlsZVwiIHJlZj17ZmlsZVJlZn0gY2xhc3NOYW1lPVwiaGlkZGVuXCIgYWNjZXB0PVwiLnhsc3gsLnhsc1wiIG9uQ2hhbmdlPXtwcm9jZXNzYXJYTFNYfSAvPlxuICAgICAgICAgIDxidXR0b24gb25DbGljaz17KCkgPT4gZmlsZVJlZi5jdXJyZW50Py5jbGljaygpfSBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLWNlbnRlciBnYXAtMiBiZy1lbWVyYWxkLTcwMCB0ZXh0LXdoaXRlIHB4LTQgcHktMiByb3VuZGVkLXhsIGZvbnQtc2VtaWJvbGQgaG92ZXI6YmctZW1lcmFsZC04MDAgdHJhbnNpdGlvbiB0ZXh0LXNtXCI+XG4gICAgICAgICAgICA8VXBsb2FkIHNpemU9ezE2fSAvPiBJbXBvcnRhciBYTFNYXG4gICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXtleHBvcnRhclhNTH0gY2xhc3NOYW1lPVwiZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTIgYmctYmx1ZS03MDAgdGV4dC13aGl0ZSBweC00IHB5LTIgcm91bmRlZC14bCBmb250LXNlbWlib2xkIGhvdmVyOmJnLWJsdWUtODAwIHRyYW5zaXRpb24gdGV4dC1zbVwiPlxuICAgICAgICAgICAgPERvd25sb2FkIHNpemU9ezE2fSAvPiBFeHBvcnRhciBYTUxcbiAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cblxuICAgICAgey8qIEZpbHRyb3MgKi99XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cImJnLXdoaXRlIHAtNSByb3VuZGVkLTJ4bCBzaGFkb3ctc20gYm9yZGVyIGJvcmRlci1ncmF5LTEwMCBtYi02IGdyaWQgZ3JpZC1jb2xzLTIgbWQ6Z3JpZC1jb2xzLTQgbGc6Z3JpZC1jb2xzLTcgZ2FwLTNcIj5cbiAgICAgICAgPGRpdj5cbiAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPVwidGV4dC14cyBmb250LWJvbGQgdGV4dC1ncmF5LTQwMCB1cHBlcmNhc2UgYmxvY2sgbWItMVwiPkNhdGVnb3JpYTwvbGFiZWw+XG4gICAgICAgICAgPHNlbGVjdCB2YWx1ZT17ZmlsdHJvcy5jYXRlZ29yaWF9IG9uQ2hhbmdlPXtzZXRGKCdjYXRlZ29yaWEnKX0gY2xhc3NOYW1lPVwidy1mdWxsIGJvcmRlciByb3VuZGVkLWxnIHAtMiB0ZXh0LXNtIGJnLWdyYXktNTAgZm9jdXM6b3V0bGluZS1ub25lIGZvY3VzOnJpbmctMiBmb2N1czpyaW5nLVsjMDAxZjNmXS8yMFwiPlxuICAgICAgICAgICAgPG9wdGlvbiB2YWx1ZT1cIlwiPlRvZGFzPC9vcHRpb24+XG4gICAgICAgICAgICB7Y2F0ZWdvcmlhcy5tYXAoYyA9PiA8b3B0aW9uIGtleT17Yy5jYXRlZ29yaWFfcXVpbWljYUlkfSB2YWx1ZT17Yy5kZXNjcmljYW99PntjLmRlc2NyaWNhb308L29wdGlvbj4pfVxuICAgICAgICAgIDwvc2VsZWN0PlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdj5cbiAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPVwidGV4dC14cyBmb250LWJvbGQgdGV4dC1ncmF5LTQwMCB1cHBlcmNhc2UgYmxvY2sgbWItMVwiPk7CuiBBdMO0bWljbzwvbGFiZWw+XG4gICAgICAgICAgPGlucHV0IHR5cGU9XCJudW1iZXJcIiB2YWx1ZT17ZmlsdHJvcy5udW1lcm99IG9uQ2hhbmdlPXtzZXRGKCdudW1lcm8nKX0gcGxhY2Vob2xkZXI9XCJFeDogMVwiIGNsYXNzTmFtZT1cInctZnVsbCBib3JkZXIgcm91bmRlZC1sZyBwLTIgdGV4dC1zbSBiZy1ncmF5LTUwIGZvY3VzOm91dGxpbmUtbm9uZSBmb2N1czpyaW5nLTIgZm9jdXM6cmluZy1bIzAwMWYzZl0vMjBcIiAvPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdj5cbiAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPVwidGV4dC14cyBmb250LWJvbGQgdGV4dC1ncmF5LTQwMCB1cHBlcmNhc2UgYmxvY2sgbWItMVwiPlPDrW1ib2xvPC9sYWJlbD5cbiAgICAgICAgICA8aW5wdXQgdHlwZT1cInRleHRcIiB2YWx1ZT17ZmlsdHJvcy5zaW1ib2xvfSBvbkNoYW5nZT17c2V0Rignc2ltYm9sbycpfSBwbGFjZWhvbGRlcj1cIkV4OiBIXCIgY2xhc3NOYW1lPVwidy1mdWxsIGJvcmRlciByb3VuZGVkLWxnIHAtMiB0ZXh0LXNtIGJnLWdyYXktNTAgZm9jdXM6b3V0bGluZS1ub25lIGZvY3VzOnJpbmctMiBmb2N1czpyaW5nLVsjMDAxZjNmXS8yMFwiIC8+XG4gICAgICAgIDwvZGl2PlxuICAgICAgICA8ZGl2PlxuICAgICAgICAgIDxsYWJlbCBjbGFzc05hbWU9XCJ0ZXh0LXhzIGZvbnQtYm9sZCB0ZXh0LWdyYXktNDAwIHVwcGVyY2FzZSBibG9jayBtYi0xXCI+Tm9tZTwvbGFiZWw+XG4gICAgICAgICAgPGlucHV0IHR5cGU9XCJ0ZXh0XCIgdmFsdWU9e2ZpbHRyb3Mubm9tZX0gb25DaGFuZ2U9e3NldEYoJ25vbWUnKX0gcGxhY2Vob2xkZXI9XCJFeDogSGlkcm9nw6puaW9cIiBjbGFzc05hbWU9XCJ3LWZ1bGwgYm9yZGVyIHJvdW5kZWQtbGcgcC0yIHRleHQtc20gYmctZ3JheS01MCBmb2N1czpvdXRsaW5lLW5vbmUgZm9jdXM6cmluZy0yIGZvY3VzOnJpbmctWyMwMDFmM2ZdLzIwXCIgLz5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXY+XG4gICAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT1cInRleHQteHMgZm9udC1ib2xkIHRleHQtZ3JheS00MDAgdXBwZXJjYXNlIGJsb2NrIG1iLTFcIj5HcnVwbzwvbGFiZWw+XG4gICAgICAgICAgPHNlbGVjdCB2YWx1ZT17ZmlsdHJvcy5ncnVwb30gb25DaGFuZ2U9e3NldEYoJ2dydXBvJyl9IGNsYXNzTmFtZT1cInctZnVsbCBib3JkZXIgcm91bmRlZC1sZyBwLTIgdGV4dC1zbSBiZy1ncmF5LTUwIGZvY3VzOm91dGxpbmUtbm9uZSBmb2N1czpyaW5nLTIgZm9jdXM6cmluZy1bIzAwMWYzZl0vMjBcIj5cbiAgICAgICAgICAgIDxvcHRpb24gdmFsdWU9XCJcIj5Ub2Rvczwvb3B0aW9uPlxuICAgICAgICAgICAge2dydXBvcy5tYXAoZyA9PiA8b3B0aW9uIGtleT17Zy5ncnVwb0lkfSB2YWx1ZT17Zy5kZXNjcmljYW99PntnLmRlc2NyaWNhb308L29wdGlvbj4pfVxuICAgICAgICAgIDwvc2VsZWN0PlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdj5cbiAgICAgICAgICA8bGFiZWwgY2xhc3NOYW1lPVwidGV4dC14cyBmb250LWJvbGQgdGV4dC1ncmF5LTQwMCB1cHBlcmNhc2UgYmxvY2sgbWItMVwiPlBlcsOtb2RvPC9sYWJlbD5cbiAgICAgICAgICA8c2VsZWN0IHZhbHVlPXtmaWx0cm9zLnBlcmlvZG99IG9uQ2hhbmdlPXtzZXRGKCdwZXJpb2RvJyl9IGNsYXNzTmFtZT1cInctZnVsbCBib3JkZXIgcm91bmRlZC1sZyBwLTIgdGV4dC1zbSBiZy1ncmF5LTUwIGZvY3VzOm91dGxpbmUtbm9uZSBmb2N1czpyaW5nLTIgZm9jdXM6cmluZy1bIzAwMWYzZl0vMjBcIj5cbiAgICAgICAgICAgIDxvcHRpb24gdmFsdWU9XCJcIj5Ub2Rvczwvb3B0aW9uPlxuICAgICAgICAgICAge3BlcmlvZG9zLm1hcChwID0+IDxvcHRpb24ga2V5PXtwLnBlcmlvZG9JZH0gdmFsdWU9e3AuZGVzY3JpY2FvfT57cC5kZXNjcmljYW99PC9vcHRpb24+KX1cbiAgICAgICAgICA8L3NlbGVjdD5cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXY+XG4gICAgICAgICAgPGxhYmVsIGNsYXNzTmFtZT1cInRleHQteHMgZm9udC1ib2xkIHRleHQtZ3JheS00MDAgdXBwZXJjYXNlIGJsb2NrIG1iLTFcIj5GYW3DrWxpYTwvbGFiZWw+XG4gICAgICAgICAgPHNlbGVjdCB2YWx1ZT17ZmlsdHJvcy5mYW1pbGlhfSBvbkNoYW5nZT17c2V0RignZmFtaWxpYScpfSBjbGFzc05hbWU9XCJ3LWZ1bGwgYm9yZGVyIHJvdW5kZWQtbGcgcC0yIHRleHQtc20gYmctZ3JheS01MCBmb2N1czpvdXRsaW5lLW5vbmUgZm9jdXM6cmluZy0yIGZvY3VzOnJpbmctWyMwMDFmM2ZdLzIwXCI+XG4gICAgICAgICAgICA8b3B0aW9uIHZhbHVlPVwiXCI+VG9kYXM8L29wdGlvbj5cbiAgICAgICAgICAgIHtmYW1pbGlhcy5tYXAoZiA9PiA8b3B0aW9uIGtleT17Zi5mYW1pbGlhSWR9IHZhbHVlPXtmLmRlc2NyaWNhb30+e2YuZGVzY3JpY2FvfTwvb3B0aW9uPil9XG4gICAgICAgICAgPC9zZWxlY3Q+XG4gICAgICAgIDwvZGl2PlxuICAgICAgPC9kaXY+XG5cbiAgICAgIHsvKiBUb29sYmFyICovfVxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGp1c3RpZnktYmV0d2VlbiBpdGVtcy1jZW50ZXIgbWItNFwiPlxuICAgICAgICA8cCBjbGFzc05hbWU9XCJ0ZXh0LXNtIHRleHQtZ3JheS01MDAgZmxleCBpdGVtcy1jZW50ZXIgZ2FwLTJcIj5cbiAgICAgICAgICA8U2VhcmNoIHNpemU9ezE0fSAvPiB7ZmlsdHJhZG9zLmxlbmd0aH0gZGUge2VsZW1lbnRvcy5sZW5ndGh9IGVsZW1lbnRvKHMpXG4gICAgICAgIDwvcD5cbiAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXthYnJpck5vdm99IGNsYXNzTmFtZT1cImZsZXggaXRlbXMtY2VudGVyIGdhcC0yIGJnLVsjMDAxZjNmXSB0ZXh0LXdoaXRlIHB4LTUgcHktMiByb3VuZGVkLXhsIGZvbnQtYm9sZCBob3ZlcjpiZy1bIzAwM2Q2Yl0gdHJhbnNpdGlvbiB0ZXh0LXNtXCI+XG4gICAgICAgICAgPFBsdXMgc2l6ZT17MTZ9IC8+IE5vdm8gRWxlbWVudG9cbiAgICAgICAgPC9idXR0b24+XG4gICAgICA8L2Rpdj5cblxuICAgICAgey8qIFRhYmVsYSAqL31cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiYmctd2hpdGUgcm91bmRlZC0yeGwgc2hhZG93LXNtIGJvcmRlciBib3JkZXItZ3JheS0xMDAgb3ZlcmZsb3ctaGlkZGVuXCI+XG4gICAgICAgIDx0YWJsZSBjbGFzc05hbWU9XCJ3LWZ1bGwgdGV4dC1zbVwiPlxuICAgICAgICAgIDx0aGVhZCBjbGFzc05hbWU9XCJiZy1bIzAwMWYzZl0gdGV4dC13aGl0ZVwiPlxuICAgICAgICAgICAgPHRyPlxuICAgICAgICAgICAgICB7WydOwronLCAnU8OtbWJvbG8nLCAnTm9tZScsICdNYXNzYScsICdHcnVwbycsICdQZXLDrW9kbycsICdGYW3DrWxpYScsICdDYXRlZ29yaWEnLCAnJ10ubWFwKGggPT4gKFxuICAgICAgICAgICAgICAgIDx0aCBrZXk9e2h9IGNsYXNzTmFtZT1cInB4LTQgcHktMyB0ZXh0LWxlZnQgZm9udC1zZW1pYm9sZCB0cmFja2luZy13aWRlXCI+e2h9PC90aD5cbiAgICAgICAgICAgICAgKSl9XG4gICAgICAgICAgICA8L3RyPlxuICAgICAgICAgIDwvdGhlYWQ+XG4gICAgICAgICAgPHRib2R5PlxuICAgICAgICAgICAge2ZpbHRyYWRvcy5sZW5ndGggPT09IDAgPyAoXG4gICAgICAgICAgICAgIDx0cj5cbiAgICAgICAgICAgICAgICA8dGQgY29sU3Bhbj17OX0gY2xhc3NOYW1lPVwicHgtNCBweS0xMiB0ZXh0LWNlbnRlciB0ZXh0LWdyYXktNDAwIGl0YWxpY1wiPlxuICAgICAgICAgICAgICAgICAge2VsZW1lbnRvcy5sZW5ndGggPT09IDAgPyAnQWd1YXJkYW5kbyBkYWRvcyBkbyBiYW5jby4uLicgOiAnTmVuaHVtIHJlc3VsdGFkbyBwYXJhIG9zIGZpbHRyb3MuJ31cbiAgICAgICAgICAgICAgICA8L3RkPlxuICAgICAgICAgICAgICA8L3RyPlxuICAgICAgICAgICAgKSA6IGZpbHRyYWRvcy5tYXAoZWwgPT4gKFxuICAgICAgICAgICAgICA8dHIga2V5PXtlbC5lbGVtZW50b0lkfSBjbGFzc05hbWU9XCJib3JkZXItYiBib3JkZXItZ3JheS01MFwiPlxuICAgICAgICAgICAgICAgIDx0ZCBjbGFzc05hbWU9XCJweC00IHB5LTMgZm9udC1tb25vIHRleHQtZ3JheS01MDBcIj57ZWwubnVtZXJvX2F0b21pY299PC90ZD5cbiAgICAgICAgICAgICAgICA8dGQgY2xhc3NOYW1lPVwicHgtNCBweS0zIGZvbnQtYm9sZCB0ZXh0LVsjMDAxZjNmXSB0ZXh0LWJhc2VcIj57ZWwuc2ltYm9sb308L3RkPlxuICAgICAgICAgICAgICAgIDx0ZCBjbGFzc05hbWU9XCJweC00IHB5LTNcIj57ZWwubm9tZX08L3RkPlxuICAgICAgICAgICAgICAgIDx0ZCBjbGFzc05hbWU9XCJweC00IHB5LTMgZm9udC1tb25vIHRleHQtZ3JheS01MDBcIj57ZWwubWFzc2FfYXRvbWljYX08L3RkPlxuICAgICAgICAgICAgICAgIDx0ZCBjbGFzc05hbWU9XCJweC00IHB5LTNcIj57ZWwuZ3J1cG99PC90ZD5cbiAgICAgICAgICAgICAgICA8dGQgY2xhc3NOYW1lPVwicHgtNCBweS0zXCI+e2VsLnBlcmlvZG99PC90ZD5cbiAgICAgICAgICAgICAgICA8dGQgY2xhc3NOYW1lPVwicHgtNCBweS0zXCI+e2VsLmZhbWlsaWF9PC90ZD5cbiAgICAgICAgICAgICAgICA8dGQgY2xhc3NOYW1lPVwicHgtNCBweS0zXCI+XG4gICAgICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJweC0yIHB5LTAuNSBiZy1bIzAwMWYzZl0vMTAgdGV4dC1bIzAwMWYzZl0gcm91bmRlZCB0ZXh0LXhzIGZvbnQtbWVkaXVtXCI+XG4gICAgICAgICAgICAgICAgICAgIHtlbC5jYXRlZ29yaWFfcXVpbWljYX1cbiAgICAgICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICAgICA8L3RkPlxuICAgICAgICAgICAgICAgIDx0ZCBjbGFzc05hbWU9XCJweC00IHB5LTNcIj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBnYXAtMiBqdXN0aWZ5LWVuZFwiPlxuICAgICAgICAgICAgICAgICAgICA8YnV0dG9uIG9uQ2xpY2s9eygpID0+IGFicmlyRWRpdGFyKGVsKX0gY2xhc3NOYW1lPVwidGV4dC1ibHVlLTUwMCBob3Zlcjp0ZXh0LWJsdWUtNzAwIGhvdmVyOnNjYWxlLTExMCB0cmFuc2l0aW9uXCIgdGl0bGU9XCJFZGl0YXJcIj5cbiAgICAgICAgICAgICAgICAgICAgICA8UGVuY2lsIHNpemU9ezE2fSAvPlxuICAgICAgICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgICAgICAgICAgPGJ1dHRvbiBvbkNsaWNrPXsoKSA9PiBzZXREZWxldGVJdGVtKGVsKX0gY2xhc3NOYW1lPVwidGV4dC1yZWQtNDAwIGhvdmVyOnRleHQtcmVkLTYwMCBob3ZlcjpzY2FsZS0xMTAgdHJhbnNpdGlvblwiIHRpdGxlPVwiRXhjbHVpclwiPlxuICAgICAgICAgICAgICAgICAgICAgIDxUcmFzaDIgc2l6ZT17MTZ9IC8+XG4gICAgICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgPC90ZD5cbiAgICAgICAgICAgICAgPC90cj5cbiAgICAgICAgICAgICkpfVxuICAgICAgICAgIDwvdGJvZHk+XG4gICAgICAgIDwvdGFibGU+XG4gICAgICA8L2Rpdj5cblxuICAgICAgey8qIE1vZGFsIEZvcm0gKi99XG4gICAgICB7bW9kYWxPcGVuICYmIChcbiAgICAgICAgPE1vZGFsIHRpdGxlPXtlZGl0SXRlbSA/IGBFZGl0YXI6ICR7ZWRpdEl0ZW0ubm9tZX1gIDogJ05vdm8gRWxlbWVudG8nfSBvbkNsb3NlPXsoKSA9PiBzZXRNb2RhbE9wZW4oZmFsc2UpfT5cbiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cInNwYWNlLXktNVwiPlxuXG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImdyaWQgZ3JpZC1jb2xzLTIgZ2FwLTRcIj5cbiAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICA8TGFiZWwgcmVxdWlyZWQ+TsK6IEF0w7RtaWNvPC9MYWJlbD5cbiAgICAgICAgICAgICAgICA8aW5wdXQgdHlwZT1cIm51bWJlclwiIG1pbj17MX0gbWF4PXs5OTl9IHZhbHVlPXtmb3JtLm51bWVyb19hdG9taWNvfVxuICAgICAgICAgICAgICAgICAgb25DaGFuZ2U9e2UgPT4gc2V0Rm9ybShwID0+ICh7IC4uLnAsIG51bWVyb19hdG9taWNvOiBlLnRhcmdldC52YWx1ZSB9KSl9XG4gICAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2lucHV0Q2xzfSAvPlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICA8TGFiZWwgcmVxdWlyZWQgZXh0cmE9e2Ake2Zvcm0uc2ltYm9sby5sZW5ndGh9LzVgfT5Tw61tYm9sbzwvTGFiZWw+XG4gICAgICAgICAgICAgICAgPGlucHV0IHR5cGU9XCJ0ZXh0XCIgdmFsdWU9e2Zvcm0uc2ltYm9sb30gbWF4TGVuZ3RoPXs1fVxuICAgICAgICAgICAgICAgICAgb25DaGFuZ2U9e2UgPT4gc2V0Rm9ybShwID0+ICh7IC4uLnAsIHNpbWJvbG86IGUudGFyZ2V0LnZhbHVlIH0pKX1cbiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT17aW5wdXRDbHN9IC8+XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICAgIDxMYWJlbCByZXF1aXJlZCBleHRyYT17YCR7Zm9ybS5ub21lLmxlbmd0aH0vNTBgfT5Ob21lPC9MYWJlbD5cbiAgICAgICAgICAgICAgPGlucHV0IHR5cGU9XCJ0ZXh0XCIgdmFsdWU9e2Zvcm0ubm9tZX0gbWF4TGVuZ3RoPXs1MH1cbiAgICAgICAgICAgICAgICBvbkNoYW5nZT17ZSA9PiBzZXRGb3JtKHAgPT4gKHsgLi4ucCwgbm9tZTogZS50YXJnZXQudmFsdWUgfSkpfVxuICAgICAgICAgICAgICAgIGNsYXNzTmFtZT17aW5wdXRDbHN9IC8+XG4gICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgPExhYmVsIGV4dHJhPVwiREVDSU1BTCgxMCw0KSDigJQgbcOheDogOTk5OTk5Ljk5OTlcIj5NYXNzYSBBdMO0bWljYTwvTGFiZWw+XG4gICAgICAgICAgICAgIDxpbnB1dFxuICAgICAgICAgICAgICAgIHR5cGU9XCJ0ZXh0XCJcbiAgICAgICAgICAgICAgICB2YWx1ZT17Zm9ybS5tYXNzYV9hdG9taWNhfVxuICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXtlID0+IHtcbiAgICAgICAgICAgICAgICAgIGxldCB2YWxvciA9IGUudGFyZ2V0LnZhbHVlLnJlcGxhY2UoL1teMC05Ll0vZywgJycpXG4gICAgICAgICAgICAgICAgICBjb25zdCBwYXJ0ZXMgPSB2YWxvci5zcGxpdCgnLicpXG4gICAgICAgICAgICAgICAgICBpZiAocGFydGVzLmxlbmd0aCA+IDIpIHZhbG9yID0gcGFydGVzWzBdICsgJy4nICsgcGFydGVzLnNsaWNlKDEpLmpvaW4oJycpXG4gICAgICAgICAgICAgICAgICBpZiAodmFsb3IuaW5jbHVkZXMoJy4nKSkge1xuICAgICAgICAgICAgICAgICAgICBjb25zdCBbaW50ZWlyYSwgZGVjaW1hbF0gPSB2YWxvci5zcGxpdCgnLicpXG4gICAgICAgICAgICAgICAgICAgIGlmIChpbnRlaXJhLmxlbmd0aCA+IDYpIHJldHVyblxuICAgICAgICAgICAgICAgICAgICBpZiAoZGVjaW1hbC5sZW5ndGggPiA0KSByZXR1cm5cbiAgICAgICAgICAgICAgICAgIH0gZWxzZSB7XG4gICAgICAgICAgICAgICAgICAgIGlmICh2YWxvci5sZW5ndGggPiA2KSByZXR1cm5cbiAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICAgIHNldEZvcm0ocCA9PiAoeyAuLi5wLCBtYXNzYV9hdG9taWNhOiB2YWxvciB9KSlcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPVwiMC4wMDAwXCJcbiAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2lucHV0Q2xzfVxuICAgICAgICAgICAgICAvPlxuICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZ3JpZCBncmlkLWNvbHMtMiBnYXAtNFwiPlxuICAgICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICAgIDxMYWJlbCByZXF1aXJlZD5HcnVwbzwvTGFiZWw+XG4gICAgICAgICAgICAgICAgPHNlbGVjdCB2YWx1ZT17Zm9ybS5ncnVwb19pZH0gb25DaGFuZ2U9e2UgPT4gc2V0Rm9ybShwID0+ICh7IC4uLnAsIGdydXBvX2lkOiBlLnRhcmdldC52YWx1ZSB9KSl9IGNsYXNzTmFtZT17c2VsZWN0Q2xzfT5cbiAgICAgICAgICAgICAgICAgIDxvcHRpb24gdmFsdWU9XCJcIj5TZWxlY2lvbmUuLi48L29wdGlvbj5cbiAgICAgICAgICAgICAgICAgIHtncnVwb3MubWFwKGcgPT4gPG9wdGlvbiBrZXk9e2cuZ3J1cG9JZH0gdmFsdWU9e2cuZ3J1cG9JZH0+e2cuZGVzY3JpY2FvfTwvb3B0aW9uPil9XG4gICAgICAgICAgICAgICAgPC9zZWxlY3Q+XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICAgIDxMYWJlbCByZXF1aXJlZD5QZXLDrW9kbzwvTGFiZWw+XG4gICAgICAgICAgICAgICAgPHNlbGVjdCB2YWx1ZT17Zm9ybS5wZXJpb2RvX2lkfSBvbkNoYW5nZT17ZSA9PiBzZXRGb3JtKHAgPT4gKHsgLi4ucCwgcGVyaW9kb19pZDogZS50YXJnZXQudmFsdWUgfSkpfSBjbGFzc05hbWU9e3NlbGVjdENsc30+XG4gICAgICAgICAgICAgICAgICA8b3B0aW9uIHZhbHVlPVwiXCI+U2VsZWNpb25lLi4uPC9vcHRpb24+XG4gICAgICAgICAgICAgICAgICB7cGVyaW9kb3MubWFwKHAgPT4gPG9wdGlvbiBrZXk9e3AucGVyaW9kb0lkfSB2YWx1ZT17cC5wZXJpb2RvSWR9PntwLmRlc2NyaWNhb308L29wdGlvbj4pfVxuICAgICAgICAgICAgICAgIDwvc2VsZWN0PlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICA8TGFiZWw+RmFtw61saWE8L0xhYmVsPlxuICAgICAgICAgICAgICA8c2VsZWN0IHZhbHVlPXtmb3JtLmZhbWlsaWFfaWR9IG9uQ2hhbmdlPXtlID0+IHNldEZvcm0ocCA9PiAoeyAuLi5wLCBmYW1pbGlhX2lkOiBlLnRhcmdldC52YWx1ZSB9KSl9IGNsYXNzTmFtZT17c2VsZWN0Q2xzfT5cbiAgICAgICAgICAgICAgICA8b3B0aW9uIHZhbHVlPVwiXCI+U2VsZWNpb25lLi4uPC9vcHRpb24+XG4gICAgICAgICAgICAgICAge2ZhbWlsaWFzLm1hcChmID0+IDxvcHRpb24ga2V5PXtmLmZhbWlsaWFJZH0gdmFsdWU9e2YuZmFtaWxpYUlkfT57Zi5kZXNjcmljYW99PC9vcHRpb24+KX1cbiAgICAgICAgICAgICAgPC9zZWxlY3Q+XG4gICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgPExhYmVsPkNhdGVnb3JpYSBRdcOtbWljYTwvTGFiZWw+XG4gICAgICAgICAgICAgIDxzZWxlY3QgdmFsdWU9e2Zvcm0uY2F0ZWdvcmlhX3F1aW1pY2FfaWR9IG9uQ2hhbmdlPXtlID0+IHNldEZvcm0ocCA9PiAoeyAuLi5wLCBjYXRlZ29yaWFfcXVpbWljYV9pZDogZS50YXJnZXQudmFsdWUgfSkpfSBjbGFzc05hbWU9e3NlbGVjdENsc30+XG4gICAgICAgICAgICAgICAgPG9wdGlvbiB2YWx1ZT1cIlwiPlNlbGVjaW9uZS4uLjwvb3B0aW9uPlxuICAgICAgICAgICAgICAgIHtjYXRlZ29yaWFzLm1hcChjID0+IDxvcHRpb24ga2V5PXtjLmNhdGVnb3JpYV9xdWltaWNhSWR9IHZhbHVlPXtjLmNhdGVnb3JpYV9xdWltaWNhSWR9PntjLmRlc2NyaWNhb308L29wdGlvbj4pfVxuICAgICAgICAgICAgICA8L3NlbGVjdD5cbiAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICB7LyogTGVnZW5kYSAqL31cbiAgICAgICAgICAgIDxwIGNsYXNzTmFtZT1cInRleHQteHMgdGV4dC1ncmF5LTQwMFwiPlxuICAgICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJ0ZXh0LXJlZC01MDAgZm9udC1ib2xkXCI+Kjwvc3Bhbj4gQ2FtcG9zIG9icmlnYXTDs3Jpb3NcbiAgICAgICAgICAgIDwvcD5cblxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGp1c3RpZnktZW5kIGdhcC0zIHB0LTIgYm9yZGVyLXQgYm9yZGVyLWdyYXktMTAwXCI+XG4gICAgICAgICAgICAgIDxidXR0b24gb25DbGljaz17KCkgPT4gc2V0TW9kYWxPcGVuKGZhbHNlKX0gY2xhc3NOYW1lPVwicHgtNSBweS0yIGJvcmRlci0yIGJvcmRlci1ncmF5LTIwMCByb3VuZGVkLXhsIGZvbnQtc2VtaWJvbGQgdGV4dC1ncmF5LTYwMCBob3ZlcjpiZy1ncmF5LTUwIHRyYW5zaXRpb24gdGV4dC1zbVwiPlxuICAgICAgICAgICAgICAgIENhbmNlbGFyXG4gICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICA8YnV0dG9uIG9uQ2xpY2s9e3NhbHZhcn0gY2xhc3NOYW1lPVwicHgtNSBweS0yIGJnLVsjMDAxZjNmXSB0ZXh0LXdoaXRlIHJvdW5kZWQteGwgZm9udC1ib2xkIGhvdmVyOmJnLVsjMDAzZDZiXSB0cmFuc2l0aW9uIHRleHQtc21cIj5cbiAgICAgICAgICAgICAgICB7ZWRpdEl0ZW0gPyAnQXR1YWxpemFyJyA6ICdTYWx2YXIgbm8gQmFuY28nfVxuICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICA8L01vZGFsPlxuICAgICAgKX1cblxuICAgICAge2RlbGV0ZUl0ZW0gJiYgKFxuICAgICAgICA8Q29uZmlybU1vZGFsXG4gICAgICAgICAgbWVuc2FnZW09e2BEZXNlamEgZXhjbHVpciBcIiR7ZGVsZXRlSXRlbS5ub21lfVwiIGRvIGJhbmNvIGRlIGRhZG9zP2B9XG4gICAgICAgICAgb25Db25maXJtPXtleGNsdWlyfVxuICAgICAgICAgIG9uQ2FuY2VsPXsoKSA9PiBzZXREZWxldGVJdGVtKG51bGwpfVxuICAgICAgICAvPlxuICAgICAgKX1cbiAgICA8L2Rpdj5cbiAgKVxufVxuIl19

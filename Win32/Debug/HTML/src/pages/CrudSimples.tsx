@@ -12,10 +12,10 @@ interface CrudSimplesProps {
   titulo: string
   icone: string
   subtitulo: string
-  entidade: string          // 'grupo' | 'periodo' | 'familia' | 'categoria_quimica'
-  idField: string           // 'grupoId' | 'periodoId' | 'familiaId' | 'categoria_quimicaId'
+  entidade: string
+  idField: string
   labelColuna: string
-  maxLengthDescricao: number  // limite do VARCHAR no banco (5 para grupo/periodo, 50 para familia/categoria)
+  maxLengthDescricao: number
   itens: ItemSimples[]
   enviar: (msg: MsgParaDelphi) => void
   onRefresh: () => void
@@ -111,11 +111,16 @@ export function CrudSimples({
       </div>
 
       {modalOpen && (
-        <Modal title={editItem ? `Editar ${titulo.replace(/s$/, '')}` : `Novo ${titulo.replace(/s$/, '')}`} onClose={() => setModalOpen(false)}>
-          <div className="space-y-6 min-w-0">
-            <div className="w-full">
+        <Modal
+          title={editItem ? `Editar ${titulo.replace(/s$/, '')}` : `Novo ${titulo.replace(/s$/, '')}`}
+          onClose={() => setModalOpen(false)}
+        >
+          <div className="space-y-6">
+            <div>
               <label className="text-xs font-bold text-gray-400 uppercase block mb-2">
-                {labelColuna} * — {descricao.length}/{maxLengthDescricao}
+                {labelColuna}
+                <span className="text-red-500 font-bold ml-0.5">*</span>
+                {' '}— {descricao.length}/{maxLengthDescricao}
               </label>
               <input
                 type="text"
@@ -127,11 +132,22 @@ export function CrudSimples({
                 className="w-full border-b-2 border-gray-200 focus:border-[#001f3f] p-2 outline-none text-sm transition"
               />
             </div>
-            <div className="flex justify-end gap-3 pt-2">
-              <button onClick={() => setModalOpen(false)} className="px-5 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition text-sm">
+
+            <p className="text-xs text-gray-400">
+              <span className="text-red-500 font-bold">*</span> Campo obrigatório
+            </p>
+
+            <div className="flex justify-end gap-3 pt-2 border-t border-gray-100">
+              <button
+                onClick={() => setModalOpen(false)}
+                className="px-5 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-600 hover:bg-gray-50 transition text-sm"
+              >
                 Cancelar
               </button>
-              <button onClick={salvar} className="px-5 py-2 bg-[#001f3f] text-white rounded-xl font-bold hover:bg-[#003d6b] transition text-sm">
+              <button
+                onClick={salvar}
+                className="px-5 py-2 bg-[#001f3f] text-white rounded-xl font-bold hover:bg-[#003d6b] transition text-sm"
+              >
                 {editItem ? 'Atualizar' : 'Salvar no Banco'}
               </button>
             </div>

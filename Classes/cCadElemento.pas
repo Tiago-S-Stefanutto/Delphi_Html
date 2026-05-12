@@ -21,6 +21,7 @@ type
       F_periodo : integer;
       F_familia : integer;
       F_categoria_quimica : Integer;
+    function ExisteElemento: string;
 
     public
       constructor Create(aConexao: TFDConnection);
@@ -59,6 +60,42 @@ implementation
 {$endRegion}
 
 { TElemento }
+
+function TElemento.ExisteElemento: string;
+var
+  Qry: TFDQuery;
+begin
+  Result := '';
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text :=
+      ' SELECT ' +
+      '   CASE ' +
+      '     WHEN numero_atomico = :numero_atomico THEN ''numero_atomico'' ' +
+      '     WHEN simbolo = :simbolo THEN ''simbolo'' ' +
+      '     WHEN nome = :nome THEN ''nome'' ' +
+      '   END AS campo ' +
+      ' FROM elemento ' +
+      ' WHERE numero_atomico = :numero_atomico ' +
+      '    OR simbolo = :simbolo ' +
+      '    OR nome = :nome ';
+
+    Qry.ParamByName('numero_atomico').AsInteger := Self.F_numero_atomico;
+    Qry.ParamByName('simbolo').AsString         := Self.F_simbolo;
+    Qry.ParamByName('nome').AsString            := Self.F_nome;
+
+    Qry.Open;
+
+    if not Qry.IsEmpty then
+      Result := Qry.FieldByName('campo').AsString;
+
+  finally
+    Qry.Free;
+  end;
+end;
 
 function TElemento.Apagar: Boolean;
 var
@@ -124,8 +161,25 @@ begin
       Qry.ParamByName('massa_atomica').AsFloat            :=Self.F_massa_atomica;
       Qry.ParamByName('grupo_id').AsInteger               :=Self.F_grupo;
       Qry.ParamByName('periodo_id').AsInteger             :=Self.F_periodo;
-      Qry.ParamByName('familia_id').AsInteger             :=Self.F_familia;
-      Qry.ParamByName('categoria_quimica_id').AsInteger   :=Self.F_categoria_quimica;
+      if Self.F_familia > 0 then
+      begin
+        Qry.ParamByName('familia_id').AsInteger := Self.F_familia;
+      end
+      else
+      begin
+        Qry.ParamByName('familia_id').DataType := ftInteger;
+        Qry.ParamByName('familia_id').Clear;
+      end;
+
+      if Self.F_categoria_quimica > 0 then
+      begin
+        Qry.ParamByName('categoria_quimica_id').AsInteger := Self.F_categoria_quimica;
+      end
+      else
+      begin
+        Qry.ParamByName('categoria_quimica_id').DataType := ftInteger;
+        Qry.ParamByName('categoria_quimica_id').Clear;
+      end;
 
       Qry.ExecSQL;
 
@@ -148,8 +202,21 @@ end;
 function TElemento.Inserir(aControlaTransacao: Boolean): Boolean;
 var
   Qry:TFDQuery;
+  sCampoDuplicado: string;
 begin
   Result := True;
+
+  sCampoDuplicado := ExisteElemento;
+
+  if sCampoDuplicado = 'numero_atomico' then
+    raise Exception.Create('Número atômico já cadastrado.');
+
+  if sCampoDuplicado = 'simbolo' then
+    raise Exception.Create('Símbolo já cadastrado.');
+
+  if sCampoDuplicado = 'nome' then
+    raise Exception.Create('Nome já cadastrado.');
+
   Qry := TFDQuery.Create(nil);
   try
     Qry.Connection:=ConexaoDB;
@@ -182,8 +249,25 @@ begin
       Qry.ParamByName('massa_atomica').AsFloat           :=Self.F_massa_atomica;
       Qry.ParamByName('grupo_id').AsInteger              :=Self.F_grupo;
       Qry.ParamByName('periodo_id').AsInteger            :=Self.F_periodo;
-      Qry.ParamByName('familia_id').AsInteger            :=Self.F_familia;
-      Qry.ParamByName('categoria_quimica_id').AsInteger  :=Self.F_categoria_quimica;
+      if Self.F_familia > 0 then
+      begin
+        Qry.ParamByName('familia_id').AsInteger := Self.F_familia;
+      end
+      else
+      begin
+        Qry.ParamByName('familia_id').DataType := ftInteger;
+        Qry.ParamByName('familia_id').Clear;
+      end;
+
+      if Self.F_categoria_quimica > 0 then
+      begin
+        Qry.ParamByName('categoria_quimica_id').AsInteger := Self.F_categoria_quimica;
+      end
+      else
+      begin
+        Qry.ParamByName('categoria_quimica_id').DataType := ftInteger;
+        Qry.ParamByName('categoria_quimica_id').Clear;
+      end;
 
       Qry.Open;
       Self.F_elementoId := Qry.Fields[0].AsInteger;

@@ -1,9 +1,11 @@
 object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
+  Align = alClient
+  BorderStyle = bsNone
   Caption = 'frmPrincipal'
-  ClientHeight = 366
-  ClientWidth = 621
+  ClientHeight = 405
+  ClientWidth = 637
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,8 +24,8 @@ object frmPrincipal: TfrmPrincipal
   object WVWindowParent1: TWVWindowParent
     Left = 0
     Top = 0
-    Width = 621
-    Height = 366
+    Width = 637
+    Height = 405
     Align = alClient
     TabOrder = 0
   end

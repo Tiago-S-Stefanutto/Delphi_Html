@@ -58,4 +58,5 @@ select * from grupo
 select * from periodo
 select * from familia
 select * from categoria_quimica
-use vendas
+drop database quimica
+use master
