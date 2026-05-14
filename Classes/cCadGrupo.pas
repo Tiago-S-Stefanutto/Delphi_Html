@@ -88,7 +88,7 @@ begin
                     ' WHERE descricao = :descricao ' +
                     '   AND grupoId <> :grupoId ';
 
-    Qry.ParamByName('categoria_quimicaId').AsInteger := Self.F_grupoId;
+    Qry.ParamByName('grupoId').AsInteger := Self.F_grupoId;
     Qry.ParamByName('descricao').AsString := Self.F_descricao;
 
     Qry.Open;
@@ -120,7 +120,7 @@ begin
 
       if Qry.FieldByName('TOTAL').AsInteger > 0 then
       raise Exception.Create(
-      'N„o È possÌvel excluir este grupo pois existem elementos vinculados.');
+      'N√£o √© poss√≠vel excluir este grupo pois existem elementos vinculados.');
 
       Qry.Close;
 
@@ -156,7 +156,7 @@ begin
   Result:=true;
 
   if ExisteDescricaoUpdate then
-  raise Exception.Create('DescriÁ„o j· cadastrada.');
+  raise Exception.Create('Descri√ß√£o j√° cadastrada.');
 
   Qry:=TFDQuery.Create(nil);
   Try
@@ -197,7 +197,7 @@ begin
   Result := True;
 
   if ExisteDescricao then
-  raise Exception.Create('DescriÁ„o j· cadastrada.');
+  raise Exception.Create('Descri√ß√£o j√° cadastrada.');
 
   Qry := TFDQuery.Create(nil);
   try
