@@ -61,7 +61,7 @@ end;
 {$REGION 'Browser'}
 procedure TfrmPrincipal.WVBrowser1AfterCreated(Sender: TObject);
 begin
-FBrowserReady := True;
+  FBrowserReady := True;
   WVWindowParent1.SetBounds(0, 0, ClientWidth, ClientHeight);
   WVWindowParent1.UpdateSize;
 end;

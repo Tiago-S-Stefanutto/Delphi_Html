@@ -11,6 +11,8 @@ type
       ConexaoDB: TFDConnection;
       F_periodoId: Integer;
       F_descricao: string;
+    function ExisteDescricao: Boolean;
+    function ExisteDescricaoUpdate: Boolean;
 
     public
       constructor Create(aConexao: TFDConnection);
@@ -19,7 +21,6 @@ type
       function Inserir: Boolean;
       function Atualizar: Boolean;
       function Apagar: Boolean;
-      function Selecionar(id: Integer): Boolean;
 
     published
       property codigo: Integer read F_periodoId write F_periodoId;
@@ -43,11 +44,68 @@ implementation
 
 { TPeriodo }
 
+function TPeriodo.ExisteDescricao: Boolean;
+var
+  Qry: TFDQuery;
+begin
+  Result := False;
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text :=
+      ' SELECT 1 ' +
+      ' FROM periodo ' +
+      ' WHERE descricao = :descricao ';
+
+    Qry.ParamByName('descricao').AsString := Self.F_descricao;
+
+    Qry.Open;
+
+    Result := not Qry.IsEmpty;
+
+  finally
+    Qry.Free;
+  end;
+end;
+
+function TPeriodo.ExisteDescricaoUpdate: Boolean;
+var
+  Qry: TFDQuery;
+begin
+  Result := False;
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text := ' SELECT descricao ' +
+                    ' FROM periodo ' +
+                    ' WHERE descricao = :descricao ' +
+                    '   AND periodoId <> :periodoId ';
+
+    Qry.ParamByName('categoria_quimicaId').AsInteger := Self.F_periodoId;
+    Qry.ParamByName('descricao').AsString := Self.F_descricao;
+
+    Qry.Open;
+
+    Result := not Qry.IsEmpty;
+
+  finally
+    Qry.Free;
+  end;
+end;
+
 function TPeriodo.Inserir: Boolean;
 var
   Qry: TFDQuery;
 begin
   Result := False;
+
+  if ExisteDescricao then
+  raise Exception.Create('Descrição já cadastrada.');
+
   Qry := TFDQuery.Create(nil);
   try
     Qry.Connection := ConexaoDB;
@@ -82,6 +140,10 @@ var
   Qry: TFDQuery;
 begin
   Result := False;
+
+  if ExisteDescricaoUpdate then
+  raise Exception.Create('Descrição já cadastrada.');
+
   Qry := TFDQuery.Create(nil);
   try
     Qry.Connection := ConexaoDB;
@@ -151,35 +213,6 @@ begin
     except
       ConexaoDB.Rollback;
       raise;
-    end;
-
-  finally
-    Qry.Free;
-  end;
-end;
-
-function TPeriodo.Selecionar(id: Integer): Boolean;
-var
-  Qry: TFDQuery;
-begin
-  Result := False;
-  Qry := TFDQuery.Create(nil);
-  try
-    Qry.Connection := ConexaoDB;
-
-    Qry.SQL.Clear;
-    Qry.SQL.Add(' SELECT periodoId, descricao '+
-                '   FROM periodo '+
-                '  WHERE periodoId = :id ');
-
-    Qry.ParamByName('id').AsInteger := id;
-    Qry.Open;
-
-    if not Qry.IsEmpty then
-    begin
-      F_periodoId := Qry.FieldByName('periodoId').AsInteger;
-      F_descricao := Qry.FieldByName('descricao').AsString;
-      Result := True;
     end;
 
   finally

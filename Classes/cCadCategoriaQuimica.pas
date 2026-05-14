@@ -11,6 +11,8 @@ type
       ConexaoDB: TFDConnection;
       F_categoriaId: Integer;
       F_descricao: string;
+    function ExisteDescricao: Boolean;
+    function ExisteDescricaoUpdate: Boolean;
 
     public
       constructor Create(aConexao: TFDConnection);
@@ -19,7 +21,6 @@ type
       function Inserir: Boolean;
       function Atualizar: Boolean;
       function Apagar: Boolean;
-      function Selecionar(id: Integer): Boolean;
 
     published
       property codigo: Integer read F_categoriaId write F_categoriaId;
@@ -43,11 +44,68 @@ implementation
 
 { TCategoriaQuimica }
 
+function TCategoriaQuimica.ExisteDescricao: Boolean;
+var
+  Qry: TFDQuery;
+begin
+  Result := False;
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text :=
+      ' SELECT 1 ' +
+      ' FROM categoria_quimica ' +
+      ' WHERE descricao = :descricao ';
+
+    Qry.ParamByName('descricao').AsString := Self.F_descricao;
+
+    Qry.Open;
+
+    Result := not Qry.IsEmpty;
+
+  finally
+    Qry.Free;
+  end;
+end;
+
+function TCategoriaQuimica.ExisteDescricaoUpdate: Boolean;
+var
+  Qry: TFDQuery;
+begin
+  Result := False;
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text := ' SELECT descricao ' +
+                    ' FROM categoria_quimica ' +
+                    ' WHERE descricao = :descricao ' +
+                    '   AND categoria_quimicaId <> :categoria_quimicaId ';
+
+    Qry.ParamByName('categoria_quimicaId').AsInteger := Self.F_categoriaId;
+    Qry.ParamByName('descricao').AsString := Self.F_descricao;
+
+    Qry.Open;
+
+    Result := not Qry.IsEmpty;
+
+  finally
+    Qry.Free;
+  end;
+end;
+
 function TCategoriaQuimica.Inserir: Boolean;
 var
   Qry: TFDQuery;
 begin
   Result := False;
+
+  if ExisteDescricao then
+  raise Exception.Create('Descrição já cadastrada.');
+
   Qry := TFDQuery.Create(nil);
   try
     Qry.Connection := ConexaoDB;
@@ -82,6 +140,10 @@ var
   Qry: TFDQuery;
 begin
   Result := False;
+
+  if ExisteDescricaoUpdate then
+  raise Exception.Create('Descrição já cadastrada.');
+
   Qry := TFDQuery.Create(nil);
   try
     Qry.Connection := ConexaoDB;
@@ -91,10 +153,10 @@ begin
       Qry.SQL.Clear;
       Qry.SQL.Add(' UPDATE categoria_quimica '+
                   '    SET descricao = :descricao '+
-                  '  WHERE categoria_quimicaId = :id ');
+                  '  WHERE categoria_quimicaId = :categoria_quimicaId ');
 
       Qry.ParamByName('descricao').AsString := F_descricao;
-      Qry.ParamByName('id').AsInteger := F_categoriaId;
+      Qry.ParamByName('categoria_quimicaId').AsInteger := F_categoriaId;
 
       Qry.ExecSQL;
 
@@ -149,35 +211,6 @@ begin
     except
       ConexaoDB.Rollback;
       raise;
-    end;
-
-  finally
-    Qry.Free;
-  end;
-end;
-
-function TCategoriaQuimica.Selecionar(id: Integer): Boolean;
-var
-  Qry: TFDQuery;
-begin
-  Result := False;
-  Qry := TFDQuery.Create(nil);
-  try
-    Qry.Connection := ConexaoDB;
-
-    Qry.SQL.Clear;
-    Qry.SQL.Add(' SELECT categoria_quimicaId, descricao '+
-                '   FROM categoria_quimica '+
-                '  WHERE categoria_quimicaId = :id ');
-
-    Qry.ParamByName('id').AsInteger := id;
-    Qry.Open;
-
-    if not Qry.IsEmpty then
-    begin
-      F_categoriaId := Qry.FieldByName('categoria_quimicaId').AsInteger;
-      F_descricao := Qry.FieldByName('descricao').AsString;
-      Result := True;
     end;
 
   finally

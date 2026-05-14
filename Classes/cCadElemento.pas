@@ -22,6 +22,7 @@ type
       F_familia : integer;
       F_categoria_quimica : Integer;
     function ExisteElemento: string;
+    function ExisteElementoUpdate: string;
 
     public
       constructor Create(aConexao: TFDConnection);
@@ -30,7 +31,6 @@ type
       function Inserir(aControlaTransacao: Boolean = True): Boolean;
       function Atualizar:Boolean;
       function Apagar:Boolean;
-      function Selecionar(id:Integer):Boolean;
 
     published
       property codigo       : integer read F_elementoId        write F_elementoId;
@@ -97,6 +97,59 @@ begin
   end;
 end;
 
+function TElemento.ExisteElementoUpdate: string;
+var
+  Qry: TFDQuery;
+begin
+  Result := '';
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text := ' SELECT 1 FROM elemento '+
+                    ' WHERE numero_atomico = :numero_atomico '+
+                    ' AND elementoId <> :elementoId';
+
+    Qry.ParamByName('elementoId').AsInteger             := Self.F_elementoId;
+    Qry.ParamByName('numero_atomico').AsInteger := Self.F_numero_atomico;
+
+    Qry.Open;
+
+    if not Qry.IsEmpty then
+      Exit('numero_atomico');
+
+    Qry.Close;
+    Qry.SQL.Text :=
+      'SELECT 1 FROM elemento ' +
+      'WHERE simbolo = :simbolo ' +
+      'AND elementoId <> :elementoId';
+
+    Qry.ParamByName('simbolo').AsString := Self.F_simbolo;
+
+    Qry.Open;
+
+    if not Qry.IsEmpty then
+      Exit('simbolo');
+
+    Qry.Close;
+    Qry.SQL.Text :=
+      'SELECT 1 FROM elemento ' +
+      'WHERE nome = :nome ' +
+      'AND elementoId <> :elementoId';
+
+    Qry.ParamByName('nome').AsString := Self.F_nome;
+
+    Qry.Open;
+
+    if not Qry.IsEmpty then
+      Exit('nome');
+
+  finally
+    Qry.Free;
+  end;
+end;
+
 function TElemento.Apagar: Boolean;
 var
   Qry:TFDQuery;
@@ -135,8 +188,20 @@ end;
 function TElemento.Atualizar: Boolean;
 var
   Qry:TFDQuery;
+  sCampoDuplicado: string;
 begin
   Result:=true;
+
+  sCampoDuplicado := ExisteElementoUpdate;
+
+  if sCampoDuplicado = 'numero_atomico' then
+    raise Exception.Create('Número atômico já cadastrado.');
+
+  if sCampoDuplicado = 'simbolo' then
+    raise Exception.Create('Símbolo já cadastrado.');
+
+  if sCampoDuplicado = 'nome' then
+    raise Exception.Create('Nome já cadastrado.');
 
   Qry:=TFDQuery.Create(nil);
   Try
@@ -286,56 +351,6 @@ begin
       end;
     end;
 
-  finally
-    if Assigned(Qry) then
-       FreeAndNil(Qry);
-  end;
-end;
-
-function TElemento.Selecionar(id: Integer): Boolean;
-var
-  Qry: TFDQuery;
-begin
-  Result := False;
-  Qry := TFDQuery.Create(nil);
-  try
-    Qry.Connection := ConexaoDB;
-    Qry.SQL.Clear;
-    Qry.SQL.Add('SELECT elementoId, ' +
-                '       numero_atomico, ' +
-                '       simbolo, ' +
-                '       nome, ' +
-                '       massa_atomica, ' +
-                '       grupo_id, ' +
-                '       periodo_id, ' +
-                '       familia_id, ' +
-                '       categoria_quimica_id ' +
-                '  FROM elemento ' +
-                ' WHERE elementoId = :elementoId');
-
-     Qry.ParamByName('elementoId').AsInteger := id;
-    try
-      Qry.Open;
-
-      Self.F_elementoId        := Qry.FieldByName('elementoId').AsInteger;
-      Self.F_numero_atomico    := Qry.FieldByName('numero_atomico').AsInteger;
-      Self.F_simbolo           := Qry.FieldByName('simbolo').AsString;
-      Self.F_nome              := Qry.FieldByName('nome').AsString;
-      Self.F_massa_atomica     := Qry.FieldByName('massa_atomica').AsFloat;
-      Self.F_grupo             := Qry.FieldByName('grupo_id').AsInteger;
-      Self.F_periodo           := Qry.FieldByName('periodo_id').AsInteger;
-      Self.F_familia           := Qry.FieldByName('familia_id').AsInteger;
-      Self.F_categoria_quimica := Qry.FieldByName('categoria_quimica_id').AsInteger;
-
-    except
-       on E: Exception do
-      begin
-        Result := False;
-        raise Exception.Create('Erro ao selecionar elemento: ' + E.Message);
-      end;
-    end;
-
-    Result := True;
   finally
     if Assigned(Qry) then
        FreeAndNil(Qry);

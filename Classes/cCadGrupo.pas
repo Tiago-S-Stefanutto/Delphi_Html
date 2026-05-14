@@ -14,6 +14,8 @@ type
       ConexaoDB : TFDconnection;
       F_grupoId : integer;
       F_descricao : string;
+    function ExisteDescricao: Boolean;
+    function ExisteDescricaoUpdate: Boolean;
 
     public
       constructor Create(aConexao: TFDConnection);
@@ -22,7 +24,6 @@ type
       function Inserir:Boolean;
       function Atualizar:Boolean;
       function Apagar:Boolean;
-      function Selecionar(id:Integer):Boolean;
 
     published
       property codigo       : integer read F_grupoId        write F_grupoId;
@@ -45,6 +46,59 @@ implementation
 {$endRegion}
 
 { TGrupo }
+
+function TGrupo.ExisteDescricao: Boolean;
+var
+  Qry: TFDQuery;
+begin
+  Result := False;
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text :=
+      ' SELECT 1 ' +
+      ' FROM grupo ' +
+      ' WHERE descricao = :descricao ';
+
+    Qry.ParamByName('descricao').AsString := Self.F_descricao;
+
+    Qry.Open;
+
+    Result := not Qry.IsEmpty;
+
+  finally
+    Qry.Free;
+  end;
+end;
+
+function TGrupo.ExisteDescricaoUpdate: Boolean;
+var
+  Qry: TFDQuery;
+begin
+  Result := False;
+
+  Qry := TFDQuery.Create(nil);
+  try
+    Qry.Connection := ConexaoDB;
+
+    Qry.SQL.Text := ' SELECT descricao ' +
+                    ' FROM grupo ' +
+                    ' WHERE descricao = :descricao ' +
+                    '   AND grupoId <> :grupoId ';
+
+    Qry.ParamByName('categoria_quimicaId').AsInteger := Self.F_grupoId;
+    Qry.ParamByName('descricao').AsString := Self.F_descricao;
+
+    Qry.Open;
+
+    Result := not Qry.IsEmpty;
+
+  finally
+    Qry.Free;
+  end;
+end;
 
 function TGrupo.Apagar: Boolean;
 var
@@ -100,6 +154,10 @@ function TGrupo.Atualizar: Boolean;
 var Qry:TFDQuery;
 begin
   Result:=true;
+
+  if ExisteDescricaoUpdate then
+  raise Exception.Create('Descrição já cadastrada.');
+
   Qry:=TFDQuery.Create(nil);
   Try
     Qry.Connection:=ConexaoDB;
@@ -137,6 +195,10 @@ var
   Qry:TFDQuery;
 begin
   Result := True;
+
+  if ExisteDescricao then
+  raise Exception.Create('Descrição já cadastrada.');
+
   Qry := TFDQuery.Create(nil);
   try
     Qry.Connection:=ConexaoDB;
@@ -169,38 +231,4 @@ begin
   end;
 end;
 
-function TGrupo.Selecionar(id: Integer): Boolean;
-var
-  Qry: TFDQuery;
-begin
-  Result := False;
-  Qry := TFDQuery.Create(nil);
-  try
-    Qry.Connection := ConexaoDB;
-    Qry.SQL.Clear;
-    Qry.SQL.Add('SELECT grupoId, ' +
-                '       descricao ' +
-                '  FROM grupo ' +
-                ' WHERE grupoId = :grupoId');
-
-     Qry.ParamByName('grupoId').AsInteger := id;
-    try
-      Qry.Open;
-
-      Self.F_grupoId        := Qry.FieldByName('grupoId').AsInteger;
-      Self.F_descricao      := Qry.FieldByName('descricao').AsString;
-    except
-       on E: Exception do
-      begin
-        Result := False;
-        raise Exception.Create('Erro ao selecionar Grupo: ' + E.Message);
-      end;
-    end;
-
-    Result := True;
-  finally
-    if Assigned(Qry) then
-       FreeAndNil(Qry);
-  end;
-end;
 end.
