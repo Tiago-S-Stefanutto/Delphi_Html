@@ -85,7 +85,7 @@ begin
                     ' WHERE descricao = :descricao ' +
                     '   AND familiaId <> :familiaId ';
 
-    Qry.ParamByName('categoria_quimicaId').AsInteger := Self.F_familiaId;
+    Qry.ParamByName('familiaId').AsInteger := Self.F_familiaId;
     Qry.ParamByName('descricao').AsString := Self.F_descricao;
 
     Qry.Open;
@@ -104,7 +104,7 @@ begin
   Result := False;
 
   if ExisteDescricao then
-  raise Exception.Create('Descrição já cadastrada.');
+  raise Exception.Create('DescriÃ§Ã£o jÃ¡ cadastrada.');
 
   Qry := TFDQuery.Create(nil);
   try
@@ -142,7 +142,7 @@ begin
   Result := False;
 
   if ExisteDescricaoUpdate then
-  raise Exception.Create('Descrição já cadastrada.');
+  raise Exception.Create('DescriÃ§Ã£o jÃ¡ cadastrada.');
 
   Qry := TFDQuery.Create(nil);
   try
@@ -193,7 +193,7 @@ begin
 
       if Qry.FieldByName('TOTAL').AsInteger > 0 then
       raise Exception.Create(
-      'Não é possível excluir esta família pois existem elementos vinculados.');
+      'NÃ£o Ã© possÃ­vel excluir esta famÃ­lia pois existem elementos vinculados.');
 
       Qry.Close;
 
