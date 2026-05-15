@@ -91,6 +91,96 @@ ProjetoQuimica/
 
 ---
 
+# 📦 Instalação dos Pacotes WebView4Delphi no Delphi
+
+> ⚠️ **Esta etapa é obrigatória antes de compilar o projeto.**
+> Sem os pacotes WebView4Delphi instalados corretamente no Delphi IDE, o projeto não compilará.
+
+O projeto utiliza o componente **WebView4Delphi** para renderizar o frontend React dentro da aplicação Delphi. São necessários dois pacotes: o **RTL** (runtime) e o **designtime** (design).
+
+---
+
+## 📁 Localização dos Pacotes
+
+Os arquivos de pacote estão dentro da pasta do projeto:
+
+```txt
+Componentes\WebView4Delphi-main\WebView4Delphi-main\packages\
+```
+
+---
+
+## Passo 1 — Compilar o pacote Runtime (WebView4DelphiVCLRTL)
+
+Este pacote contém os componentes em tempo de execução e **deve ser compilado antes do designtime**.
+
+1. Abra o Delphi IDE
+2. Vá em **File → Open**
+3. Navegue até:
+   ```txt
+   Componentes\WebView4Delphi-main\WebView4Delphi-main\packages\
+   ```
+4. Abra o arquivo:
+   ```txt
+   WebView4DelphiVCLRTL.dproj
+   ```
+5. No menu principal, clique em **Project → Build** (ou pressione `Shift+F9`)
+6. Aguarde a compilação terminar sem erros
+
+> ✅ Após compilar, o arquivo `WebView4DelphiVCLRTL.bpl` será gerado na pasta de saída do Delphi.
+
+---
+
+## Passo 2 — Compilar e Instalar o pacote Designtime (WebView4DelphiVCL_designtime)
+
+Este pacote registra os componentes na paleta do Delphi IDE e **depende do pacote RTL** compilado no passo anterior.
+
+1. No Delphi IDE, vá em **File → Open**
+2. Navegue até:
+   ```txt
+   Componentes\WebView4Delphi-main\WebView4Delphi-main\packages\
+   ```
+3. Abra o arquivo:
+   ```txt
+   WebView4DelphiVCL_designtime.dproj
+   ```
+4. No menu principal, clique em **Project → Install**
+
+   > O Delphi compilará e instalará o pacote automaticamente. O IDE pode ser reiniciado ou exibir uma mensagem confirmando o sucesso da instalação.
+
+5. Confirme que os componentes aparecem na paleta do Delphi sob a aba **"WebView4Delphi"**:
+   - `TWVBrowser`
+   - `TWVWindowParent`
+
+> ✅ Se ambos os componentes aparecerem na paleta, a instalação foi concluída com sucesso.
+
+---
+
+## ⚠️ Possíveis Erros na Instalação
+
+| Erro | Solução |
+|---|---|
+| `Unit not found: uWVBrowser` | O pacote RTL não foi compilado. Repita o Passo 1. |
+| `Package WebView4DelphiVCLRTL not found` | Adicione o caminho `packages\` ao Library Path do Delphi em **Tools → Options → Library**. |
+| `Cannot load package` | Verifique se o WebView2 Runtime está instalado no sistema. |
+| Componentes não aparecem na paleta | Tente **Component → Install Packages** e verifique se o `.bpl` está listado e ativo. |
+
+---
+
+## 🔧 Configurar o Library Path (se necessário)
+
+Caso o Delphi não encontre as units do WebView4Delphi automaticamente:
+
+1. Vá em **Tools → Options → Language → Delphi → Library**
+2. Em **Library path**, clique no botão `...`
+3. Adicione o caminho:
+   ```txt
+   Componentes\WebView4Delphi-main\WebView4Delphi-main\source
+   ```
+4. Clique em **OK**
+
+---
+
 # 📦 Instalação do Node.js
 
 ## Download
@@ -457,6 +547,14 @@ O sistema Delphi:
 - [ ] npm funcionando
 - [ ] SQL Server instalado
 - [ ] WebView2 instalado
+
+---
+
+## Pacotes Delphi
+
+- [ ] `WebView4DelphiVCLRTL.dproj` compilado com sucesso
+- [ ] `WebView4DelphiVCL_designtime.dproj` compilado e instalado
+- [ ] Componentes `TWVBrowser` e `TWVWindowParent` visíveis na paleta do Delphi
 
 ---
 
