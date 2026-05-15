@@ -14,14 +14,6 @@ object dtmPrincipal: TdtmPrincipal
   PixelsPerInch = 96
   TextHeight = 13
   object ConexaoDB: TFDConnection
-    Params.Strings = (
-      'Server=DC-TR-02-VM\SERVERCURSO'
-      'Database=Quimica'
-      'OSAuthent=Yes'
-      'DriverID=MSSQL'
-      'User_Name=DOMTEC\devmv'
-      'Connected=True')
-    Connected = True
     Left = 184
     Top = 160
   end
