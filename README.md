@@ -217,6 +217,7 @@ v20.x.x
 
 ```txt
 SQL Server 2014 Express with Tools
+https://www.microsoft.com/pt-br/download/details.aspx?id=42299&msockid=1a910f0b2ade69bc0d8c180d2ba16878
 ```
 
 > Versões superiores também podem funcionar, porém o sistema foi desenvolvido e testado utilizando SQL Server 2014.
