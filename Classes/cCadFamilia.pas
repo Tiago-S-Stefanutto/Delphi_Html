@@ -141,7 +141,7 @@ var
 begin
   Result := False;
 
-  if ExisteDescricaoUpdate then
+  if ExisteDescricao then
   raise Exception.Create('Descrição já cadastrada.');
 
   Qry := TFDQuery.Create(nil);
