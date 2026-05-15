@@ -226,6 +226,8 @@ SQL Server 2014 Express with Tools
 ## Instalação
 
 1. Baixe o SQL Server Express
+>https://www.microsoft.com/pt-br/download/details.aspx?id=42299&msockid=1a910f0b2ade69bc0d8c180d2ba16878
+>SQLEXPRWT_x64_PTB.exe 
 2. Execute:
 ```txt
 SQLEXPRWT_x64_PTB.exe
