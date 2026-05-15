@@ -254,7 +254,7 @@ localhost
 
 # 🛠 Configuração do Banco
 
-Abra o **SSMS** e execute:
+Abra o **SQL Server Management Studio (SSMS)** e execute:
 
 ```sql
 CREATE DATABASE Quimica;
