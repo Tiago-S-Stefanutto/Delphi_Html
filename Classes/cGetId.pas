@@ -56,7 +56,7 @@ begin
     Qry.SQL.Clear;
     Qry.SQL.Add('SELECT ' + ACampoID);
     Qry.SQL.Add('FROM ' + ATabela);
-    Qry.SQL.Add('WHERE descricao = :descricao');
+    Qry.SQL.Add('WHERE descricao COLLATE Latin1_General_CI_AI = :descricao COLLATE Latin1_General_CI_AI');
 
     Qry.ParamByName('descricao').AsString := Trim(ADescricao);
 

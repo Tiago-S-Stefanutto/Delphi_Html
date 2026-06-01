@@ -76,12 +76,12 @@ begin
       '   CASE ' +
       '     WHEN numero_atomico = :numero_atomico THEN ''numero_atomico'' ' +
       '     WHEN simbolo = :simbolo THEN ''simbolo'' ' +
-      '     WHEN nome = :nome THEN ''nome'' ' +
+      '     WHEN nome COLLATE Latin1_General_CI_AI = :nome COLLATE Latin1_General_CI_AI THEN ''nome'' ' +
       '   END AS campo ' +
       ' FROM elemento ' +
       ' WHERE numero_atomico = :numero_atomico ' +
       '    OR simbolo = :simbolo ' +
-      '    OR nome = :nome ';
+      '    OR nome COLLATE Latin1_General_CI_AI = :nome COLLATE Latin1_General_CI_AI ';
 
     Qry.ParamByName('numero_atomico').AsInteger := Self.F_numero_atomico;
     Qry.ParamByName('simbolo').AsString         := Self.F_simbolo;

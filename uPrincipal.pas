@@ -915,76 +915,91 @@ begin
           begin
             Item := Dados.Items[I] as TJSONObject;
 
-            if Trim(Item.GetValue<string>('numero_atomico')) = '' then
-            raise Exception.Create('Tabela faltando número atômico');
-
-            if Trim(Item.GetValue<string>('simbolo')) = '' then
-              raise Exception.Create('Tabela faltando símbolo');
-
-            if Trim(Item.GetValue<string>('nome')) = '' then
-              raise Exception.Create('Tabela faltando nome');
-
-            if Trim(Item.GetValue<string>('grupo')) = '' then
-              raise Exception.Create('Tabela faltando grupo');
-
-            if Trim(Item.GetValue<string>('periodo')) = '' then
-              raise Exception.Create('Tabela faltando período');
-
-            Qry.Close;
-            Qry.SQL.Clear;
-            Qry.SQL.Add(' SELECT elementoId '+
-                        ' FROM elemento '+
-                        ' WHERE numero_atomico =:numero_atomico');
-
-            Qry.ParamByName('numero_atomico').AsInteger := Item.GetValue<Integer>('numero_atomico');
-
-            Qry.Open;
-
-            if not Qry.IsEmpty then
-              Continue;
-
-            GrupoID :=
-            oGet.GetGrupoID(
-              Item.GetValue<string>('grupo')
-            );
-
-            PeriodoID :=
-              oGet.GetPeriodoID(
-                Item.GetValue<string>('periodo')
-              );
-
-            FamiliaID :=
-              oGet.GetFamiliaID(
-                Item.GetValue<string>('familia')
-              );
-
-            CategoriaID :=
-              oGet.GetCategoriaID(
-                Item.GetValue<string>('categoria_quimica')
-              );
-
-            Qry.Close;
-            Qry.SQL.Clear;
-
-            oElemento := TElemento.Create(dtmPrincipal.ConexaoDB);
             try
-              oElemento.atomico :=
+              if Trim(Item.GetValue<string>('numero_atomico')) = '' then
+                raise Exception.Create('Tabela faltando número atômico');
+
+              if Trim(Item.GetValue<string>('simbolo')) = '' then
+                raise Exception.Create('Tabela faltando símbolo');
+
+              if Trim(Item.GetValue<string>('nome')) = '' then
+                raise Exception.Create('Tabela faltando nome');
+
+              if Trim(Item.GetValue<string>('grupo')) = '' then
+                raise Exception.Create('Tabela faltando grupo');
+
+              if Trim(Item.GetValue<string>('periodo')) = '' then
+                raise Exception.Create('Tabela faltando período');
+
+              Qry.Close;
+              Qry.SQL.Clear;
+              Qry.SQL.Add('SELECT elementoId');
+              Qry.SQL.Add('FROM elemento');
+              Qry.SQL.Add('WHERE numero_atomico = :numero_atomico');
+
+              Qry.ParamByName('numero_atomico').AsInteger :=
                 Item.GetValue<Integer>('numero_atomico');
-              oElemento.simbolo :=
-                Item.GetValue<string>('simbolo');
-              oElemento.nome :=
-                Item.GetValue<string>('nome');
-              oElemento.massa :=
-                Item.GetValue<Double>('massa_atomica');
-              oElemento.grupo := GrupoID;
-              oElemento.periodo := PeriodoID;
-              oElemento.familia := FamiliaID;
-              oElemento.categoria := CategoriaID;
 
-              oElemento.Inserir(False);
+              Qry.Open;
 
-            finally
-              oElemento.Free;
+              if not Qry.IsEmpty then
+                Continue;
+
+              GrupoID :=
+                oGet.GetGrupoID(
+                  Item.GetValue<string>('grupo')
+                );
+
+              PeriodoID :=
+                oGet.GetPeriodoID(
+                  Item.GetValue<string>('periodo')
+                );
+
+              FamiliaID :=
+                oGet.GetFamiliaID(
+                  Item.GetValue<string>('familia')
+                );
+
+              CategoriaID :=
+                oGet.GetCategoriaID(
+                  Item.GetValue<string>('categoria_quimica')
+                );
+
+              oElemento := TElemento.Create(dtmPrincipal.ConexaoDB);
+              try
+                oElemento.atomico :=
+                  Item.GetValue<Integer>('numero_atomico');
+
+                oElemento.simbolo :=
+                  Item.GetValue<string>('simbolo');
+
+                oElemento.nome :=
+                  Item.GetValue<string>('nome');
+
+                oElemento.massa :=
+                  Item.GetValue<Double>('massa_atomica');
+
+                oElemento.grupo := GrupoID;
+                oElemento.periodo := PeriodoID;
+                oElemento.familia := FamiliaID;
+                oElemento.categoria := CategoriaID;
+
+                oElemento.Inserir(False);
+
+              finally
+                oElemento.Free;
+              end;
+
+            except
+              on E: Exception do
+                raise Exception.CreateFmt(
+                  'Erro na linha %d. Elemento "%s". %s',
+                  [
+                    I + 2,
+                    Item.GetValue<string>('nome'),
+                    E.Message
+                  ]
+                );
             end;
           end;
 

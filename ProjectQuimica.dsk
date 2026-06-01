@@ -1,45 +1,46 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cGetId.pas',0,1,25,32,53,0,0,,
-File_1=TSourceModule,'C:\Curso\Delphi Tabela periodica\uPrincipal.dfm',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cPrincipal.pas',0,1,1,17,4,0,0,,
-File_3=TSourceModule,'C:\Curso\Delphi Tabela periodica\Heranca\uEnum.pas',0,1,1,49,8,0,0,,
-File_4=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cAtualizaBancoDeDados.pas',0,1,1,26,72,0,0,,
-File_5=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cArquivoIni.pas',0,1,1,6,55,0,0,,
-File_6=TSourceModule,'C:\Curso\Delphi Tabela periodica\DataModule\uDTMConexao.pas',0,1,1,16,12,0,0,,
-File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data\firedac\FireDAC.Comp.Client.pas',0,1,603,1,616,0,0,,
-File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data\firedac\FireDAC.Stan.Param.pas',0,1,1,1,12,0,0,,
+File_0=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas',0,9,19,75,29,0,0,,
+File_1=TSourceModule,'C:\Curso\Delphi Tabela periodica\DataModule\uDTMConexao.pas',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas',0,1,91,57,107,0,0,,
+File_3=TSourceModule,'C:\Curso\Delphi Tabela periodica\DataModule\uDTMConexao.dfm',0,1,1,1,1,0,0,,
+File_4=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cArquivoIni.pas',0,1,22,3,14,0,0,,
+File_5=TSourceModule,'C:\Curso\Delphi Tabela periodica\uPrincipal.dfm',0,1,1,1,1,0,0,,
+File_6=TSourceModule,'C:\Curso\Delphi Tabela periodica\Classes\cPrincipal.pas',0,1,1,17,4,0,0,,
+File_7=TSourceModule,'C:\Curso\Delphi Tabela periodica\Heranca\uEnum.pas',0,1,1,49,8,0,0,,
+File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data\firedac\FireDAC.Comp.Client.pas',0,1,603,1,616,0,0,,
+File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\19.0\source\data\firedac\FireDAC.Stan.Param.pas',0,1,1,1,12,0,0,,
 
 [Modules]
-Module0=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
-Module1=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
-Module2=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
-Module3=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
-Module4=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
-Module5=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
-Module6=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
+Module0=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaBancoDeDados.pas
+Module1=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
+Module2=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
+Module3=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
+Module4=C:\Curso\Delphi Tabela periodica\Classes\cGetId.pas
+Module5=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
+Module6=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
 Module7=C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj
 Count=8
 EditWindowCount=1
 
+[C:\Curso\Delphi Tabela periodica\Classes\cAtualizaBancoDeDados.pas]
+ModuleType=TSourceModule
+
 [C:\Curso\Delphi Tabela periodica\uPrincipal.pas]
 ModuleType=TSourceModule
 
-[C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas]
+[C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas]
 ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas]
 ModuleType=TSourceModule
 
-[C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas]
+[C:\Curso\Delphi Tabela periodica\Classes\cGetId.pas]
 ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas]
 ModuleType=TSourceModule
 
-[C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas]
-ModuleType=TSourceModule
-
-[C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas]
+[C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas]
 ModuleType=TSourceModule
 
 [C:\Curso\Delphi Tabela periodica\ProjectQuimica.dproj]
@@ -47,7 +48,7 @@ ModuleType=TBaseProject
 
 [EditWindow0]
 ViewCount=8
-CurrentEditView=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
+CurrentEditView=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaBancoDeDados.pas
 View0=0
 View1=1
 View2=2
@@ -87,80 +88,80 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 
 [View0]
 CustomEditViewType=TEditView
-Module=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
-CursorX=22
-CursorY=996
-TopLine=986
-LeftCol=1
-Elisions=
-Bookmarks={1,1028,5}{2,1028,5}
-EditViewName=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
-
-[View1]
-CustomEditViewType=TEditView
-Module=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
-CursorX=75
-CursorY=29
-TopLine=19
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaTabelaMSSQL.pas
-
-[View2]
-CustomEditViewType=TEditView
-Module=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
-CursorX=57
-CursorY=200
-TopLine=180
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
-
-[View3]
-CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
-CursorX=3
-CursorY=106
-TopLine=99
+CursorX=30
+CursorY=88
+TopLine=73
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadPeriodo.pas
 
-[View4]
+[View1]
+CustomEditViewType=TEditView
+Module=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
+CursorX=29
+CursorY=91
+TopLine=79
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadGrupo.pas
+
+[View2]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
-CursorX=59
-CursorY=107
-TopLine=90
+CursorX=32
+CursorY=90
+TopLine=31
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadFamilia.pas
 
-[View5]
-CustomEditViewType=TEditView
-Module=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
-CursorX=57
-CursorY=107
-TopLine=91
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadCategoriaQuimica.pas
-
-[View6]
+[View3]
 CustomEditViewType=TEditView
 Module=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
-CursorX=5
-CursorY=358
-TopLine=108
+CursorX=37
+CursorY=79
+TopLine=67
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cCadElemento.pas
+
+[View4]
+CustomEditViewType=TEditView
+Module=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
+CursorX=29
+CursorY=191
+TopLine=57
+LeftCol=1
+Elisions={{61,0},{183,11},{'Browser'}}{{270,2},{320,13},{'LocalHost'}}
+Bookmarks={1,1043,5}{2,1043,5}
+EditViewName=C:\Curso\Delphi Tabela periodica\uPrincipal.pas
+
+[View5]
+CustomEditViewType=TEditView
+Module=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaBancoDeDados.pas
+CursorX=17
+CursorY=32
+TopLine=47
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cAtualizaBancoDeDados.pas
+
+[View6]
+CustomEditViewType=TEditView
+Module=C:\Curso\Delphi Tabela periodica\Classes\cGetId.pas
+CursorX=104
+CursorY=59
+TopLine=52
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\Curso\Delphi Tabela periodica\Classes\cGetId.pas
 
 [View7]
 CustomEditViewType=TEditView
@@ -229,15 +230,17 @@ PercentageSizes=1
 Create=1
 Visible=1
 Docked=0
-State=1
+State=2
 Left=146
 Top=273
 Width=8936
 Height=8529
 MaxLeft=-10
 MaxTop=-13
-ClientWidth=8779
-ClientHeight=8021
+MaxWidth=8936
+MaxHeight=8529
+ClientWidth=10039
+ClientHeight=9740
 BottomPanelSize=8958
 BottomPanelClients=EditWindow0
 BottomPanelData=0000080000000000000000000000000000000000000000000000000100000000000000000C0000004564697457696E646F775F30FFFFFFFF
@@ -356,6 +359,11 @@ LRDockWidth=1895
 Dockable=1
 StayOnTop=0
 SplitPos=111
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=BorderWidth,
+ExpandedItems=Anchors=0,BorderIcons=0
 
 [ClassBrowserTool]
 PercentageSizes=1
